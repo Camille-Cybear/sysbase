@@ -31,3 +31,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code — paramètres locaux (machine/utilisateur)
+.claude/settings.local.json
