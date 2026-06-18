@@ -1,0 +1,62 @@
+[
+  {
+    "id": "q-net-001",
+    "module": "reseaux",
+    "question": "Sur quel modèle repose le protocole TCP/IP ?",
+    "options": [
+      "Modèle OSI à 7 couches",
+      "Modèle DoD à 4 couches",
+      "Modèle IEEE à 5 couches",
+      "Modèle RFC à 3 couches"
+    ],
+    "correct": 1,
+    "explanation": "TCP/IP repose sur le modèle DoD (Department of Defense) à 4 couches : Accès réseau, Internet, Transport, Application.",
+    "tags": ["TCP/IP", "modèles"]
+  },
+  {
+    "id": "q-net-002",
+    "module": "reseaux",
+    "question": "Quel protocole utilise le port 443 par défaut ?",
+    "options": ["HTTP", "FTP", "HTTPS", "SSH"],
+    "correct": 2,
+    "explanation": "HTTPS (HTTP sécurisé via TLS) utilise le port 443. HTTP utilise le 80, SSH le 22 et FTP les ports 20/21.",
+    "tags": ["ports", "HTTPS", "TLS"]
+  },
+  {
+    "id": "q-net-003",
+    "module": "reseaux",
+    "question": "Combien d'hôtes utilisables fournit un réseau en /26 ?",
+    "options": ["30", "62", "126", "254"],
+    "correct": 1,
+    "explanation": "Un /26 (masque 255.255.255.192) fournit des blocs de 64 adresses, soit 62 hôtes utilisables (64 − 2 : adresse réseau et broadcast).",
+    "tags": ["CIDR", "subnetting"]
+  },
+  {
+    "id": "q-net-004",
+    "module": "reseaux",
+    "question": "À quelle couche du modèle OSI opère un routeur ?",
+    "options": [
+      "Couche 1 — Physique",
+      "Couche 2 — Liaison",
+      "Couche 3 — Réseau",
+      "Couche 4 — Transport"
+    ],
+    "correct": 2,
+    "explanation": "Le routeur opère à la couche 3 (Réseau) : il prend ses décisions d'acheminement en se basant sur les adresses IP.",
+    "tags": ["OSI", "routage"]
+  },
+  {
+    "id": "q-net-005",
+    "module": "reseaux",
+    "question": "Quel est l'ordre correct des étapes DHCP ?",
+    "options": [
+      "Discover → Offer → Request → Acknowledge",
+      "Request → Offer → Discover → Acknowledge",
+      "Offer → Discover → Acknowledge → Request",
+      "Discover → Request → Offer → Acknowledge"
+    ],
+    "correct": 0,
+    "explanation": "Le processus DORA suit l'ordre Discover, Offer, Request, Acknowledge.",
+    "tags": ["DHCP", "DORA"]
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "net-001",
+    "module": "reseaux",
+    "theme": "VLAN",
+    "question": "Quelle est la différence entre un trunk port et un access port ?",
+    "answer": "Un **access port** appartient à un seul VLAN et transmet les trames sans tag. Un **trunk port** transporte plusieurs VLANs simultanément en taguant les trames avec 802.1Q.",
+    "tags": ["VLAN", "switching", "802.1Q"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "net-002",
+    "module": "reseaux",
+    "theme": "Adressage IP",
+    "question": "Quel est le masque de sous-réseau en notation CIDR /26, et combien d'hôtes utilisables fournit-il ?",
+    "answer": "Le **/26** correspond au masque **255.255.255.192**. Il découpe le réseau en blocs de 64 adresses, soit **62 hôtes utilisables** par sous-réseau (64 - 2 : adresse réseau et broadcast).",
+    "tags": ["CIDR", "subnetting", "masque"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "net-003",
+    "module": "reseaux",
+    "theme": "DNS",
+    "question": "Quel est le rôle d'un enregistrement DNS de type A par rapport à un enregistrement CNAME ?",
+    "answer": "Un enregistrement **A** associe un nom de domaine à une **adresse IPv4**. Un **CNAME** est un alias : il pointe un nom vers **un autre nom** (qui sera ensuite résolu), sans contenir d'adresse IP directement.",
+    "tags": ["DNS", "résolution", "A", "CNAME"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "net-004",
+    "module": "reseaux",
+    "theme": "DHCP",
+    "question": "Quelles sont les 4 étapes de l'attribution d'une adresse par DHCP ?",
+    "answer": "Le processus **DORA** : **Discover** (le client cherche un serveur), **Offer** (le serveur propose un bail), **Request** (le client demande l'adresse proposée) et **Acknowledge** (le serveur confirme le bail).",
+    "tags": ["DHCP", "DORA", "bail"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "net-005",
+    "module": "reseaux",
+    "theme": "Modèle OSI",
+    "question": "À quelle couche du modèle OSI opère un switch de niveau 2 ?",
+    "answer": "Un switch L2 opère à la **couche 2 (Liaison de données)**. Il commute les trames en se basant sur les **adresses MAC** qu'il apprend dans sa table CAM, sans regarder les adresses IP (couche 3).",
+    "tags": ["OSI", "switch", "MAC", "couche 2"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "net-006",
+    "module": "reseaux",
+    "theme": "Routage",
+    "question": "Quelle est la différence entre une route statique et une route dynamique ?",
+    "answer": "Une **route statique** est configurée manuellement par l'administrateur et ne change pas seule. Une **route dynamique** est apprise et mise à jour automatiquement via un protocole de routage (OSPF, RIP, BGP…) en fonction de l'état du réseau.",
+    "tags": ["routage", "OSPF", "statique", "dynamique"],
+    "difficulty": "medium"
+  }
+]

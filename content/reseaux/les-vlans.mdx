@@ -1,0 +1,57 @@
+---
+title: "Les VLANs — concepts et configuration"
+module: "reseaux"
+theme: "VLAN"
+difficulty: "medium"
+tags: ["VLAN", "switching", "802.1Q", "trunk"]
+updatedAt: "2026-06-10"
+---
+
+## À quoi sert un VLAN ?
+
+Un **VLAN** (Virtual Local Area Network) permet de segmenter logiquement un
+réseau physique en plusieurs domaines de diffusion distincts. Deux machines sur
+des VLANs différents ne peuvent pas communiquer directement : il faut un
+routeur (ou un switch L3).
+
+Les bénéfices principaux :
+
+- **Sécurité** : isolation des flux (ex. séparer le VLAN serveurs du VLAN invités).
+- **Performance** : réduction de la taille des domaines de broadcast.
+- **Souplesse** : un changement de VLAN ne nécessite pas de recâblage.
+
+## Access port vs trunk port
+
+| Type de port | VLANs transportés | Tag 802.1Q |
+| ------------ | ----------------- | ---------- |
+| Access       | Un seul           | Non        |
+| Trunk        | Plusieurs         | Oui        |
+
+Un **access port** appartient à un seul VLAN et transmet les trames sans tag.
+Un **trunk port** transporte plusieurs VLANs en taguant les trames avec le
+protocole `802.1Q`.
+
+## Configuration Cisco IOS
+
+```bash
+# Créer le VLAN 10 et le nommer
+switch(config)# vlan 10
+switch(config-vlan)# name COMPTA
+
+# Affecter une interface en access sur ce VLAN
+switch(config)# interface FastEthernet0/1
+switch(config-if)# switchport mode access
+switch(config-if)# switchport access vlan 10
+
+# Configurer un trunk transportant tous les VLANs
+switch(config)# interface GigabitEthernet0/1
+switch(config-if)# switchport mode trunk
+```
+
+> 💡 Pense à vérifier le VLAN natif des deux côtés d'un trunk : un mismatch
+> génère des erreurs `native VLAN mismatch` (CDP).
+
+## Vérification
+
+La commande `show vlan brief` liste les VLANs et les ports associés ; `show
+interfaces trunk` confirme les VLANs autorisés sur chaque trunk.

@@ -1,0 +1,40 @@
+---
+title: "Subnetting et notation CIDR"
+module: "reseaux"
+theme: "Adressage IP"
+difficulty: "medium"
+tags: ["CIDR", "subnetting", "masque", "IPv4"]
+updatedAt: "2026-06-12"
+---
+
+## La notation CIDR
+
+La notation **CIDR** (Classless Inter-Domain Routing) exprime un masque de
+sous-réseau par le nombre de bits à 1, précédé d'un `/`. Exemple : `192.168.1.0/24`
+correspond au masque `255.255.255.0`.
+
+## Calcul rapide du nombre d'hôtes
+
+Pour un préfixe `/n`, le nombre d'adresses du bloc est `2^(32 - n)`, dont **2
+réservées** (adresse réseau et broadcast).
+
+| CIDR | Masque            | Hôtes utilisables |
+| ---- | ----------------- | ----------------- |
+| /24  | 255.255.255.0     | 254               |
+| /26  | 255.255.255.192   | 62                |
+| /30  | 255.255.255.252   | 2                 |
+
+## Découper un /24 en /26
+
+Un `/26` réserve 2 bits supplémentaires pour le réseau, soit **4 sous-réseaux**
+de 64 adresses :
+
+```text
+192.168.1.0/26    → hôtes .1   à .62    (broadcast .63)
+192.168.1.64/26   → hôtes .65  à .126   (broadcast .127)
+192.168.1.128/26  → hôtes .129 à .190   (broadcast .191)
+192.168.1.192/26  → hôtes .193 à .254   (broadcast .255)
+```
+
+> Astuce : le « pas » entre deux sous-réseaux est `256 - dernier_octet_du_masque`.
+> Pour un /26 : `256 - 192 = 64`.

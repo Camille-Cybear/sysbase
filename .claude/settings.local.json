@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(cd \"/Users/camille/Desktop/CLAUDE PROJECTS/SYSBASE\" && mkdir -p app/modules/\\\\[slug\\\\] app/fiches/\\\\[module\\\\]/\\\\[slug\\\\] app/flashcards app/quiz/\\\\[module\\\\] app/recherche components/layout content/reseaux content/active-directory content/linux content/securite content/virtualisation content/scripting data/flashcards data/quiz lib public && echo \"structure créée\" && find . -type d -not -path './.claude*' | sort)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"---TSC EXIT $?---\")",
+      "Bash(npm run *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(echo \"---EXIT $?---\")",
+      "Bash(git --version)",
+      "Bash(gh --version)",
+      "Bash(gh auth *)",
+      "Bash(vercel --version)",
+      "Bash(git config *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
