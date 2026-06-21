@@ -1,0 +1,67 @@
+[
+  {
+    "id": "q-sec-001",
+    "module": "securite",
+    "question": "Quel algorithme est un chiffrement symétrique ?",
+    "options": ["RSA", "AES", "SHA-256", "ECDSA"],
+    "correct": 1,
+    "explanation": "AES est un chiffrement symétrique (une seule clé). RSA et ECDSA sont asymétriques, et SHA-256 est une fonction de hachage (pas un chiffrement).",
+    "tags": ["chiffrement", "AES"]
+  },
+  {
+    "id": "q-sec-002",
+    "module": "securite",
+    "question": "Que garantit une fonction de hachage cryptographique ?",
+    "options": [
+      "Le déchiffrement rapide des données",
+      "Une transformation à sens unique et déterministe",
+      "Le partage sécurisé d'une clé",
+      "La compression sans perte"
+    ],
+    "correct": 1,
+    "explanation": "Un hachage est à sens unique (irréversible) et déterministe : la même entrée donne toujours la même empreinte. Il ne sert pas à chiffrer ni à compresser.",
+    "tags": ["hachage", "intégrité"]
+  },
+  {
+    "id": "q-sec-003",
+    "module": "securite",
+    "question": "Quel est l'avantage principal d'un pare-feu stateful sur un pare-feu stateless ?",
+    "options": [
+      "Il chiffre le trafic réseau",
+      "Il suit l'état des connexions établies",
+      "Il fonctionne sans aucune règle",
+      "Il remplace un antivirus"
+    ],
+    "correct": 1,
+    "explanation": "Le pare-feu stateful maintient une table des connexions et autorise automatiquement les paquets retour d'une session déjà établie, contrairement au stateless qui évalue chaque paquet isolément.",
+    "tags": ["firewall", "stateful"]
+  },
+  {
+    "id": "q-sec-004",
+    "module": "securite",
+    "question": "Dans une PKI, quel élément signe les certificats ?",
+    "options": [
+      "Le serveur DHCP",
+      "L'autorité de certification (CA)",
+      "Le client final",
+      "Le résolveur DNS"
+    ],
+    "correct": 1,
+    "explanation": "C'est l'autorité de certification (CA) qui signe les certificats, établissant la chaîne de confiance vérifiée par les clients.",
+    "tags": ["PKI", "CA", "certificat"]
+  },
+  {
+    "id": "q-sec-005",
+    "module": "securite",
+    "question": "Que recommande le principe du moindre privilège ?",
+    "options": [
+      "Donner les droits administrateur à tous par défaut",
+      "Accorder uniquement les droits nécessaires à la tâche",
+      "Supprimer toute authentification",
+      "Partager un compte unique entre utilisateurs"
+    ],
+    "correct": 1,
+    "explanation": "Le moindre privilège limite chaque entité aux droits strictement nécessaires, réduisant la surface d'attaque et l'impact d'une compromission.",
+    "tags": ["moindre privilège", "durcissement"]
+  }
+]

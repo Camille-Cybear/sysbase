@@ -1,6 +1,7 @@
 import type { Flashcard } from "@/lib/types";
 import type { ModuleSlug } from "@/data/modules";
 import reseauxCards from "@/data/flashcards/reseaux.json";
+import securiteCards from "@/data/flashcards/securite.json";
 
 /**
  * Jeux de flashcards par module.
@@ -10,6 +11,7 @@ import reseauxCards from "@/data/flashcards/reseaux.json";
  */
 const FLASHCARDS_BY_MODULE: Partial<Record<ModuleSlug, Flashcard[]>> = {
   reseaux: reseauxCards as Flashcard[],
+  securite: securiteCards as Flashcard[],
 };
 
 /** Retourne les flashcards d'un module (tableau vide si aucun contenu). */

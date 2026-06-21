@@ -1,0 +1,56 @@
+[
+  {
+    "id": "sec-001",
+    "module": "securite",
+    "theme": "Pare-feu",
+    "question": "Quelle est la différence entre un pare-feu stateful et un pare-feu stateless ?",
+    "answer": "Un pare-feu **stateless** filtre chaque paquet indépendamment, selon des règles statiques (IP, port). Un pare-feu **stateful** suit l'**état des connexions** (table de sessions) : il autorise automatiquement les paquets retour d'une connexion déjà établie, ce qui est plus sûr et plus simple à configurer.",
+    "tags": ["firewall", "stateful", "filtrage"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "sec-002",
+    "module": "securite",
+    "theme": "Chiffrement",
+    "question": "Quelle est la différence entre chiffrement symétrique et asymétrique ?",
+    "answer": "Le chiffrement **symétrique** utilise **une seule clé** partagée pour chiffrer et déchiffrer (ex. AES) — rapide, mais il faut échanger la clé de façon sûre. Le chiffrement **asymétrique** utilise une **paire clé publique / clé privée** (ex. RSA) — plus lent, mais résout l'échange de clé. En pratique on combine les deux (ex. TLS).",
+    "tags": ["chiffrement", "AES", "RSA", "TLS"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "sec-003",
+    "module": "securite",
+    "theme": "PKI",
+    "question": "À quoi sert une autorité de certification (CA) dans une PKI ?",
+    "answer": "La **CA** (Certificate Authority) **signe les certificats numériques** pour garantir qu'une clé publique appartient bien à une entité donnée. Un client fait confiance à un certificat s'il est signé par une CA présente dans son magasin de confiance. C'est la base de la **chaîne de confiance** (PKI).",
+    "tags": ["PKI", "certificat", "CA", "confiance"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "sec-004",
+    "module": "securite",
+    "theme": "Hachage",
+    "question": "Pourquoi un mot de passe doit-il être stocké haché et non chiffré ?",
+    "answer": "Le **hachage** (ex. `bcrypt`, `argon2`) est **à sens unique** : on ne peut pas retrouver le mot de passe d'origine à partir de l'empreinte. Le chiffrement est **réversible** : si la clé fuit, tous les mots de passe sont exposés. On vérifie un mot de passe en re-hachant la saisie et en comparant les empreintes (avec un **sel** pour contrer les rainbow tables).",
+    "tags": ["hachage", "mot de passe", "bcrypt", "sel"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "sec-005",
+    "module": "securite",
+    "theme": "Contrôle d'accès",
+    "question": "Qu'est-ce que le principe du moindre privilège ?",
+    "answer": "Le **principe du moindre privilège** consiste à n'accorder à un utilisateur, un service ou un processus **que les droits strictement nécessaires** à sa tâche, et rien de plus. Cela réduit la surface d'attaque et limite l'impact d'une compromission.",
+    "tags": ["moindre privilège", "droits", "AAA"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "sec-006",
+    "module": "securite",
+    "theme": "VPN",
+    "question": "Quels sont les deux modes d'IPsec et leur usage ?",
+    "answer": "IPsec propose le mode **transport** (seule la charge utile est chiffrée, l'en-tête IP d'origine est conservé — usage hôte à hôte) et le mode **tunnel** (le paquet IP entier est chiffré et encapsulé dans un nouvel en-tête — usage site à site / VPN passerelle à passerelle).",
+    "tags": ["VPN", "IPsec", "tunnel", "transport"],
+    "difficulty": "hard"
+  }
+]

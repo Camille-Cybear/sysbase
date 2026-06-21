@@ -1,6 +1,7 @@
 import type { QuizQuestion } from "@/lib/types";
 import type { ModuleSlug } from "@/data/modules";
 import reseauxQuiz from "@/data/quiz/reseaux.json";
+import securiteQuiz from "@/data/quiz/securite.json";
 
 /**
  * Banques de questions par module.
@@ -10,6 +11,7 @@ import reseauxQuiz from "@/data/quiz/reseaux.json";
  */
 const QUIZ_BY_MODULE: Partial<Record<ModuleSlug, QuizQuestion[]>> = {
   reseaux: reseauxQuiz as QuizQuestion[],
+  securite: securiteQuiz as QuizQuestion[],
 };
 
 /** Retourne les questions d'un module (tableau vide si aucun contenu). */

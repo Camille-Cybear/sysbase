@@ -1,0 +1,59 @@
+---
+title: "Le pare-feu — stateless vs stateful"
+module: "securite"
+theme: "Pare-feu"
+difficulty: "medium"
+tags: ["firewall", "stateful", "filtrage", "iptables"]
+updatedAt: "2026-06-18"
+---
+
+## Rôle d'un pare-feu
+
+Un **pare-feu** (firewall) contrôle le trafic réseau qui le traverse en
+appliquant une **politique de filtrage** : il autorise ou bloque les paquets
+selon des règles (adresses IP, ports, protocole, interface…). C'est la première
+ligne de défense entre deux zones de confiance différentes (ex. LAN ↔ Internet).
+
+## Stateless vs stateful
+
+| Critère              | Stateless (sans état)      | Stateful (à état)              |
+| -------------------- | -------------------------- | ------------------------------ |
+| Unité de décision    | Le paquet isolé            | La **connexion** entière       |
+| Trafic retour        | Règle explicite à écrire   | Autorisé automatiquement       |
+| Mémoire              | Aucune                     | Table de sessions              |
+| Sécurité / simplicité | Plus faible                | Meilleure                      |
+
+Un pare-feu **stateless** évalue chaque paquet **indépendamment**. Pour autoriser
+une navigation web, il faut écrire une règle pour le trafic sortant **et** une
+pour le trafic retour — ce qui est verbeux et risqué.
+
+Un pare-feu **stateful** garde une **table des connexions actives**. Quand une
+session sortante est ouverte, les paquets retour correspondants sont autorisés
+**automatiquement**, sans règle dédiée. C'est le comportement par défaut des
+pare-feux modernes.
+
+## Exemple avec iptables (Linux)
+
+```bash
+# Politique par défaut : tout bloquer en entrée
+iptables -P INPUT DROP
+
+# Autoriser le trafic retour des connexions déjà établies (stateful)
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# Autoriser le SSH entrant (port 22)
+iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT
+
+# Autoriser la boucle locale
+iptables -A INPUT -i lo -j ACCEPT
+```
+
+> 💡 La ligne `--ctstate ESTABLISHED,RELATED` est le cœur du filtrage stateful :
+> elle évite d'avoir à autoriser manuellement chaque flux retour.
+
+## Bonnes pratiques
+
+- **Tout interdire par défaut**, puis n'ouvrir que le nécessaire (moindre privilège).
+- Filtrer **au plus près** de la source du trafic.
+- Documenter chaque règle (pourquoi elle existe) pour faciliter l'audit.
+- Ne pas confondre pare-feu et antivirus : ils sont **complémentaires**.
