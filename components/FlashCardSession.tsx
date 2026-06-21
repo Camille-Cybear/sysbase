@@ -1,34 +1,60 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { X, Eye, EyeOff, Check, RotateCcw, Trophy } from "lucide-react";
 import type { Flashcard } from "@/lib/types";
-import { markMastered, markToReview } from "@/lib/progress";
+import { loadProgress, markMastered, markToReview } from "@/lib/progress";
+import { prioritizeFlashcards, filterToReview } from "@/lib/flashcards";
 import { RichText } from "@/components/RichText";
 
 export interface FlashCardSessionProps {
-  /** Cartes à réviser dans la session. */
+  /** Cartes candidates (un module, ou toutes les cartes en mode « à revoir »). */
   cards: Flashcard[];
-  /** Nom du module révisé (affiché en en-tête). */
+  /** Nom affiché en en-tête / écran de fin. */
   moduleName: string;
+  /**
+   * « module » : toutes les cartes, priorité aux « à revoir ».
+   * « review » : uniquement les cartes actuellement marquées « à revoir ».
+   */
+  mode?: "module" | "review";
 }
 
 type Result = "mastered" | "toReview";
 
 /**
- * Session de révision complète : navigation carte par carte, révélation de la
- * réponse, marquage Maîtrisé / À revoir (persisté en localStorage), score final
- * et possibilité de rejouer uniquement les cartes ratées.
+ * Session de révision : navigation carte par carte, révélation de la réponse,
+ * marquage Maîtrisé / À revoir (persisté en localStorage), score final et rejeu.
+ *
+ * L'ordre des cartes est calculé au montage depuis le localStorage (révision
+ * intelligente) ; un état `ready` évite tout décalage d'hydratation.
  */
-export function FlashCardSession({ cards, moduleName }: FlashCardSessionProps) {
+export function FlashCardSession({
+  cards,
+  moduleName,
+  mode = "module",
+}: FlashCardSessionProps) {
+  /** Deck de référence de la session (après priorisation / filtrage). */
+  const [baseDeck, setBaseDeck] = useState<Flashcard[]>([]);
   /** Deck courant (peut être réduit aux cartes ratées lors d'un rejeu). */
-  const [deck, setDeck] = useState<Flashcard[]>(cards);
+  const [deck, setDeck] = useState<Flashcard[]>([]);
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
-  /** Résultat enregistré par carte pour la session en cours. */
   const [results, setResults] = useState<Record<string, Result>>({});
+  const [ready, setReady] = useState(false);
 
-  const finished = index >= deck.length;
+  // Calcule l'ordre/filtre depuis le localStorage, une fois monté côté client.
+  useEffect(() => {
+    const state = loadProgress();
+    const ordered =
+      mode === "review"
+        ? filterToReview(cards, state)
+        : prioritizeFlashcards(cards, state);
+    setBaseDeck(ordered);
+    setDeck(ordered);
+    setReady(true);
+  }, [cards, mode]);
+
+  const finished = ready && index >= deck.length;
   const current = deck[index];
 
   const masteredCount = useMemo(
@@ -59,11 +85,22 @@ export function FlashCardSession({ cards, moduleName }: FlashCardSessionProps) {
     setResults({});
   }
 
-  // --- État vide ---
-  if (cards.length === 0) {
+  // --- Préparation (avant lecture du localStorage) ---
+  if (!ready) {
     return (
       <div className="rounded-xl border border-border bg-card p-10 text-center text-muted">
-        Aucune flashcard disponible pour ce module pour l&apos;instant.
+        Préparation de la session…
+      </div>
+    );
+  }
+
+  // --- État vide ---
+  if (baseDeck.length === 0) {
+    return (
+      <div className="rounded-xl border border-border bg-card p-10 text-center text-muted">
+        {mode === "review"
+          ? "Aucune carte à revoir — tout est à jour. 🎉"
+          : "Aucune flashcard disponible pour ce module pour l'instant."}
       </div>
     );
   }
@@ -72,7 +109,7 @@ export function FlashCardSession({ cards, moduleName }: FlashCardSessionProps) {
   if (finished) {
     const total = deck.length;
     const score = Math.round((masteredCount / total) * 100);
-    const failed = cards.filter((c) => toReviewIds.includes(c.id));
+    const failed = baseDeck.filter((c) => toReviewIds.includes(c.id));
 
     return (
       <div className="rounded-xl border border-border bg-card p-8 text-center">
@@ -97,7 +134,7 @@ export function FlashCardSession({ cards, moduleName }: FlashCardSessionProps) {
           )}
           <button
             type="button"
-            onClick={() => restart(cards)}
+            onClick={() => restart(baseDeck)}
             className="inline-flex items-center gap-1.5 rounded-md border border-border px-4 py-2 text-sm text-muted transition hover:text-text"
           >
             <RotateCcw className="h-4 w-4" aria-hidden="true" />

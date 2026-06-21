@@ -1,5 +1,6 @@
 import { DashboardModules } from "@/components/DashboardModules";
 import { DailyFlashcard } from "@/components/DailyFlashcard";
+import { ReviewBanner } from "@/components/ReviewBanner";
 import { MODULES, type ModuleSlug } from "@/data/modules";
 import { getFlashcards } from "@/lib/flashcards";
 
@@ -8,6 +9,7 @@ export default function DashboardPage() {
   const cardIdsByModule = Object.fromEntries(
     MODULES.map((module) => [module.slug, getFlashcards(module.slug).map((c) => c.id)]),
   ) as Record<ModuleSlug, string[]>;
+  const allCardIds = Object.values(cardIdsByModule).flat();
 
   // Flashcard du jour : rotation déterministe sur les cartes Réseaux.
   const dailyCards = getFlashcards("reseaux");
@@ -19,6 +21,9 @@ export default function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-5xl">
+      {/* Invite à réviser les cartes « à revoir » (masquée si aucune) */}
+      <ReviewBanner allCardIds={allCardIds} />
+
       {/* Modules : bascule grille/liste + progression réelle */}
       <DashboardModules cardIdsByModule={cardIdsByModule} />
 
