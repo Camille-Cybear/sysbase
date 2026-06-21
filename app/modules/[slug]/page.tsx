@@ -7,6 +7,7 @@ import { getFichesByModule } from "@/lib/mdx";
 import { getQuiz } from "@/lib/quiz";
 import { ModuleProgress } from "@/components/ModuleProgress";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
+import { QuizScoreBadge } from "@/components/QuizScoreBadge";
 
 interface ModulePageProps {
   params: { slug: string };
@@ -68,6 +69,7 @@ export default function ModulePage({ params }: ModulePageProps) {
             {fiches.length} fiche{fiches.length > 1 ? "s" : ""}
           </span>
           <span className="flex-1" />
+          {hasQuiz && <QuizScoreBadge moduleSlug={mod.slug} variant="inline" />}
           {hasQuiz && (
             <Link
               href={`/quiz/${mod.slug}`}

@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { MODULES, getModule } from "@/data/modules";
 import { getQuiz } from "@/lib/quiz";
 import { QuizEngine } from "@/components/QuizEngine";
+import { QuizScoreBadge } from "@/components/QuizScoreBadge";
 
 interface QuizPageProps {
   params: { module: string };
@@ -30,14 +31,21 @@ export default function QuizPage({ params }: QuizPageProps) {
         {mod.name}
       </Link>
 
-      <div className="mb-3.5 flex items-center justify-between">
+      <div className="mb-3.5 flex items-center justify-between gap-3">
         <h1 className="text-base font-medium">Quiz — {mod.name}</h1>
-        <span className="text-xs text-muted">
-          {questions.length} question{questions.length > 1 ? "s" : ""}
-        </span>
+        <div className="flex items-center gap-3">
+          <QuizScoreBadge moduleSlug={mod.slug} />
+          <span className="text-xs text-muted">
+            {questions.length} question{questions.length > 1 ? "s" : ""}
+          </span>
+        </div>
       </div>
 
-      <QuizEngine questions={questions} moduleName={mod.name} />
+      <QuizEngine
+        questions={questions}
+        moduleSlug={mod.slug}
+        moduleName={mod.name}
+      />
     </div>
   );
 }

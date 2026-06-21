@@ -1,26 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { Check, X, ArrowRight, RotateCcw, Trophy } from "lucide-react";
+import { Check, X, ArrowRight, RotateCcw, Trophy, Award } from "lucide-react";
 import type { QuizQuestion } from "@/lib/types";
+import { recordQuizScore, scorePercent, type QuizScore } from "@/lib/quizScores";
 import { RichText } from "@/components/RichText";
 
 export interface QuizEngineProps {
   /** Questions du quiz. */
   questions: QuizQuestion[];
+  /** Slug du module (clé de sauvegarde du score). */
+  moduleSlug: string;
   /** Nom du module (affiché à la fin). */
   moduleName: string;
 }
 
 /**
  * Moteur de QCM : une question à la fois, feedback immédiat (bonne/mauvaise
- * réponse + explication), puis score final avec possibilité de recommencer.
+ * réponse + explication), puis score final (mémorisé) avec rejeu.
  */
-export function QuizEngine({ questions, moduleName }: QuizEngineProps) {
+export function QuizEngine({ questions, moduleSlug, moduleName }: QuizEngineProps) {
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
+  /** Meilleur score résultant + record, calculé à la fin de l'essai. */
+  const [outcome, setOutcome] = useState<{ best: QuizScore; isRecord: boolean } | null>(null);
 
   const current = questions[index];
   const answered = selected !== null;
@@ -33,6 +38,8 @@ export function QuizEngine({ questions, moduleName }: QuizEngineProps) {
 
   function next() {
     if (index + 1 >= questions.length) {
+      // `score` est à jour (la dernière réponse a été comptée au clic précédent).
+      setOutcome(recordQuizScore(moduleSlug, score, questions.length));
       setFinished(true);
       return;
     }
@@ -45,6 +52,7 @@ export function QuizEngine({ questions, moduleName }: QuizEngineProps) {
     setSelected(null);
     setScore(0);
     setFinished(false);
+    setOutcome(null);
   }
 
   // --- État vide ---
@@ -68,6 +76,20 @@ export function QuizEngine({ questions, moduleName }: QuizEngineProps) {
         <p className="mt-1 text-sm text-muted">
           {moduleName} — {score} / {questions.length} bonnes réponses ({percent}%)
         </p>
+
+        {outcome &&
+          (outcome.isRecord ? (
+            <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
+              <Award className="h-3.5 w-3.5" aria-hidden="true" />
+              Nouveau record !
+            </p>
+          ) : (
+            <p className="mt-3 inline-flex items-center gap-1.5 text-xs text-muted">
+              <Award className="h-3.5 w-3.5" aria-hidden="true" />
+              Meilleur score : {scorePercent(outcome.best)}%
+            </p>
+          ))}
+
         <button
           type="button"
           onClick={restart}
