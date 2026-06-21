@@ -37,7 +37,7 @@ export default function RootLayout({
         <div className="flex min-h-screen">
           <Sidebar counts={counts} allCardIds={allCardIds} />
           <div className="flex flex-1 flex-col">
-            <TopBar />
+            <TopBar counts={counts} allCardIds={allCardIds} />
             <main className="flex flex-1 flex-col overflow-y-auto">
               <div className="flex-1 p-5">{children}</div>
               <Footer />

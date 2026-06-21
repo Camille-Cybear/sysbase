@@ -1,19 +1,24 @@
 import Link from "next/link";
-import { Play, Layers, Server } from "lucide-react";
+import { Play, Layers } from "lucide-react";
 import { SearchBar } from "@/components/SearchBar";
+import { MobileNav } from "@/components/layout/MobileNav";
+import type { SidebarCounts } from "@/components/layout/NavContent";
+
+export interface TopBarProps {
+  /** Compteurs de contenu pour le menu mobile. */
+  counts: SidebarCounts;
+  /** IDs de toutes les flashcards, pour la progression du menu mobile. */
+  allCardIds: string[];
+}
 
 /**
- * Barre supérieure : recherche + actions rapides.
+ * Barre supérieure : menu mobile (hamburger) + recherche + actions rapides.
  */
-export function TopBar() {
+export function TopBar({ counts, allCardIds }: TopBarProps) {
   return (
     <header className="flex items-center gap-3 border-b border-border bg-sidebar px-4 py-3 sm:px-5">
-      {/* Marque visible uniquement sur mobile (la sidebar la porte sur desktop) */}
-      <Link href="/" className="flex items-center gap-2 lg:hidden" aria-label="Accueil sysbase">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-          <Server className="h-4 w-4 text-white" aria-hidden="true" />
-        </span>
-      </Link>
+      {/* Menu de navigation mobile (la sidebar prend le relais sur desktop) */}
+      <MobileNav counts={counts} allCardIds={allCardIds} />
 
       {/* Recherche */}
       <SearchBar />
