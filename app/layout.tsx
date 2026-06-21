@@ -10,10 +10,26 @@ import { getAllFlashcards } from "@/lib/flashcards";
 import { getAllFiches } from "@/lib/mdx";
 import { getAllQuizQuestions } from "@/lib/quiz";
 
+const DESCRIPTION =
+  "Plateforme de révision pour les certifications IT : fiches, flashcards et quiz. Modules Réseaux, Active Directory, Linux, Sécurité, Virtualisation et Scripting.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sysbase.fr"),
   title: "sysbase — Révisions certifications IT",
-  description:
-    "Plateforme de révision pour les certifications IT : fiches, flashcards et quiz. Modules Réseaux, Active Directory, Linux, Sécurité, Virtualisation et Scripting.",
+  description: DESCRIPTION,
+  openGraph: {
+    title: "sysbase — Révisions certifications IT",
+    description: DESCRIPTION,
+    url: "https://sysbase.fr",
+    siteName: "sysbase",
+    locale: "fr_FR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "sysbase — Révisions certifications IT",
+    description: DESCRIPTION,
+  },
 };
 
 export default function RootLayout({
