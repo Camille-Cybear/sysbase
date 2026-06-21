@@ -9,7 +9,7 @@ export function TopBar() {
   return (
     <header className="flex items-center gap-3 border-b border-border bg-sidebar px-4 py-3 sm:px-5">
       {/* Marque visible uniquement sur mobile (la sidebar la porte sur desktop) */}
-      <Link href="/" className="flex items-center gap-2 lg:hidden" aria-label="Accueil TSSRev">
+      <Link href="/" className="flex items-center gap-2 lg:hidden" aria-label="Accueil sysbase">
         <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
           <Server className="h-4 w-4 text-white" aria-hidden="true" />
         </span>

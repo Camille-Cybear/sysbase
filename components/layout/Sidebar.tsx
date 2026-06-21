@@ -76,10 +76,10 @@ export function Sidebar({ counts, allCardIds }: SidebarProps) {
         </span>
         <span className="leading-tight">
           <span className="block text-[15px] font-semibold tracking-tight">
-            TSSRev
+            sysbase
           </span>
           <span className="block text-[11px] text-muted">
-            Technicien Supérieur SR
+            Révisions certifications IT
           </span>
         </span>
       </div>

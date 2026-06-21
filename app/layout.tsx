@@ -10,9 +10,9 @@ import { getAllFiches } from "@/lib/mdx";
 import { getAllQuizQuestions } from "@/lib/quiz";
 
 export const metadata: Metadata = {
-  title: "TSSRev — Révision TSSR",
+  title: "sysbase — Révisions certifications IT",
   description:
-    "Site de révision pour la certification TSSR : fiches, flashcards et quiz pour Réseaux, Active Directory, Linux, Sécurité, Virtualisation et Scripting.",
+    "Plateforme de révision pour les certifications IT : fiches, flashcards et quiz. Modules Réseaux, Active Directory, Linux, Sécurité, Virtualisation et Scripting.",
 };
 
 export default function RootLayout({

@@ -1,8 +1,8 @@
-# TSSRev — Site de révision TSSR
+# sysbase — Révisions certifications IT
 
-Application web de révision pour la certification **TSSR** (Technicien Supérieur Systèmes et Réseaux) : fiches tuto, flashcards et quiz QCM, dans une interface dark mode moderne et responsive.
+Plateforme web de révision pour les certifications IT : fiches tuto, flashcards et quiz QCM, dans une interface dark mode moderne et responsive. Premier parcours disponible : **TSSR** (Technicien Supérieur Systèmes et Réseaux).
 
-🔗 **Démo** : _(à compléter après déploiement Vercel)_
+🔗 **Démo** : https://sysbase.vercel.app
 
 ## Fonctionnalités
 
