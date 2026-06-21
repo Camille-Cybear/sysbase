@@ -52,5 +52,68 @@
     "answer": "Une **route statique** est configurée manuellement par l'administrateur et ne change pas seule. Une **route dynamique** est apprise et mise à jour automatiquement via un protocole de routage (OSPF, RIP, BGP…) en fonction de l'état du réseau.",
     "tags": ["routage", "OSPF", "statique", "dynamique"],
     "difficulty": "medium"
+  },
+  {
+    "id": "net-007",
+    "module": "reseaux",
+    "theme": "Routage",
+    "question": "Qu'est-ce que la route par défaut et quelle est sa notation ?",
+    "answer": "La **route par défaut** est notée **`0.0.0.0/0`**. C'est la **passerelle de dernier recours** (*gateway of last resort*) : elle est utilisée quand **aucune autre entrée** de la table de routage ne correspond à la destination — typiquement la route vers Internet.",
+    "tags": ["routage", "route par défaut", "passerelle", "0.0.0.0"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "net-008",
+    "module": "reseaux",
+    "theme": "Routage",
+    "question": "À quoi sert la distance administrative (AD) en routage ?",
+    "answer": "La **distance administrative** mesure la **fiabilité d'une source** de route. Quand une destination est apprise par **plusieurs protocoles**, le routeur retient celle dont l'**AD est la plus faible**. Valeurs courantes : connecté **0**, statique **1**, EIGRP **90**, OSPF **110**, RIP **120**.",
+    "tags": ["routage", "distance administrative", "AD"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "net-009",
+    "module": "reseaux",
+    "theme": "Routage",
+    "question": "Quelle différence entre distance administrative et métrique ?",
+    "answer": "La **distance administrative** départage des routes apprises par des **protocoles différents** (laquelle croire). La **métrique** départage des routes vers la même destination **au sein d'un même protocole** (laquelle est la meilleure). Ex. : OSPF utilise un **coût** basé sur la bande passante, RIP le **nombre de sauts**.",
+    "tags": ["routage", "métrique", "distance administrative"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "net-010",
+    "module": "reseaux",
+    "theme": "Routage",
+    "question": "Quelle route un routeur choisit-il quand plusieurs correspondent à la destination ?",
+    "answer": "Le routeur applique le **longest prefix match** : il choisit la route au **masque le plus spécifique** (le plus long). Une route **`/32`** l'emporte sur une **`/24`**, qui l'emporte elle-même sur la route par défaut **`/0`**.",
+    "tags": ["routage", "longest prefix match", "masque"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "net-011",
+    "module": "reseaux",
+    "theme": "Routage",
+    "question": "Quelle est la différence entre RIP et OSPF ?",
+    "answer": "**RIP** est un protocole à **vecteur de distance** : métrique = **nombre de sauts** (max 15), convergence lente. **OSPF** est à **état de lien** : chaque routeur construit une carte complète de la topologie et calcule le plus court chemin (Dijkstra), métrique = **coût** (bande passante), convergence rapide et adaptée aux grands réseaux.",
+    "tags": ["routage", "RIP", "OSPF", "vecteur de distance", "état de lien"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "net-012",
+    "module": "reseaux",
+    "theme": "Routage",
+    "question": "Quelle différence entre un protocole IGP et un protocole EGP ?",
+    "answer": "Un **IGP** (Interior Gateway Protocol : RIP, OSPF, EIGRP) route **à l'intérieur** d'un même domaine/AS. Un **EGP** route **entre** domaines autonomes : le seul utilisé aujourd'hui est **BGP**, qui fait fonctionner le routage **entre les opérateurs sur Internet**.",
+    "tags": ["routage", "IGP", "EGP", "BGP", "AS"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "net-013",
+    "module": "reseaux",
+    "theme": "Routage",
+    "question": "Dans `show ip route`, que signifient les codes C, S et O ?",
+    "answer": "En début de ligne : **`C`** = réseau **connecté** directement, **`S`** = route **statique**, **`O`** = route apprise par **OSPF** (`R` pour RIP, `B` pour BGP). Le **`*`** marque la route candidate par défaut. Entre crochets `[AD/métrique]`, ex. `[110/2]` = OSPF, coût 2.",
+    "tags": ["routage", "show ip route", "Cisco"],
+    "difficulty": "easy"
   }
 ]

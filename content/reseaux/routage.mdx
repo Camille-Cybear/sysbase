@@ -1,0 +1,139 @@
+---
+title: "Le routage IP — concepts et configuration"
+module: "reseaux"
+theme: "Routage"
+difficulty: "medium"
+tags: ["routage", "routeur", "OSPF", "RIP", "BGP", "route statique", "passerelle"]
+updatedAt: "2026-06-21"
+---
+
+## Le rôle d'un routeur
+
+Un **routeur** opère à la **couche 3 (Réseau)** du modèle OSI. Son travail :
+acheminer les paquets IP d'un réseau vers un autre en s'appuyant sur les
+**adresses IP de destination**. Contrairement au switch (couche 2, adresses
+MAC), le routeur **interconnecte des réseaux logiques distincts**.
+
+Pour chaque paquet reçu, le routeur consulte sa **table de routage** afin de
+déterminer **par où** l'envoyer (interface de sortie + prochain saut).
+
+## La table de routage
+
+C'est la base de décision du routeur. Chaque entrée associe un **réseau de
+destination** à la façon de l'atteindre :
+
+| Champ | Rôle |
+| ----- | ---- |
+| Réseau / masque | Destination (ex. `192.168.2.0/24`) |
+| Prochain saut (next-hop) | IP du routeur suivant |
+| Interface de sortie | Port physique par lequel envoyer |
+| Distance administrative | Fiabilité de la **source** de la route |
+| Métrique | Coût pour départager des routes d'un **même** protocole |
+
+Quand plusieurs routes correspondent à une destination, le routeur applique le
+**longest prefix match** : il choisit la route au **masque le plus spécifique**
+(le plus long). Une route `/32` l'emporte toujours sur une `/24`.
+
+## Routes statiques vs dynamiques
+
+| | Route statique | Route dynamique |
+| --- | --- | --- |
+| Configuration | Manuelle (admin) | Automatique (protocole) |
+| Adaptation aux pannes | Aucune | Recalcul automatique |
+| Charge CPU / bande passante | Nulle | Échanges périodiques |
+| Usage typique | Petits réseaux, route par défaut | Réseaux étendus, redondance |
+
+Une **route statique** est figée tant que l'administrateur ne la modifie pas.
+Une **route dynamique** est apprise et mise à jour par un **protocole de
+routage** (RIP, OSPF, BGP…) selon l'état réel du réseau.
+
+## La route par défaut
+
+La **route par défaut** (`0.0.0.0/0`) est la **passerelle de dernier recours**
+(*gateway of last resort*) : elle est utilisée quand **aucune** autre entrée ne
+correspond. C'est typiquement la route vers Internet.
+
+## Protocoles de routage dynamique
+
+On distingue les protocoles **internes** (IGP, au sein d'un même domaine) des
+**externes** (EGP, entre domaines/AS).
+
+| Protocole | Type | Famille | Métrique |
+| --------- | ---- | ------- | -------- |
+| RIP | IGP | Vecteur de distance | Nombre de sauts (max 15) |
+| OSPF | IGP | État de lien | Coût (basé sur la bande passante) |
+| EIGRP | IGP | Hybride (Cisco) | Composite (BP, délai…) |
+| BGP | EGP | Vecteur de chemin | Attributs (AS-path…) |
+
+- **Vecteur de distance** (RIP) : chaque routeur annonce à ses voisins *toute*
+  sa table. Simple mais lent à converger ; RIP plafonne à **15 sauts** (16 =
+  réseau injoignable).
+- **État de lien** (OSPF) : chaque routeur construit une **carte complète** de
+  la topologie et calcule le plus court chemin (algorithme de Dijkstra).
+  Convergence rapide, adapté aux grands réseaux.
+
+## Distance administrative
+
+Quand un routeur apprend une même destination par **plusieurs sources**, il
+choisit celle dont la **distance administrative (AD)** est la **plus faible** :
+elle mesure la *confiance* accordée à la source.
+
+| Source | AD |
+| ------ | -- |
+| Réseau connecté | 0 |
+| Route statique | 1 |
+| EIGRP | 90 |
+| OSPF | 110 |
+| RIP | 120 |
+
+> 💡 Ne confonds pas **distance administrative** (départage entre *protocoles*
+> différents) et **métrique** (départage entre routes d'un *même* protocole).
+
+## Configuration Cisco IOS
+
+```bash
+# Route statique vers le réseau 192.168.2.0/24 via le routeur 10.0.0.2
+router(config)# ip route 192.168.2.0 255.255.255.0 10.0.0.2
+
+# Route par défaut (tout le reste) vers la passerelle 10.0.0.1
+router(config)# ip route 0.0.0.0 0.0.0.0 10.0.0.1
+
+# Routage dynamique OSPF sur l'aire 0
+router(config)# router ospf 1
+router(config-router)# network 192.168.1.0 0.0.0.255 area 0
+```
+
+## Lire la table de routage
+
+La commande `show ip route` affiche la table ; une lettre en début de ligne
+indique l'**origine** de chaque route :
+
+```bash
+router# show ip route
+C    10.0.0.0/24 is directly connected, GigabitEthernet0/0
+S    192.168.2.0/24 [1/0] via 10.0.0.2
+O    192.168.3.0/24 [110/2] via 10.0.0.2
+S*   0.0.0.0/0 [1/0] via 10.0.0.1
+```
+
+| Code | Origine |
+| ---- | ------- |
+| `C` | Connecté directement |
+| `S` | Statique |
+| `R` | RIP |
+| `O` | OSPF |
+| `B` | BGP |
+| `*` | Candidate par défaut |
+
+Entre crochets, `[AD/métrique]` : par exemple `[110/2]` = OSPF (AD 110), coût 2.
+
+## Vérification et dépannage
+
+- `show ip route` : la table de routage complète.
+- `show ip protocols` : les protocoles dynamiques actifs et leurs réseaux.
+- `ping` : teste la connectivité de bout en bout.
+- `traceroute` : révèle le **chemin saut par saut** emprunté par les paquets.
+
+> 💡 Un grand classique : le **routage asymétrique**. Si l'aller fonctionne mais
+> pas le retour, vérifie qu'une **route de retour** existe bien sur le routeur
+> distant — le routage doit être configuré **dans les deux sens**.
