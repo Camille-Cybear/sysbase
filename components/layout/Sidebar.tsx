@@ -70,8 +70,12 @@ export function Sidebar({ counts, allCardIds }: SidebarProps) {
 
   return (
     <aside className="hidden w-60 shrink-0 flex-col border-r border-border bg-sidebar lg:flex">
-      {/* Logo */}
-      <div className="flex items-center gap-2.5 border-b border-border px-4 py-4">
+      {/* Logo — retour à l'accueil */}
+      <Link
+        href="/"
+        aria-label="sysbase — accueil"
+        className="flex items-center gap-2.5 border-b border-border px-4 py-4 transition hover:bg-white/5"
+      >
         <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
           <Server className="h-[18px] w-[18px] text-white" aria-hidden="true" />
         </span>
@@ -83,7 +87,7 @@ export function Sidebar({ counts, allCardIds }: SidebarProps) {
             Révisions certifications IT
           </span>
         </span>
-      </div>
+      </Link>
 
       {/* Navigation */}
       <nav
