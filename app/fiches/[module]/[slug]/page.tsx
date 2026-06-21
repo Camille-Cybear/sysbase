@@ -10,7 +10,7 @@ import { mdxComponents } from "@/components/MDXComponents";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
 
 interface FichePageProps {
-  params: { module: string; slug: string };
+  params: Promise<{ module: string; slug: string }>;
 }
 
 /** Prégénère toutes les fiches existantes au build. */
@@ -21,8 +21,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function FichePage({ params }: FichePageProps) {
-  const fiche = getFiche(params.module, params.slug);
+export default async function FichePage({ params }: FichePageProps) {
+  const { module: moduleSlug, slug } = await params;
+  const fiche = getFiche(moduleSlug, slug);
   if (!fiche) notFound();
 
   const mod = getModule(fiche.module);

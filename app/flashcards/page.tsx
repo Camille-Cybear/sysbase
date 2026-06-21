@@ -4,12 +4,14 @@ import { getFlashcards, getAllFlashcards } from "@/lib/flashcards";
 import { getModule } from "@/data/modules";
 
 interface FlashcardsPageProps {
-  searchParams: { module?: string; mode?: string };
+  searchParams: Promise<{ module?: string; mode?: string }>;
 }
 
-export default function FlashcardsPage({ searchParams }: FlashcardsPageProps) {
+export default async function FlashcardsPage({ searchParams }: FlashcardsPageProps) {
+  const sp = await searchParams;
+
   // Mode « cartes à revoir » : toutes les cartes, filtrées côté client.
-  if (searchParams.mode === "review") {
+  if (sp.mode === "review") {
     return (
       <div className="mx-auto max-w-3xl">
         <div className="mb-3.5 flex items-center justify-between">
@@ -26,7 +28,7 @@ export default function FlashcardsPage({ searchParams }: FlashcardsPageProps) {
   }
 
   // Mode module : ?module=slug ; Réseaux par défaut.
-  const mod = getModule(searchParams.module ?? "reseaux");
+  const mod = getModule(sp.module ?? "reseaux");
   if (!mod) notFound();
 
   const cards = getFlashcards(mod.slug);

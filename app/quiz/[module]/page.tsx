@@ -7,7 +7,7 @@ import { QuizEngine } from "@/components/QuizEngine";
 import { QuizScoreBadge } from "@/components/QuizScoreBadge";
 
 interface QuizPageProps {
-  params: { module: string };
+  params: Promise<{ module: string }>;
 }
 
 /** Prégénère une page quiz par module. */
@@ -15,8 +15,9 @@ export function generateStaticParams() {
   return MODULES.map((module) => ({ module: module.slug }));
 }
 
-export default function QuizPage({ params }: QuizPageProps) {
-  const mod = getModule(params.module);
+export default async function QuizPage({ params }: QuizPageProps) {
+  const { module: moduleSlug } = await params;
+  const mod = getModule(moduleSlug);
   if (!mod) notFound();
 
   const questions = getQuiz(mod.slug);

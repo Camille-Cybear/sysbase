@@ -10,7 +10,7 @@ import { DifficultyBadge } from "@/components/DifficultyBadge";
 import { QuizScoreBadge } from "@/components/QuizScoreBadge";
 
 interface ModulePageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 /** Prégénère les 6 pages modules au build. */
@@ -18,8 +18,9 @@ export function generateStaticParams() {
   return MODULES.map((module) => ({ slug: module.slug }));
 }
 
-export default function ModulePage({ params }: ModulePageProps) {
-  const mod = getModule(params.slug);
+export default async function ModulePage({ params }: ModulePageProps) {
+  const { slug } = await params;
+  const mod = getModule(slug);
   if (!mod) notFound();
 
   const Icon = mod.icon;
