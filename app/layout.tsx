@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { TopBar } from "@/components/layout/TopBar";
+import { Footer } from "@/components/layout/Footer";
 import { MODULES } from "@/data/modules";
 import { getAllFlashcards } from "@/lib/flashcards";
 import { getAllFiches } from "@/lib/mdx";
@@ -37,7 +38,10 @@ export default function RootLayout({
           <Sidebar counts={counts} allCardIds={allCardIds} />
           <div className="flex flex-1 flex-col">
             <TopBar />
-            <main className="flex-1 overflow-y-auto p-5">{children}</main>
+            <main className="flex flex-1 flex-col overflow-y-auto">
+              <div className="flex-1 p-5">{children}</div>
+              <Footer />
+            </main>
           </div>
         </div>
       </body>
