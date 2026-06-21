@@ -9,6 +9,7 @@ import {
   FileText,
   HelpCircle,
   Server,
+  Info,
 } from "lucide-react";
 import { MODULES } from "@/data/modules";
 import { getModuleProgress } from "@/lib/progress";
@@ -144,6 +145,19 @@ export function Sidebar({ counts, allCardIds }: SidebarProps) {
               </li>
             );
           })}
+        </ul>
+
+        <ul className="mt-5 border-t border-border pt-3">
+          <li>
+            <Link
+              href="/a-propos"
+              className={navItemClass(isActive("/a-propos"))}
+              aria-current={isActive("/a-propos") ? "page" : undefined}
+            >
+              <Info className="h-[18px] w-[18px]" aria-hidden="true" />
+              À propos
+            </Link>
+          </li>
         </ul>
       </nav>
 

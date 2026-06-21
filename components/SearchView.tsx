@@ -2,21 +2,27 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Search } from "lucide-react";
-import { search } from "@/lib/search";
+import { Search, Layers, FileText } from "lucide-react";
+import { createSearchIndex, type SearchItem } from "@/lib/search";
 import { RichText } from "@/components/RichText";
 
 export interface SearchViewProps {
+  /** Éléments indexables (flashcards + fiches), fournis par le serveur. */
+  items: SearchItem[];
   /** Requête initiale (issue de `?q=`). */
   initialQuery?: string;
 }
 
 /** Page de recherche : filtrage full-text live sur le contenu (Fuse.js). */
-export function SearchView({ initialQuery = "" }: SearchViewProps) {
+export function SearchView({ items, initialQuery = "" }: SearchViewProps) {
   const [query, setQuery] = useState(initialQuery);
 
-  const results = useMemo(() => search(query), [query]);
+  const fuse = useMemo(() => createSearchIndex(items), [items]);
   const trimmed = query.trim();
+  const results = useMemo(
+    () => (trimmed.length < 2 ? [] : fuse.search(trimmed).map((r) => r.item)),
+    [fuse, trimmed],
+  );
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -68,8 +74,16 @@ export function SearchView({ initialQuery = "" }: SearchViewProps) {
                     >
                       {item.moduleName}
                     </span>
+                    <span className="inline-flex items-center gap-1 text-[11px] text-muted">
+                      {item.type === "fiche" ? (
+                        <FileText className="h-3 w-3" aria-hidden="true" />
+                      ) : (
+                        <Layers className="h-3 w-3" aria-hidden="true" />
+                      )}
+                      {item.type === "fiche" ? "Fiche" : "Flashcard"}
+                    </span>
                     <span className="text-[11px] uppercase tracking-wide text-muted">
-                      {item.theme}
+                      · {item.theme}
                     </span>
                   </div>
                   <p className="text-sm font-medium text-text">{item.title}</p>
