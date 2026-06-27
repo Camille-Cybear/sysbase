@@ -8,6 +8,7 @@ import {
   Layers,
   FileText,
   HelpCircle,
+  Dumbbell,
   Server,
   Info,
 } from "lucide-react";
@@ -35,7 +36,8 @@ interface NavLink {
   href: string;
   label: string;
   icon: typeof LayoutGrid;
-  badge: number;
+  /** Compteur optionnel affiché en badge. */
+  badge?: number;
 }
 
 /**
@@ -56,6 +58,7 @@ export function NavContent({ counts, allCardIds, onNavigate }: NavContentProps) 
     { href: "/flashcards", label: "Flashcards", icon: Layers, badge: counts.flashcards },
     { href: "/fiches", label: "Fiches tuto", icon: FileText, badge: counts.fiches },
     { href: "/quiz/reseaux", label: "Quiz QCM", icon: HelpCircle, badge: counts.quiz },
+    { href: "/exercices", label: "Exercices", icon: Dumbbell },
   ];
 
   const isActive = (href: string) =>
@@ -111,15 +114,17 @@ export function NavContent({ counts, allCardIds, onNavigate }: NavContentProps) 
                 >
                   <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
                   <span className="flex-1">{label}</span>
-                  <span
-                    className={`rounded-full px-1.5 py-px text-[10px] ${
-                      active
-                        ? "bg-primary/25 text-primary"
-                        : "bg-white/5 text-muted"
-                    }`}
-                  >
-                    {badge}
-                  </span>
+                  {badge !== undefined && (
+                    <span
+                      className={`rounded-full px-1.5 py-px text-[10px] ${
+                        active
+                          ? "bg-primary/25 text-primary"
+                          : "bg-white/5 text-muted"
+                      }`}
+                    >
+                      {badge}
+                    </span>
+                  )}
                 </Link>
               </li>
             );
