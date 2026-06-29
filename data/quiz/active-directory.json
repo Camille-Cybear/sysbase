@@ -1,0 +1,66 @@
+[
+  {
+    "id": "q-ad-001",
+    "module": "active-directory",
+    "question": "Quel fichier contient la base de données Active Directory sur un contrôleur de domaine ?",
+    "options": ["SAM", "NTDS.dit", "registry.pol", "AD.mdb"],
+    "correct": 1,
+    "explanation": "La base AD DS est stockée dans NTDS.dit sur chaque contrôleur de domaine. La base SAM, elle, stocke les comptes locaux d'une machine non membre du domaine.",
+    "tags": ["Active Directory", "NTDS.dit", "DC"]
+  },
+  {
+    "id": "q-ad-002",
+    "module": "active-directory",
+    "question": "Une unité d'organisation (OU) constitue-t-elle une frontière de sécurité ?",
+    "options": [
+      "Oui, comme le domaine",
+      "Non, c'est le domaine qui l'est",
+      "Oui, mais seulement pour les GPO",
+      "Non, c'est la forêt uniquement"
+    ],
+    "correct": 1,
+    "explanation": "L'OU sert à organiser, déléguer et appliquer des GPO, mais la frontière de sécurité est le domaine (et la forêt au plus haut niveau). Une OU n'isole pas la sécurité.",
+    "tags": ["OU", "sécurité", "domaine"]
+  },
+  {
+    "id": "q-ad-003",
+    "module": "active-directory",
+    "question": "Quel est l'ordre d'application des GPO ?",
+    "options": [
+      "OU → Domaine → Site → Local",
+      "Local → Site → Domaine → OU",
+      "Domaine → Site → OU → Local",
+      "Site → Local → Domaine → OU"
+    ],
+    "correct": 1,
+    "explanation": "L'ordre LSDOU : Local, Site, Domaine, OU. La dernière appliquée (l'OU la plus proche de l'objet) l'emporte, sauf blocage d'héritage ou GPO « Appliqué/Forcé ».",
+    "tags": ["GPO", "LSDOU"]
+  },
+  {
+    "id": "q-ad-004",
+    "module": "active-directory",
+    "question": "Quel protocole d'authentification Active Directory utilise-t-il par défaut ?",
+    "options": ["NTLM", "Kerberos", "RADIUS", "TACACS+"],
+    "correct": 1,
+    "explanation": "Active Directory utilise Kerberos (tickets, port 88) par défaut. NTLM n'est qu'un mécanisme de repli pour la compatibilité.",
+    "tags": ["Kerberos", "authentification"]
+  },
+  {
+    "id": "q-ad-005",
+    "module": "active-directory",
+    "question": "De quel service Active Directory dépend-il pour que les clients localisent les contrôleurs de domaine ?",
+    "options": ["DHCP", "DNS", "WINS", "NTP"],
+    "correct": 1,
+    "explanation": "AD dépend du DNS : les clients trouvent les DC via les enregistrements SRV. Sans DNS fonctionnel, ouverture de session, GPO et réplication échouent.",
+    "tags": ["DNS", "SRV", "DC"]
+  },
+  {
+    "id": "q-ad-006",
+    "module": "active-directory",
+    "question": "Combien de rôles FSMO existe-t-il dans Active Directory ?",
+    "options": ["3", "5", "7", "2"],
+    "correct": 1,
+    "explanation": "Il y a 5 rôles FSMO : 2 à l'échelle de la forêt (Schema Master, Domain Naming Master) et 3 par domaine (RID Master, PDC Emulator, Infrastructure Master).",
+    "tags": ["FSMO", "rôles"]
+  }
+]

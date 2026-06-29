@@ -1,0 +1,59 @@
+---
+title: "Les GPO — stratégies de groupe"
+module: "active-directory"
+theme: "GPO"
+difficulty: "medium"
+tags: ["GPO", "stratégie de groupe", "LSDOU", "héritage", "gpupdate"]
+updatedAt: "2026-06-29"
+---
+
+## À quoi sert une GPO ?
+
+Une **GPO** (Group Policy Object) est un ensemble de **paramètres** appliqués
+automatiquement aux utilisateurs et aux ordinateurs du domaine : règles de
+sécurité, scripts de connexion, déploiement de logiciels, restrictions du
+bureau, etc. C'est l'outil central pour **administrer un parc à grande échelle**
+sans toucher chaque poste.
+
+Une GPO comporte **deux volets** :
+
+- **Configuration ordinateur** : appliquée au **démarrage** de la machine.
+- **Configuration utilisateur** : appliquée à l'**ouverture de session**.
+
+## Où s'applique une GPO ?
+
+Une GPO se **lie** (link) à un **site**, un **domaine** ou une **OU**. Elle
+s'applique alors à tous les objets situés dans ce conteneur (et ses
+sous-conteneurs, par héritage).
+
+## L'ordre d'application : LSDOU
+
+Les GPO s'appliquent dans un ordre précis — **L · S · D · OU** :
+
+| Ordre | Niveau |
+| ----- | ------ |
+| 1 | **L**ocal (stratégie locale du poste) |
+| 2 | **S**ite |
+| 3 | **D**omaine |
+| 4 | **OU** (de la plus haute à la plus profonde) |
+
+La règle clé : **la dernière appliquée gagne**. Comme l'OU est traitée en
+dernier, c'est la GPO **la plus proche de l'objet** qui l'emporte en cas de
+conflit.
+
+> 💡 Deux exceptions inversent la logique : **« Bloquer l'héritage »** (block
+> inheritance) sur une OU, et **« Appliqué/Forcé »** (enforced) sur un lien GPO,
+> qui passe outre le blocage et la priorité.
+
+## Mettre à jour et dépanner
+
+```bash
+# Forcer l'application immédiate des GPO sur un poste
+gpupdate /force
+
+# Générer un rapport des GPO réellement appliquées (Resultant Set of Policy)
+gpresult /r
+```
+
+`gpresult /r` est l'outil de référence pour comprendre **pourquoi** une stratégie
+s'applique (ou non) à un utilisateur ou une machine donnée.

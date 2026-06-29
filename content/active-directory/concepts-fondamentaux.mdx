@@ -1,0 +1,56 @@
+---
+title: "Active Directory — concepts fondamentaux"
+module: "active-directory"
+theme: "Concepts"
+difficulty: "easy"
+tags: ["Active Directory", "domaine", "contrôleur de domaine", "OU", "LDAP"]
+updatedAt: "2026-06-29"
+---
+
+## Qu'est-ce qu'Active Directory ?
+
+**Active Directory Domain Services (AD DS)** est l'annuaire de Microsoft pour
+les réseaux Windows. Il centralise dans une **base hiérarchique** les **objets**
+de l'organisation — utilisateurs, groupes, ordinateurs — et permet une
+**authentification** et une **gestion centralisées** (un seul compte pour
+accéder à toutes les ressources du domaine).
+
+La base est hébergée sur les **contrôleurs de domaine (DC)** dans le fichier
+`NTDS.dit`. Plusieurs DC **répliquent** entre eux pour la tolérance de panne.
+
+## Domaine, arbre et forêt
+
+| Notion | Définition |
+| ------ | ---------- |
+| **Domaine** | Frontière d'**administration** et unité de réplication (ex. `corp.exemple.fr`) |
+| **Arbre** | Domaines partageant un **espace de noms contigu** |
+| **Forêt** | Conteneur de plus haut niveau ; c'est la **frontière de sécurité** |
+
+## Les objets et les unités d'organisation
+
+Un **objet** représente une ressource (utilisateur, ordinateur, groupe…). Pour
+les organiser, on utilise des **unités d'organisation (OU)** : des conteneurs
+qui servent à **structurer**, **déléguer l'administration** et **appliquer des
+GPO**.
+
+> 💡 Une OU **n'est pas** une frontière de sécurité — c'est le **domaine** qui
+> joue ce rôle. L'OU sert à organiser et à cibler les stratégies.
+
+## Le rôle central du DNS
+
+Active Directory **dépend du DNS** : les clients localisent les contrôleurs de
+domaine grâce aux **enregistrements SRV** (`_ldap._tcp.dc._msdcs.<domaine>`).
+Sans DNS fonctionnel, **rien ne marche** : ouverture de session, GPO,
+réplication…
+
+## Protocoles et ports utiles
+
+| Service | Port |
+| ------- | ---- |
+| LDAP (requêtes annuaire) | 389 (636 pour LDAPS) |
+| Kerberos (authentification) | 88 |
+| DNS | 53 |
+| Catalogue global | 3268 |
+
+L'**authentification** par défaut repose sur **Kerberos** (tickets) ; **NTLM**
+n'est conservé qu'en repli pour la compatibilité.

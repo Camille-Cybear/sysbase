@@ -1,0 +1,74 @@
+[
+  {
+    "id": "ad-001",
+    "module": "active-directory",
+    "theme": "Concepts",
+    "question": "Qu'est-ce qu'un contrôleur de domaine (DC) ?",
+    "answer": "Un **contrôleur de domaine** est un serveur qui héberge la base **Active Directory** (`NTDS.dit`) et traite les **authentifications**. Plusieurs DC d'un même domaine **répliquent** entre eux pour la tolérance de panne.",
+    "tags": ["Active Directory", "DC", "contrôleur de domaine"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "ad-002",
+    "module": "active-directory",
+    "theme": "Concepts",
+    "question": "Quelle différence entre un domaine, un arbre et une forêt ?",
+    "answer": "Un **domaine** est une frontière d'administration (ex. `corp.exemple.fr`). Un **arbre** regroupe des domaines à **espace de noms contigu**. La **forêt** est le conteneur de plus haut niveau et constitue la **frontière de sécurité**.",
+    "tags": ["domaine", "forêt", "arbre"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "ad-003",
+    "module": "active-directory",
+    "theme": "Concepts",
+    "question": "À quoi sert une unité d'organisation (OU) ?",
+    "answer": "Une **OU** est un conteneur qui sert à **organiser** les objets, **déléguer** l'administration et **appliquer des GPO**. Attention : une OU **n'est pas** une frontière de sécurité — c'est le **domaine** qui joue ce rôle.",
+    "tags": ["OU", "délégation", "GPO"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "ad-004",
+    "module": "active-directory",
+    "theme": "GPO",
+    "question": "Qu'est-ce qu'une GPO et quels sont ses deux volets ?",
+    "answer": "Une **GPO** (Group Policy Object) applique automatiquement des paramètres aux objets du domaine. Elle a deux volets : **Configuration ordinateur** (appliquée au démarrage) et **Configuration utilisateur** (appliquée à l'ouverture de session).",
+    "tags": ["GPO", "stratégie de groupe"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "ad-005",
+    "module": "active-directory",
+    "theme": "GPO",
+    "question": "Dans quel ordre les GPO s'appliquent-elles ?",
+    "answer": "L'ordre **LSDOU** : **L**ocal, **S**ite, **D**omaine, **OU** (de la plus haute à la plus profonde). La **dernière appliquée gagne**, donc la GPO **la plus proche de l'objet** (OU) l'emporte — sauf « Bloquer l'héritage » ou « Appliqué/Forcé ».",
+    "tags": ["GPO", "LSDOU", "héritage"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "ad-006",
+    "module": "active-directory",
+    "theme": "Groupes",
+    "question": "Quelle est la différence entre un groupe de sécurité et un groupe de distribution ?",
+    "answer": "Un **groupe de sécurité** peut se voir attribuer des **permissions** sur des ressources (et sert aussi de liste de diffusion). Un **groupe de distribution** sert **uniquement** aux listes de messagerie : il **ne porte aucune permission**.",
+    "tags": ["groupes", "sécurité", "distribution"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "ad-007",
+    "module": "active-directory",
+    "theme": "FSMO",
+    "question": "Combien y a-t-il de rôles FSMO et lesquels sont à l'échelle de la forêt ?",
+    "answer": "Il y a **5 rôles FSMO**. Deux sont **à l'échelle de la forêt** : **Schema Master** et **Domain Naming Master**. Les trois autres sont **par domaine** : **RID Master**, **PDC Emulator**, **Infrastructure Master**.",
+    "tags": ["FSMO", "rôles", "forêt"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "ad-008",
+    "module": "active-directory",
+    "theme": "Authentification",
+    "question": "Quel protocole d'authentification Active Directory utilise-t-il par défaut ?",
+    "answer": "**Kerberos** (authentification par **tickets**, port **88**) est utilisé par défaut. **NTLM** n'est conservé qu'en **repli** pour la compatibilité avec d'anciens systèmes. AD dépend aussi du **DNS** (enregistrements SRV) pour localiser les DC.",
+    "tags": ["Kerberos", "NTLM", "authentification"],
+    "difficulty": "medium"
+  }
+]
