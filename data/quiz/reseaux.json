@@ -58,5 +58,51 @@
     "correct": 0,
     "explanation": "Le processus DORA suit l'ordre Discover, Offer, Request, Acknowledge.",
     "tags": ["DHCP", "DORA"]
+  },
+  {
+    "id": "q-net-006",
+    "module": "reseaux",
+    "question": "Sur quel port et quel protocole de transport le DNS répond-il aux requêtes classiques ?",
+    "options": [
+      "Port 53 en UDP",
+      "Port 53 en TCP",
+      "Port 80 en TCP",
+      "Port 67 en UDP"
+    ],
+    "correct": 0,
+    "explanation": "Le DNS utilise le port 53. Les requêtes classiques passent en UDP (rapide) ; le TCP/53 sert aux réponses volumineuses et aux transferts de zone. Le port 67/68 concerne DHCP.",
+    "tags": ["DNS", "ports", "UDP"]
+  },
+  {
+    "id": "q-net-007",
+    "module": "reseaux",
+    "question": "Quel protocole de transport est sans connexion et ne garantit pas la livraison ?",
+    "options": ["TCP", "UDP", "ICMP", "ARP"],
+    "correct": 1,
+    "explanation": "UDP est sans connexion et non fiable (pas de handshake ni d'accusés de réception), mais léger et rapide. TCP, lui, est orienté connexion et fiable.",
+    "tags": ["UDP", "TCP", "transport"]
+  },
+  {
+    "id": "q-net-008",
+    "module": "reseaux",
+    "question": "Quel enregistrement DNS réalise la résolution inverse (IP → nom) ?",
+    "options": ["A", "CNAME", "PTR", "MX"],
+    "correct": 2,
+    "explanation": "Le PTR (pointer) associe une adresse IP à un nom : c'est la résolution inverse. A fait nom → IPv4, CNAME est un alias, MX désigne le serveur mail.",
+    "tags": ["DNS", "PTR", "résolution inverse"]
+  },
+  {
+    "id": "q-net-009",
+    "module": "reseaux",
+    "question": "À quelle couche OSI se situe l'adresse MAC ?",
+    "options": [
+      "Couche 1 — Physique",
+      "Couche 2 — Liaison",
+      "Couche 3 — Réseau",
+      "Couche 4 — Transport"
+    ],
+    "correct": 1,
+    "explanation": "L'adresse MAC est gérée à la couche 2 (Liaison de données), celle des trames et des switches. L'adressage logique (IP) est à la couche 3.",
+    "tags": ["OSI", "MAC", "couche 2"]
   }
 ]

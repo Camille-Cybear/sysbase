@@ -115,5 +115,59 @@
     "answer": "En début de ligne : **`C`** = réseau **connecté** directement, **`S`** = route **statique**, **`O`** = route apprise par **OSPF** (`R` pour RIP, `B` pour BGP). Le **`*`** marque la route candidate par défaut. Entre crochets `[AD/métrique]`, ex. `[110/2]` = OSPF, coût 2.",
     "tags": ["routage", "show ip route", "Cisco"],
     "difficulty": "easy"
+  },
+  {
+    "id": "net-014",
+    "module": "reseaux",
+    "theme": "Modèle OSI",
+    "question": "Cite les 7 couches du modèle OSI, de la couche 1 à la couche 7.",
+    "answer": "**1.** Physique, **2.** Liaison, **3.** Réseau, **4.** Transport, **5.** Session, **6.** Présentation, **7.** Application. Moyen mnémotechnique : « **P**our **L**e **R**éseau, **T**out **S**e **P**asse **A**utomatiquement ».",
+    "tags": ["OSI", "couches"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "net-015",
+    "module": "reseaux",
+    "theme": "Modèle OSI",
+    "question": "Comment s'appelle l'unité de données (PDU) aux couches Transport, Réseau et Liaison ?",
+    "answer": "Transport → **segment** (TCP) ou datagramme (UDP) ; Réseau → **paquet** ; Liaison → **trame**. À la couche Physique, ce sont des **bits**. Chaque couche ajoute son en-tête : c'est l'**encapsulation**.",
+    "tags": ["OSI", "encapsulation", "PDU"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "net-016",
+    "module": "reseaux",
+    "theme": "Transport",
+    "question": "Quelle est la différence entre TCP et UDP ?",
+    "answer": "**TCP** est **orienté connexion** et **fiable** : établissement (3-way handshake), accusés de réception, retransmission, remise dans l'ordre. **UDP** est **sans connexion** et **non fiable** mais **léger et rapide** (pas de handshake ni d'accusés) — idéal pour DNS, VoIP, streaming.",
+    "tags": ["TCP", "UDP", "transport"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "net-017",
+    "module": "reseaux",
+    "theme": "DNS",
+    "question": "À quoi servent les enregistrements DNS de type MX et PTR ?",
+    "answer": "Un enregistrement **MX** (Mail eXchange) désigne le **serveur de messagerie** d'un domaine. Un enregistrement **PTR** fait la **résolution inverse** : il associe une **adresse IP à un nom** (l'inverse d'un enregistrement A).",
+    "tags": ["DNS", "MX", "PTR", "résolution inverse"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "net-018",
+    "module": "reseaux",
+    "theme": "DNS",
+    "question": "Quelle différence entre une résolution DNS récursive et itérative ?",
+    "answer": "En **récursif**, le serveur interrogé (le resolver) **prend en charge toute la résolution** et renvoie la réponse finale au client. En **itératif**, chaque serveur renvoie **la meilleure info qu'il a** (un renvoi vers un serveur plus précis), sans faire le travail à la place du demandeur.",
+    "tags": ["DNS", "récursif", "itératif", "resolver"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "net-019",
+    "module": "reseaux",
+    "theme": "DHCP",
+    "question": "À quoi sert un relais DHCP (DHCP relay / ip helper-address) ?",
+    "answer": "Les requêtes DHCP sont des **broadcasts**, qui ne traversent pas les routeurs. Un **relais DHCP** (configuré par `ip helper-address` sur l'interface) **transmet** ces requêtes en **unicast** vers un serveur DHCP situé sur un **autre sous-réseau**, évitant d'installer un serveur par VLAN.",
+    "tags": ["DHCP", "relais", "ip helper-address", "broadcast"],
+    "difficulty": "hard"
   }
 ]

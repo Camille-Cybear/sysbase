@@ -1,0 +1,71 @@
+---
+title: "Le modèle OSI — les 7 couches"
+module: "reseaux"
+theme: "Modèle OSI"
+difficulty: "easy"
+tags: ["OSI", "couches", "encapsulation", "TCP/IP", "PDU"]
+updatedAt: "2026-06-29"
+---
+
+## À quoi sert le modèle OSI ?
+
+Le modèle **OSI** (Open Systems Interconnection) est un **modèle théorique** en
+**7 couches** qui décrit comment deux machines communiquent sur un réseau.
+Chaque couche rend un service à la couche supérieure et s'appuie sur la couche
+inférieure. Il sert surtout de **référence commune** pour comprendre, concevoir
+et **dépanner** un réseau (« le problème est à quelle couche ? »).
+
+## Les 7 couches
+
+| N° | Couche | Rôle | Exemples |
+| -- | ------ | ---- | -------- |
+| 7 | Application | Services réseau aux logiciels | HTTP, DNS, SMTP, FTP |
+| 6 | Présentation | Format, chiffrement, compression | TLS, ASCII, JPEG |
+| 5 | Session | Ouverture/maintien des sessions | RPC, NetBIOS |
+| 4 | Transport | Segmentation, fiabilité, ports | TCP, UDP |
+| 3 | Réseau | Adressage logique et routage | IP, ICMP |
+| 2 | Liaison | Adressage physique (MAC), trames | Ethernet, 802.1Q, ARP |
+| 1 | Physique | Transmission des bits | câbles, fibre, signaux |
+
+> 💡 Moyen mnémotechnique (de 1 à 7) : **« Pour Le Réseau, Tout Se Passe
+> Automatiquement »** — **P**hysique, **L**iaison, **R**éseau, **T**ransport,
+> **S**ession, **P**résentation, **A**pplication.
+
+## Équipements par couche
+
+| Couche | Équipement |
+| ------ | ---------- |
+| 1 — Physique | Concentrateur (hub), répéteur |
+| 2 — Liaison | Switch, pont |
+| 3 — Réseau | Routeur, switch L3 |
+| 7 — Application | Pare-feu applicatif, proxy |
+
+## Encapsulation et PDU
+
+Quand les données descendent la pile, **chaque couche ajoute son en-tête** :
+c'est l'**encapsulation**. L'unité de données (**PDU**) change de nom selon la
+couche :
+
+| Couche | PDU |
+| ------ | --- |
+| Transport | **Segment** (TCP) / Datagramme (UDP) |
+| Réseau | **Paquet** |
+| Liaison | **Trame** (header + FCS) |
+| Physique | **Bits** |
+
+À la réception, l'opération inverse (**désencapsulation**) retire les en-têtes
+couche par couche.
+
+## OSI vs TCP/IP
+
+En pratique, c'est le modèle **TCP/IP (DoD) à 4 couches** qui est implémenté :
+
+| TCP/IP | Couches OSI correspondantes |
+| ------ | --------------------------- |
+| Application | 7 + 6 + 5 |
+| Transport | 4 |
+| Internet | 3 |
+| Accès réseau | 2 + 1 |
+
+> 💡 En dépannage, on raisonne **de bas en haut** : un câble débranché (couche
+> 1) ou un mauvais VLAN (couche 2) avant de soupçonner le DNS (couche 7).

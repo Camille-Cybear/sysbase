@@ -1,0 +1,70 @@
+---
+title: "DNS — la résolution de noms"
+module: "reseaux"
+theme: "DNS"
+difficulty: "medium"
+tags: ["DNS", "résolution", "enregistrements", "TTL", "récursif"]
+updatedAt: "2026-06-29"
+---
+
+## Le rôle du DNS
+
+Le **DNS** (Domain Name System) traduit les **noms de domaine** lisibles par
+l'humain (`www.example.com`) en **adresses IP** exploitables par les machines —
+et inversement. C'est l'annuaire d'Internet : sans lui, il faudrait retenir les
+adresses IP de chaque service.
+
+Le DNS écoute sur le **port 53** : en **UDP** pour les requêtes classiques, en
+**TCP** pour les réponses volumineuses et les **transferts de zone**.
+
+## Une hiérarchie en arborescence
+
+L'espace de noms est hiérarchique, lu **de droite à gauche** :
+
+- la **racine** (`.`), gérée par les serveurs racines ;
+- les **TLD** (Top Level Domains) : `.fr`, `.com`, `.org`… ;
+- le **domaine** faisant autorité : `example.com` ;
+- les **sous-domaines** et hôtes : `www`, `mail`…
+
+## Les principaux enregistrements
+
+| Type | Rôle |
+| ---- | ---- |
+| `A` | Nom → adresse **IPv4** |
+| `AAAA` | Nom → adresse **IPv6** |
+| `CNAME` | **Alias** vers un autre nom |
+| `MX` | Serveur de **messagerie** du domaine |
+| `NS` | Serveur **DNS faisant autorité** sur la zone |
+| `PTR` | Adresse IP → nom (**résolution inverse**) |
+| `TXT` | Texte libre (SPF, DKIM, vérifications) |
+| `SOA` | Paramètres d'autorité de la **zone** |
+
+## Résolution récursive vs itérative
+
+```bash
+# Le client interroge son resolver en mode récursif :
+# « donne-moi la réponse finale »
+client → resolver (DNS récursif)
+
+# Le resolver interroge ensuite la chaîne en mode itératif :
+# chaque serveur renvoie « je ne sais pas, mais demande à… »
+resolver → racine        → « demande au TLD .com »
+resolver → serveur .com  → « demande à example.com »
+resolver → example.com   → « voici l'enregistrement A »
+```
+
+- **Récursif** : le serveur interrogé **prend en charge** toute la résolution et
+  renvoie la réponse finale (c'est le rôle du resolver/cache du FAI).
+- **Itératif** : chaque serveur répond avec **la meilleure info qu'il a** (un
+  renvoi vers un serveur plus précis), sans faire le travail à la place du
+  demandeur.
+
+## Cache et TTL
+
+Chaque enregistrement possède un **TTL** (Time To Live) : la durée pendant
+laquelle un resolver peut **garder la réponse en cache** avant de réinterroger.
+Un TTL court accélère la prise en compte des changements (utile avant une
+migration), mais augmente le nombre de requêtes.
+
+> 💡 Pour diagnostiquer : `nslookup example.com` ou `dig example.com A`.
+> `dig -x 8.8.8.8` effectue une résolution **inverse** (PTR).
