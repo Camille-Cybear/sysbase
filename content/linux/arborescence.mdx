@@ -1,0 +1,46 @@
+---
+title: "Linux — l'arborescence des fichiers (FHS)"
+module: "linux"
+theme: "Système de fichiers"
+difficulty: "easy"
+tags: ["FHS", "arborescence", "/etc", "/var", "dossiers"]
+updatedAt: "2026-06-29"
+---
+
+## Une arborescence unique
+
+Sous Linux, **tout part de la racine `/`** : il n'y a pas de « lecteur C: ».
+Les disques et partitions sont **montés** à des endroits de cette arborescence.
+Son organisation suit la norme **FHS** (Filesystem Hierarchy Standard).
+
+## Les dossiers essentiels
+
+| Dossier | Rôle |
+| ------- | ---- |
+| `/` | la **racine** de toute l'arborescence |
+| `/etc` | **fichiers de configuration** du système et des services |
+| `/home` | dossiers **personnels** des utilisateurs |
+| `/root` | dossier personnel de l'utilisateur **root** |
+| `/var` | données **variables** : logs, mails, files d'attente, sites web |
+| `/var/log` | **journaux** du système et des services |
+| `/bin`, `/sbin` | **commandes essentielles** (`/sbin` = administration) |
+| `/usr` | programmes et données des **applications** (`/usr/bin`, `/usr/local`) |
+| `/tmp` | fichiers **temporaires** (souvent vidés au redémarrage) |
+| `/opt` | logiciels **tiers** installés manuellement |
+| `/boot` | **noyau** et chargeur de démarrage (GRUB) |
+| `/dev` | **fichiers de périphériques** (disques, terminaux…) |
+| `/proc`, `/sys` | systèmes de fichiers **virtuels** (infos noyau et processus) |
+| `/mnt`, `/media` | points de **montage** (manuels / amovibles) |
+
+## Quelques repères utiles
+
+- La **config** d'un service est presque toujours dans `/etc` (ex.
+  `/etc/ssh/sshd_config`, `/etc/fstab`).
+- Pour **diagnostiquer**, on regarde d'abord `/var/log` (ex.
+  `/var/log/syslog`, `/var/log/auth.log`).
+- `/proc` et `/sys` ne sont **pas** sur le disque : ce sont des vues du noyau en
+  mémoire (`/proc/cpuinfo`, `/proc/meminfo`…).
+
+> 💡 Distinction classique : `/bin` et `/sbin` contiennent les commandes
+> **vitales au démarrage** ; `/usr/bin` le reste des programmes. Sur les
+> distributions récentes, `/bin` est souvent un **lien** vers `/usr/bin`.

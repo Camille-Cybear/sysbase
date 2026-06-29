@@ -124,5 +124,104 @@
     "answer": "Avec **`scp`** : `scp fichier.txt alice@serveur:/tmp/` (ajouter **`-r`** pour un dossier). Alternatives : **`sftp`** (session de transfert interactive) et **`rsync`** (synchronisation efficace). Tout transite de façon **chiffrée** par SSH.",
     "tags": ["scp", "sftp", "transfert"],
     "difficulty": "easy"
+  },
+  {
+    "id": "lnx-015",
+    "module": "linux",
+    "theme": "Stockage",
+    "question": "Quelles commandes pour identifier les disques et partitions ?",
+    "answer": "**`lsblk`** (arborescence disques/partitions), **`sudo fdisk -l`** (détail et table de partitions), **`sudo blkid`** (UUID et type de système de fichiers). Les disques sont en `/dev/sda`, `/dev/sdb`… et les partitions en `/dev/sdb1`…",
+    "tags": ["lsblk", "blkid", "fdisk"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-016",
+    "module": "linux",
+    "theme": "Stockage",
+    "question": "Quelles sont les étapes pour ajouter et utiliser un nouveau disque ?",
+    "answer": "1. **Identifier** (`lsblk`), 2. **Partitionner** (`fdisk`/`cfdisk`), 3. **Formater** (`mkfs.ext4`), 4. **Monter** (`mount`), 5. **Rendre permanent** dans `/etc/fstab`. On formate la **partition** (`/dev/sdb1`), pas le disque entier.",
+    "tags": ["partitionnement", "montage", "étapes"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "lnx-017",
+    "module": "linux",
+    "theme": "Stockage",
+    "question": "Quelle commande crée un système de fichiers ext4 sur une partition ?",
+    "answer": "**`sudo mkfs.ext4 /dev/sdb1`** (ou `mkfs.xfs` pour XFS). Le formatage se fait sur la **partition** (`sdb1`), pas sur le disque (`sdb`). Attention : `mkfs` **efface** les données présentes.",
+    "tags": ["mkfs", "ext4", "formatage"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-018",
+    "module": "linux",
+    "theme": "Stockage",
+    "question": "Comment rendre un montage permanent, et pourquoi utiliser l'UUID ?",
+    "answer": "On ajoute une ligne dans **`/etc/fstab`** (ex. `UUID=… /mnt/data ext4 defaults 0 2`). On utilise l'**UUID** (obtenu via `blkid`) car les noms `/dev/sdX` **peuvent changer** entre deux démarrages. Toujours tester avec **`mount -a`** avant un reboot — une erreur dans fstab peut empêcher le démarrage.",
+    "tags": ["fstab", "UUID", "mount -a"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "lnx-019",
+    "module": "linux",
+    "theme": "Stockage",
+    "question": "Comment créer et activer un fichier de swap ?",
+    "answer": "**`fallocate -l 2G /swapfile`** → **`chmod 600 /swapfile`** → **`mkswap /swapfile`** → **`swapon /swapfile`**. Vérifier avec `swapon --show` ou `free -h`. Pour le rendre permanent : ligne `/swapfile none swap sw 0 0` dans `/etc/fstab`.",
+    "tags": ["swap", "mkswap", "swapon"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "lnx-020",
+    "module": "linux",
+    "theme": "Système de fichiers",
+    "question": "Que contiennent les dossiers /etc et /var/log ?",
+    "answer": "**`/etc`** contient les **fichiers de configuration** du système et des services (ex. `/etc/ssh/sshd_config`, `/etc/fstab`). **`/var/log`** contient les **journaux** (ex. `/var/log/syslog`, `/var/log/auth.log`) — le premier endroit à regarder pour diagnostiquer.",
+    "tags": ["FHS", "/etc", "/var/log"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "lnx-021",
+    "module": "linux",
+    "theme": "Système de fichiers",
+    "question": "À quoi servent /proc et /sys ?",
+    "answer": "Ce sont des systèmes de fichiers **virtuels** : ils ne sont **pas sur le disque** mais exposent en temps réel des informations du **noyau** et des **processus** (ex. `/proc/cpuinfo`, `/proc/meminfo`). Ils sont générés en mémoire.",
+    "tags": ["FHS", "/proc", "/sys", "virtuel"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-022",
+    "module": "linux",
+    "theme": "Système de fichiers",
+    "question": "Quelle différence entre /home et /root ?",
+    "answer": "**`/home`** contient les dossiers personnels des **utilisateurs standards** (`/home/alice`…). **`/root`** est le dossier personnel **de l'utilisateur root** (il n'est pas dans `/home`).",
+    "tags": ["FHS", "/home", "/root"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "lnx-023",
+    "module": "linux",
+    "theme": "Diagnostic",
+    "question": "Si `ping 8.8.8.8` fonctionne mais pas `ping google.com`, où est le problème ?",
+    "answer": "Le **DNS**. La connectivité IP est bonne (l'adresse répond), mais la **résolution de noms** échoue : on vérifie alors la configuration DNS (`/etc/resolv.conf`, `dig`/`nslookup`).",
+    "tags": ["ping", "DNS", "diagnostic"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-024",
+    "module": "linux",
+    "theme": "Diagnostic",
+    "question": "Quelle commande liste les ports en écoute avec le processus associé ?",
+    "answer": "**`ss -tlnp`** : `-t` TCP, `-l` en écoute, `-n` numérique, `-p` processus. `ss` remplace l'ancien `netstat`. C'est l'outil pour répondre à « quel service écoute sur quel port ? ».",
+    "tags": ["ss", "netstat", "ports"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-025",
+    "module": "linux",
+    "theme": "Diagnostic",
+    "question": "Quelles commandes `ip` remplacent `ifconfig` et `route` ?",
+    "answer": "**`ip a`** (adresses des interfaces, remplace `ifconfig`) et **`ip r`** (table de routage et passerelle par défaut, remplace `route`). **`ip link`** gère l'état up/down des interfaces.",
+    "tags": ["ip", "ifconfig", "route"],
+    "difficulty": "medium"
   }
 ]

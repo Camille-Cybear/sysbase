@@ -1,0 +1,122 @@
+---
+title: "Linux — partitionnement, montage et swap"
+module: "linux"
+theme: "Stockage"
+difficulty: "hard"
+tags: ["partitionnement", "montage", "fstab", "swap", "mkfs"]
+updatedAt: "2026-06-29"
+---
+
+## Vue d'ensemble
+
+Ajouter un disque à un système Linux suit toujours les **mêmes étapes** :
+
+1. **Identifier** le disque
+2. **Partitionner**
+3. **Formater** (créer un système de fichiers)
+4. **Monter** (temporairement)
+5. **Rendre le montage permanent** (`/etc/fstab`)
+
+## 1. Identifier le disque
+
+```bash
+lsblk                # arborescence des disques et partitions
+sudo fdisk -l        # détail des disques (taille, table de partitions)
+sudo blkid           # UUID et type de système de fichiers
+```
+
+Les disques apparaissent en `/dev/sda`, `/dev/sdb`… et leurs partitions en
+`/dev/sdb1`, `/dev/sdb2`…
+
+> 💡 **MBR vs GPT** : le MBR plafonne à **2 To** et **4 partitions primaires** ;
+> le **GPT** (moderne) lève ces limites. On partitionne le MBR avec `fdisk`, le
+> GPT avec `gdisk` ou `parted`.
+
+## 2. Partitionner
+
+```bash
+sudo fdisk /dev/sdb
+#  n  → nouvelle partition
+#  p  → primaire
+#  1  → numéro de partition
+#  ⏎  → premier secteur (défaut)
+# +10G → taille
+#  w  → écrire les changements et quitter
+```
+
+`cfdisk /dev/sdb` propose la même chose en **interface texte** plus lisible.
+
+## 3. Formater (système de fichiers)
+
+```bash
+sudo mkfs.ext4 /dev/sdb1     # formate en ext4
+sudo mkfs.xfs  /dev/sdb1     # ou en XFS
+```
+
+## 4. Monter temporairement
+
+```bash
+sudo mkdir /mnt/data             # crée le point de montage
+sudo mount /dev/sdb1 /mnt/data   # monte la partition
+df -h                            # vérifie l'espace monté
+```
+
+Ce montage est **perdu au redémarrage**. Pour le démonter : `sudo umount
+/mnt/data`.
+
+## 5. Rendre le montage permanent : /etc/fstab
+
+On déclare le montage dans **`/etc/fstab`**, en utilisant l'**UUID** (stable),
+pas le nom `/dev/sdbX` (qui peut changer d'un démarrage à l'autre).
+
+```bash
+sudo blkid /dev/sdb1        # récupère l'UUID
+```
+
+Puis on ajoute une ligne dans `/etc/fstab` :
+
+```bash
+UUID=1234-abcd  /mnt/data  ext4  defaults  0  2
+```
+
+| Champ | Rôle |
+| ----- | ---- |
+| UUID / device | **quoi** monter |
+| Point de montage | **où** le monter |
+| Type | système de fichiers (`ext4`, `xfs`, `swap`) |
+| Options | `defaults`, `noatime`, `ro`… |
+| dump | sauvegarde (presque toujours `0`) |
+| pass | ordre du `fsck` : `0` aucun, `1` racine, `2` autres |
+
+```bash
+sudo mount -a              # monte tout /etc/fstab et VALIDE la syntaxe
+```
+
+> 💡 **Toujours** tester avec `mount -a` avant un redémarrage : une erreur dans
+> `/etc/fstab` peut rendre le système **non démarrable**. Si `mount -a` ne
+> renvoie aucune erreur, le reboot se passera bien.
+
+## Gérer le swap
+
+Le **swap** est l'espace d'échange utilisé quand la RAM est saturée. Il peut
+être une **partition** ou un **fichier**.
+
+```bash
+# --- Fichier d'échange (simple à ajouter) ---
+sudo fallocate -l 2G /swapfile     # crée un fichier de 2 Go
+sudo chmod 600 /swapfile           # sécurise (lisible par root seul)
+sudo mkswap /swapfile              # prépare la zone de swap
+sudo swapon /swapfile              # active le swap
+swapon --show                      # vérifie
+free -h                            # RAM + swap utilisés
+```
+
+Pour le rendre **permanent**, ajouter dans `/etc/fstab` :
+
+```bash
+/swapfile  none  swap  sw  0  0
+```
+
+> 💡 Pour une **partition** de swap : `sudo mkswap /dev/sdb2` puis `sudo swapon
+> /dev/sdb2`. Dans `fstab`, on référence alors son **UUID** avec le type
+> `swap`. `swapoff` désactive le swap.

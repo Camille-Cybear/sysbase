@@ -1,0 +1,71 @@
+---
+title: "Linux — outils de diagnostic réseau"
+module: "linux"
+theme: "Diagnostic"
+difficulty: "medium"
+tags: ["ping", "traceroute", "nslookup", "ip", "ss", "diagnostic"]
+updatedAt: "2026-06-29"
+---
+
+## Une méthode : de la couche basse vers la haute
+
+Quand « ça ne marche pas », on remonte les couches dans l'ordre : **interface →
+adresse IP → passerelle → DNS → service**. Chaque outil teste une étape.
+
+## Tester la connectivité : ping
+
+```bash
+ping 8.8.8.8         # joignabilité (ICMP) — Ctrl+C pour arrêter
+ping -c 4 8.8.8.8    # limite à 4 paquets
+```
+
+Si `ping 8.8.8.8` (IP) marche mais pas `ping google.com` (nom), le **problème
+est le DNS**, pas la connectivité.
+
+## Suivre le chemin : traceroute
+
+```bash
+traceroute google.com    # liste les routeurs (sauts) traversés
+tracepath google.com     # variante sans privilèges root
+```
+
+Utile pour voir **où** un paquet se bloque sur le trajet.
+
+## Résolution de noms : nslookup / dig
+
+```bash
+nslookup google.com      # résout un nom en IP
+dig google.com A         # requête détaillée (plus complet)
+dig -x 8.8.8.8           # résolution inverse (IP → nom)
+```
+
+## Interfaces et routes : ip
+
+La commande `ip` remplace les anciennes `ifconfig` et `route` :
+
+| Commande | Rôle |
+| -------- | ---- |
+| `ip a` | adresses IP des interfaces |
+| `ip r` | table de routage (dont la passerelle par défaut) |
+| `ip link` | état des interfaces (up/down) |
+
+## Ports et connexions : ss
+
+```bash
+ss -tlnp     # ports TCP en écoute (-l) avec le processus (-p)
+ss -tan      # toutes les connexions TCP
+```
+
+`ss` remplace `netstat`. C'est l'outil pour répondre à « **quel service écoute
+sur quel port ?** ».
+
+## Tester un service applicatif : curl
+
+```bash
+curl -I https://exemple.fr     # en-têtes HTTP (teste un serveur web)
+curl https://exemple.fr        # récupère le contenu
+```
+
+> 💡 Démarche type : `ip a` (ai-je une IP ?) → `ip r` (ai-je une passerelle ?)
+> → `ping` la passerelle puis `8.8.8.8` (Internet ?) → `dig` (le DNS ?) →
+> `curl`/`ss` (le service ?). On isole ainsi la couche fautive.

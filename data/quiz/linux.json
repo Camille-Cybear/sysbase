@@ -114,5 +114,32 @@
     "correct": 1,
     "explanation": "PermitRootLogin no empêche la connexion SSH directe du compte root. PasswordAuthentication no, lui, désactive l'authentification par mot de passe (clés uniquement).",
     "tags": ["SSH", "sshd_config", "durcissement"]
+  },
+  {
+    "id": "q-lnx-010",
+    "module": "linux",
+    "question": "Dans quel fichier déclare-t-on un montage pour qu'il persiste au redémarrage ?",
+    "options": ["/etc/mtab", "/etc/fstab", "/etc/mount.conf", "/proc/mounts"],
+    "correct": 1,
+    "explanation": "/etc/fstab décrit les montages permanents. On y référence de préférence l'UUID (stable) et on valide avec `mount -a` avant un reboot.",
+    "tags": ["fstab", "montage"]
+  },
+  {
+    "id": "q-lnx-011",
+    "module": "linux",
+    "question": "Quelle commande active un fichier de swap après l'avoir préparé avec mkswap ?",
+    "options": ["swapon /swapfile", "mount /swapfile", "swapadd /swapfile", "free /swapfile"],
+    "correct": 0,
+    "explanation": "swapon active le swap (swapoff le désactive). La préparation se fait avec mkswap, et la persistance via une ligne `swap` dans /etc/fstab.",
+    "tags": ["swap", "swapon"]
+  },
+  {
+    "id": "q-lnx-012",
+    "module": "linux",
+    "question": "Quelle commande liste les ports TCP en écoute et leur processus ?",
+    "options": ["ip a", "ping -l", "ss -tlnp", "traceroute -p"],
+    "correct": 2,
+    "explanation": "ss -tlnp affiche les sockets TCP (-t) en écoute (-l), en numérique (-n), avec le processus (-p). ss remplace netstat.",
+    "tags": ["ss", "ports", "diagnostic"]
   }
 ]
