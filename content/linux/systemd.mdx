@@ -1,0 +1,77 @@
+---
+title: "systemd — gérer les services Linux"
+module: "linux"
+theme: "systemd"
+difficulty: "medium"
+tags: ["systemd", "systemctl", "services", "journalctl", "units"]
+updatedAt: "2026-06-29"
+---
+
+## Qu'est-ce que systemd ?
+
+**systemd** est le système d'**initialisation** (PID 1) de la plupart des
+distributions modernes (Debian, Ubuntu, RHEL…). Il démarre le système et
+**gère les services** (démons), leurs dépendances et leurs journaux. Tout est
+modélisé sous forme d'**units**.
+
+| Type d'unit | Rôle |
+| ----------- | ---- |
+| `.service` | un service / démon (ex. `ssh.service`) |
+| `.target` | un groupe d'units (≈ ancien runlevel) |
+| `.socket` | activation à la demande via un socket |
+| `.timer` | tâche planifiée (alternative à cron) |
+| `.mount` | point de montage |
+
+## Piloter un service : systemctl
+
+```bash
+systemctl status ssh        # état détaillé + dernières lignes de log
+systemctl start ssh         # démarre maintenant
+systemctl stop ssh          # arrête maintenant
+systemctl restart ssh       # redémarre
+systemctl reload ssh        # recharge la conf sans couper le service
+```
+
+## Démarrer ou non au boot
+
+C'est la distinction la plus importante — et un grand classique d'examen :
+
+| Commande | Effet |
+| -------- | ----- |
+| `systemctl start ssh` | démarre **maintenant** (pas au prochain boot) |
+| `systemctl enable ssh` | démarre **automatiquement au démarrage** |
+| `systemctl enable --now ssh` | les **deux** en une commande |
+| `systemctl disable ssh` | ne démarre plus au boot |
+
+> 💡 `start` ≠ `enable` : `start` agit sur l'instant, `enable` agit sur le
+> démarrage. Pour vérifier : `systemctl is-active ssh` (en cours ?) et
+> `systemctl is-enabled ssh` (activé au boot ?).
+
+## Après avoir édité une unit
+
+```bash
+systemctl daemon-reload     # recharge les fichiers d'units modifiés
+```
+
+Sans `daemon-reload`, systemd continue d'utiliser l'ancienne définition.
+
+## Consulter les journaux : journalctl
+
+```bash
+journalctl -u ssh           # journaux du service ssh
+journalctl -u ssh -f        # suivi en temps réel (follow)
+journalctl -b               # journaux depuis le dernier démarrage
+journalctl -p err           # uniquement les erreurs
+```
+
+## Cibles (targets)
+
+Les **targets** remplacent les anciens runlevels :
+
+| Target | Équivalent |
+| ------ | ---------- |
+| `multi-user.target` | mode texte multi-utilisateurs (runlevel 3) |
+| `graphical.target` | interface graphique (runlevel 5) |
+
+`systemctl get-default` affiche la cible par défaut ; `systemctl set-default
+multi-user.target` la change.

@@ -3,6 +3,7 @@ import type { ModuleSlug } from "@/data/modules";
 import reseauxQuiz from "@/data/quiz/reseaux.json";
 import securiteQuiz from "@/data/quiz/securite.json";
 import adQuiz from "@/data/quiz/active-directory.json";
+import linuxQuiz from "@/data/quiz/linux.json";
 
 /**
  * Banques de questions par module.
@@ -14,6 +15,7 @@ const QUIZ_BY_MODULE: Partial<Record<ModuleSlug, QuizQuestion[]>> = {
   reseaux: reseauxQuiz as QuizQuestion[],
   securite: securiteQuiz as QuizQuestion[],
   "active-directory": adQuiz as QuizQuestion[],
+  linux: linuxQuiz as QuizQuestion[],
 };
 
 /** Retourne les questions d'un module (tableau vide si aucun contenu). */

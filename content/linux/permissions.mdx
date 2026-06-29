@@ -1,0 +1,78 @@
+---
+title: "Les permissions Linux — rwx, octal et chmod"
+module: "linux"
+theme: "Permissions"
+difficulty: "medium"
+tags: ["permissions", "chmod", "chown", "octal", "droits"]
+updatedAt: "2026-06-29"
+---
+
+## Lire les permissions
+
+Chaque fichier a des droits pour **trois catégories** : le **propriétaire**
+(`u`), le **groupe** (`g`) et les **autres** (`o`). Pour chacune, trois
+permissions : **lecture** (`r`), **écriture** (`w`), **exécution** (`x`).
+
+```bash
+$ ls -l fichier.sh
+-rwxr-xr--  1 alice devs  220  fichier.sh
+# │└┬┘└┬┘└┬┘
+# │ u  g  o   → u=rwx, g=r-x, o=r--
+# └ type (- fichier, d dossier, l lien)
+```
+
+## La notation octale
+
+Chaque permission a une **valeur** : `r=4`, `w=2`, `x=1`. On additionne par
+catégorie pour obtenir un chiffre de 0 à 7.
+
+| Droits | Calcul | Octal |
+| ------ | ------ | ----- |
+| `rwx` | 4+2+1 | **7** |
+| `r-x` | 4+0+1 | **5** |
+| `r--` | 4+0+0 | **4** |
+| `rw-` | 4+2+0 | **6** |
+
+Ainsi `rwxr-xr--` = **754**.
+
+## Modifier les droits : chmod
+
+```bash
+chmod 755 script.sh        # octal : rwxr-xr-x
+chmod u+x script.sh        # symbolique : ajoute x au propriétaire
+chmod go-w fichier         # retire w au groupe et aux autres
+chmod -R 644 dossier/      # récursif sur un dossier
+```
+
+## Propriétaire et groupe : chown / chgrp
+
+```bash
+chown alice fichier            # change le propriétaire
+chown alice:devs fichier       # propriétaire + groupe
+chgrp devs fichier             # change uniquement le groupe
+```
+
+## Le cas des dossiers
+
+Sur un **dossier**, les permissions ont un sens différent :
+
+| Droit | Sur un dossier |
+| ----- | -------------- |
+| `r` | **lister** le contenu (`ls`) |
+| `w` | **créer / supprimer** des fichiers |
+| `x` | **entrer** dans le dossier (`cd`) et accéder aux fichiers |
+
+> 💡 Sans `x` sur un dossier, impossible d'y entrer même avec `r` : on voit les
+> noms mais on ne peut pas accéder au contenu. Le `x` est donc essentiel pour
+> **traverser** une arborescence.
+
+## Droits spéciaux
+
+| Bit | Valeur | Effet |
+| --- | ------ | ----- |
+| **setuid** | 4 | exécution avec les droits du **propriétaire** du fichier |
+| **setgid** | 2 | exécution avec les droits du **groupe** (ou héritage du groupe sur un dossier) |
+| **sticky bit** | 1 | seul le propriétaire peut supprimer ses fichiers (ex. `/tmp`) |
+
+`umask` définit les droits **retirés par défaut** à la création (souvent `022`,
+donnant `644` aux fichiers et `755` aux dossiers).

@@ -4,6 +4,7 @@ import type { ProgressState } from "@/lib/progress";
 import reseauxCards from "@/data/flashcards/reseaux.json";
 import securiteCards from "@/data/flashcards/securite.json";
 import adCards from "@/data/flashcards/active-directory.json";
+import linuxCards from "@/data/flashcards/linux.json";
 
 /**
  * Jeux de flashcards par module.
@@ -15,6 +16,7 @@ const FLASHCARDS_BY_MODULE: Partial<Record<ModuleSlug, Flashcard[]>> = {
   reseaux: reseauxCards as Flashcard[],
   securite: securiteCards as Flashcard[],
   "active-directory": adCards as Flashcard[],
+  linux: linuxCards as Flashcard[],
 };
 
 /** Retourne les flashcards d'un module (tableau vide si aucun contenu). */

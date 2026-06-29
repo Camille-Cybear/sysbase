@@ -1,0 +1,83 @@
+[
+  {
+    "id": "lnx-001",
+    "module": "linux",
+    "theme": "Permissions",
+    "question": "Quelles sont les valeurs octales de r, w et x ?",
+    "answer": "**r = 4**, **w = 2**, **x = 1**. On additionne par catégorie : `rwx` = 4+2+1 = **7**, `r-x` = 4+1 = **5**, `r--` = **4**. Ainsi `rwxr-xr--` correspond à **754**.",
+    "tags": ["permissions", "octal", "rwx"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-002",
+    "module": "linux",
+    "theme": "Permissions",
+    "question": "Que signifie la permission x sur un dossier ?",
+    "answer": "Sur un **dossier**, `x` autorise à **entrer** dedans (`cd`) et à accéder à son contenu. Sans `x`, on ne peut pas traverser le dossier, même avec `r` (on voit les noms mais pas le contenu). Sur un fichier, `x` = droit d'**exécution**.",
+    "tags": ["permissions", "dossier", "x"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "lnx-003",
+    "module": "linux",
+    "theme": "Permissions",
+    "question": "Quelle est la différence entre chown et chgrp ?",
+    "answer": "**`chown`** change le **propriétaire** (et, avec `chown user:group`, aussi le groupe). **`chgrp`** change **uniquement le groupe**. Ex. : `chown alice:devs fichier` ou `chgrp devs fichier`.",
+    "tags": ["chown", "chgrp", "propriétaire"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "lnx-004",
+    "module": "linux",
+    "theme": "systemd",
+    "question": "Quelle différence entre `systemctl start` et `systemctl enable` ?",
+    "answer": "**`start`** démarre le service **maintenant** (pas au prochain boot). **`enable`** le configure pour démarrer **automatiquement au démarrage**. `systemctl enable --now ssh` fait les deux. Vérification : `is-active` (en cours ?) et `is-enabled` (activé au boot ?).",
+    "tags": ["systemd", "systemctl", "boot"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-005",
+    "module": "linux",
+    "theme": "systemd",
+    "question": "Comment consulter les journaux d'un service avec journalctl ?",
+    "answer": "**`journalctl -u ssh`** affiche les journaux du service `ssh`. Options utiles : **`-f`** (suivi temps réel), **`-b`** (depuis le dernier démarrage), **`-p err`** (erreurs uniquement).",
+    "tags": ["journalctl", "logs", "systemd"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-006",
+    "module": "linux",
+    "theme": "SSH",
+    "question": "Comment fonctionne l'authentification SSH par clé ?",
+    "answer": "On génère une **paire de clés** (`ssh-keygen`) : la **clé privée** reste sur le client, la **clé publique** est copiée sur le serveur dans `~/.ssh/authorized_keys` (via `ssh-copy-id`). Le serveur vérifie que le client possède la privée correspondante — plus sûr qu'un mot de passe. SSH écoute sur le **port 22**.",
+    "tags": ["SSH", "clé", "authorized_keys", "port 22"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-007",
+    "module": "linux",
+    "theme": "LVM",
+    "question": "Quels sont les trois niveaux de LVM ?",
+    "answer": "**PV → VG → LV** : les **Physical Volumes** (disques/partitions) sont regroupés dans un **Volume Group** (pool de stockage), qui est ensuite découpé en **Logical Volumes** (les « partitions » logiques, redimensionnables à chaud).",
+    "tags": ["LVM", "PV", "VG", "LV"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "lnx-008",
+    "module": "linux",
+    "theme": "Paquets",
+    "question": "Quels gestionnaires de paquets pour Debian/Ubuntu et pour RHEL/Rocky ?",
+    "answer": "Famille **Debian/Ubuntu** : **`apt`** (paquets `.deb`, `dpkg` en bas niveau). Famille **RHEL/Rocky/Fedora** : **`dnf`** (anciennement `yum`, paquets `.rpm`, `rpm` en bas niveau).",
+    "tags": ["apt", "dnf", "paquets"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "lnx-009",
+    "module": "linux",
+    "theme": "Utilisateurs",
+    "question": "Quel fichier liste les comptes utilisateurs locaux, et où sont les mots de passe ?",
+    "answer": "Les comptes sont dans **`/etc/passwd`** (lisible par tous : login, UID, GID, shell, home). Les **mots de passe hachés** sont dans **`/etc/shadow`** (lisible par root uniquement). Les groupes sont dans `/etc/group`.",
+    "tags": ["utilisateurs", "/etc/passwd", "/etc/shadow"],
+    "difficulty": "medium"
+  }
+]

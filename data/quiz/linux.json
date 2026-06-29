@@ -1,0 +1,81 @@
+[
+  {
+    "id": "q-lnx-001",
+    "module": "linux",
+    "question": "À quels droits correspond `chmod 755` ?",
+    "options": [
+      "rwxr-xr-x",
+      "rw-r--r--",
+      "rwxrwxr-x",
+      "rwxr--r--"
+    ],
+    "correct": 0,
+    "explanation": "755 = 7 (rwx) pour le propriétaire, 5 (r-x) pour le groupe, 5 (r-x) pour les autres, soit rwxr-xr-x. C'est un grand classique pour un script ou un dossier.",
+    "tags": ["permissions", "chmod", "octal"]
+  },
+  {
+    "id": "q-lnx-002",
+    "module": "linux",
+    "question": "Quelle commande fait démarrer un service automatiquement au démarrage ?",
+    "options": [
+      "systemctl start service",
+      "systemctl enable service",
+      "systemctl status service",
+      "systemctl reload service"
+    ],
+    "correct": 1,
+    "explanation": "enable configure le démarrage automatique au boot. start ne fait que lancer le service immédiatement. enable --now combine les deux.",
+    "tags": ["systemd", "enable", "boot"]
+  },
+  {
+    "id": "q-lnx-003",
+    "module": "linux",
+    "question": "Sur un dossier, à quoi sert la permission x ?",
+    "options": [
+      "Lister son contenu",
+      "Créer des fichiers dedans",
+      "Entrer dans le dossier et accéder à son contenu",
+      "Exécuter le dossier comme un script"
+    ],
+    "correct": 2,
+    "explanation": "Sur un dossier, x permet d'y entrer (cd) et de traverser l'arborescence. r sert à lister, w à créer/supprimer des fichiers.",
+    "tags": ["permissions", "dossier", "x"]
+  },
+  {
+    "id": "q-lnx-004",
+    "module": "linux",
+    "question": "Quel est le port par défaut du service SSH ?",
+    "options": ["21", "22", "23", "443"],
+    "correct": 1,
+    "explanation": "SSH écoute sur le port 22. Le 21 est FTP, le 23 Telnet (non chiffré), le 443 HTTPS.",
+    "tags": ["SSH", "ports"]
+  },
+  {
+    "id": "q-lnx-005",
+    "module": "linux",
+    "question": "Quel est l'ordre des couches LVM, du physique au logique ?",
+    "options": [
+      "LV → VG → PV",
+      "PV → VG → LV",
+      "VG → PV → LV",
+      "PV → LV → VG"
+    ],
+    "correct": 1,
+    "explanation": "PV (Physical Volume) → VG (Volume Group, le pool) → LV (Logical Volume, la partition logique redimensionnable).",
+    "tags": ["LVM", "stockage"]
+  },
+  {
+    "id": "q-lnx-006",
+    "module": "linux",
+    "question": "Dans quel fichier sont stockés les mots de passe hachés des comptes locaux ?",
+    "options": [
+      "/etc/passwd",
+      "/etc/shadow",
+      "/etc/group",
+      "/etc/login.conf"
+    ],
+    "correct": 1,
+    "explanation": "Les mots de passe hachés sont dans /etc/shadow (lisible par root seulement). /etc/passwd liste les comptes (login, UID, shell) et est lisible par tous.",
+    "tags": ["utilisateurs", "/etc/shadow"]
+  }
+]
