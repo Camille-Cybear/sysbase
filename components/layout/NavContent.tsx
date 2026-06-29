@@ -99,6 +99,24 @@ export function NavContent({ counts, allCardIds, onNavigate }: NavContentProps) 
         className="flex-1 overflow-y-auto px-2.5 py-3"
         aria-label="Navigation principale"
       >
+        {/* Blog — mis en avant en tête de navigation */}
+        <Link
+          href="/blog"
+          onClick={onNavigate}
+          aria-current={isActive("/blog") ? "page" : undefined}
+          className={`mb-3 flex items-center gap-2.5 rounded-md border px-2.5 py-2 text-sm font-medium transition ${
+            isActive("/blog")
+              ? "border-primary-mid/50 bg-primary/15 text-primary"
+              : "border-primary-mid/30 bg-primary/10 text-text hover:bg-primary/20"
+          }`}
+        >
+          <Newspaper className="h-[18px] w-[18px] text-primary" aria-hidden="true" />
+          <span className="flex-1">Blog</span>
+          <span className="rounded-full bg-primary/25 px-1.5 py-px text-[10px] font-semibold uppercase tracking-wide text-primary">
+            Lire
+          </span>
+        </Link>
+
         <p className="px-2 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted">
           Révision
         </p>
@@ -160,18 +178,7 @@ export function NavContent({ counts, allCardIds, onNavigate }: NavContentProps) 
           })}
         </ul>
 
-        <ul className="mt-5 space-y-0.5 border-t border-border pt-3">
-          <li>
-            <Link
-              href="/blog"
-              onClick={onNavigate}
-              className={navItemClass(isActive("/blog"))}
-              aria-current={isActive("/blog") ? "page" : undefined}
-            >
-              <Newspaper className="h-[18px] w-[18px]" aria-hidden="true" />
-              Blog
-            </Link>
-          </li>
+        <ul className="mt-5 border-t border-border pt-3">
           <li>
             <Link
               href="/a-propos"
