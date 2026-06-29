@@ -77,5 +77,42 @@
     "correct": 1,
     "explanation": "Les mots de passe hachés sont dans /etc/shadow (lisible par root seulement). /etc/passwd liste les comptes (login, UID, shell) et est lisible par tous.",
     "tags": ["utilisateurs", "/etc/shadow"]
+  },
+  {
+    "id": "q-lnx-007",
+    "module": "linux",
+    "question": "Quelle commande ajoute un utilisateur à un groupe sans retirer ses autres groupes ?",
+    "options": [
+      "usermod -G groupe user",
+      "usermod -aG groupe user",
+      "groupadd -u user groupe",
+      "adduser -G groupe user"
+    ],
+    "correct": 1,
+    "explanation": "usermod -aG : le -a (append) ajoute le groupe sans écraser la liste existante. Sans -a, usermod -G remplace tous les groupes secondaires.",
+    "tags": ["usermod", "groupes"]
+  },
+  {
+    "id": "q-lnx-008",
+    "module": "linux",
+    "question": "Quelle redirection ajoute la sortie à la fin d'un fichier sans l'écraser ?",
+    "options": [">", ">>", "2>", "|"],
+    "correct": 1,
+    "explanation": ">> ajoute (append) à la fin du fichier. > écrase le fichier, 2> redirige les erreurs, et | est un tube entre deux commandes.",
+    "tags": ["redirections", "shell"]
+  },
+  {
+    "id": "q-lnx-009",
+    "module": "linux",
+    "question": "Quelle directive de sshd_config interdit la connexion directe en root ?",
+    "options": [
+      "PasswordAuthentication no",
+      "PermitRootLogin no",
+      "AllowUsers root",
+      "RootLogin disable"
+    ],
+    "correct": 1,
+    "explanation": "PermitRootLogin no empêche la connexion SSH directe du compte root. PasswordAuthentication no, lui, désactive l'authentification par mot de passe (clés uniquement).",
+    "tags": ["SSH", "sshd_config", "durcissement"]
   }
 ]

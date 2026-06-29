@@ -79,5 +79,50 @@
     "answer": "Les comptes sont dans **`/etc/passwd`** (lisible par tous : login, UID, GID, shell, home). Les **mots de passe hachés** sont dans **`/etc/shadow`** (lisible par root uniquement). Les groupes sont dans `/etc/group`.",
     "tags": ["utilisateurs", "/etc/passwd", "/etc/shadow"],
     "difficulty": "medium"
+  },
+  {
+    "id": "lnx-010",
+    "module": "linux",
+    "theme": "Commandes",
+    "question": "Quelle différence entre les redirections `>`, `>>` et `2>` ?",
+    "answer": "**`>`** redirige la sortie vers un fichier en l'**écrasant**. **`>>`** redirige en **ajoutant** à la fin (append). **`2>`** redirige le **flux d'erreurs** (stderr). Le tube **`|`**, lui, envoie la sortie d'une commande vers l'entrée d'une autre.",
+    "tags": ["redirections", "shell", "stdout"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-011",
+    "module": "linux",
+    "theme": "Utilisateurs",
+    "question": "Comment ajouter un utilisateur à un groupe sans retirer ses autres groupes ?",
+    "answer": "Avec **`usermod -aG groupe utilisateur`**. Le **`-a` (append) est essentiel** : sans lui, `usermod -G` **remplace** toute la liste des groupes secondaires et retire l'utilisateur des autres groupes.",
+    "tags": ["usermod", "groupes", "-aG"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "lnx-012",
+    "module": "linux",
+    "theme": "Utilisateurs",
+    "question": "Quelle différence entre `su` et `sudo` ?",
+    "answer": "**`su -`** ouvre une session root et demande le **mot de passe root**. **`sudo commande`** exécute **une seule** commande en root en demandant **son propre** mot de passe. `sudo` est plus sûr : pas de partage du mot de passe root et chaque action est **journalisée** (droits dans `/etc/sudoers`, édités avec `visudo`).",
+    "tags": ["sudo", "su", "privilèges"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "lnx-013",
+    "module": "linux",
+    "theme": "SSH",
+    "question": "Quelles directives sshd_config durcissent un serveur SSH ?",
+    "answer": "Dans `/etc/ssh/sshd_config` : **`PermitRootLogin no`** (pas de connexion root directe), **`PasswordAuthentication no`** (clés uniquement), **`Port`** différent de 22, **`AllowUsers`** pour restreindre les comptes. Recharger ensuite avec `systemctl restart ssh`.",
+    "tags": ["SSH", "sshd_config", "durcissement"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "lnx-014",
+    "module": "linux",
+    "theme": "SSH",
+    "question": "Comment copier un fichier vers un serveur distant via SSH ?",
+    "answer": "Avec **`scp`** : `scp fichier.txt alice@serveur:/tmp/` (ajouter **`-r`** pour un dossier). Alternatives : **`sftp`** (session de transfert interactive) et **`rsync`** (synchronisation efficace). Tout transite de façon **chiffrée** par SSH.",
+    "tags": ["scp", "sftp", "transfert"],
+    "difficulty": "easy"
   }
 ]

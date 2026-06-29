@@ -1,0 +1,62 @@
+---
+title: "Linux — gérer les utilisateurs et les groupes"
+module: "linux"
+theme: "Utilisateurs"
+difficulty: "medium"
+tags: ["utilisateurs", "groupes", "useradd", "sudo", "passwd"]
+updatedAt: "2026-06-29"
+---
+
+## Où sont stockés les comptes ?
+
+| Fichier | Contenu | Accès |
+| ------- | ------- | ----- |
+| `/etc/passwd` | login, UID, GID, home, shell | lisible par tous |
+| `/etc/shadow` | mots de passe **hachés** | **root uniquement** |
+| `/etc/group` | groupes et leurs membres | lisible par tous |
+
+## Créer un utilisateur
+
+```bash
+# useradd : bas niveau, présent partout (préciser les options)
+useradd -m -s /bin/bash alice    # -m crée le home, -s définit le shell
+passwd alice                     # définit (ou change) son mot de passe
+
+# adduser : script interactif et convivial (Debian/Ubuntu)
+adduser alice
+```
+
+> 💡 Sur Debian/Ubuntu, `adduser` (interactif) est souvent préféré à `useradd`
+> qui, seul, ne crée **ni le home ni le mot de passe** par défaut.
+
+## Modifier et supprimer
+
+```bash
+usermod -aG sudo alice    # ajoute alice au groupe sudo
+usermod -L alice          # verrouille le compte
+userdel -r alice          # supprime le compte ET son home (-r)
+```
+
+> 💡 Piège classique : pour **ajouter** un utilisateur à un groupe secondaire,
+> il faut **`usermod -aG`**. Sans le `-a` (append), `usermod -G` **remplace**
+> toute la liste des groupes secondaires et retire les autres !
+
+## Groupes
+
+```bash
+groupadd devs            # crée un groupe
+groups alice             # liste les groupes d'alice
+id alice                 # UID, GID et groupes
+```
+
+## Élévation de privilèges : su et sudo
+
+| Commande | Effet |
+| -------- | ----- |
+| `su -` | ouvre une session **root** (demande le mot de passe **root**) |
+| `su - bob` | devient l'utilisateur **bob** |
+| `sudo commande` | exécute **une** commande en root (demande **son propre** mot de passe) |
+
+`sudo` est plus sûr : pas besoin de partager le mot de passe root, et chaque
+action est **journalisée**. Les droits sont définis dans `/etc/sudoers`, à
+éditer **uniquement** avec `visudo` (qui vérifie la syntaxe avant d'enregistrer).

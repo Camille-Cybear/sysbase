@@ -1,0 +1,75 @@
+---
+title: "Linux — les commandes de base"
+module: "linux"
+theme: "Commandes"
+difficulty: "easy"
+tags: ["commandes", "shell", "fichiers", "grep", "redirections"]
+updatedAt: "2026-06-29"
+---
+
+## Se repérer et naviguer
+
+```bash
+pwd                 # affiche le dossier courant (Print Working Directory)
+ls -l               # liste détaillée (droits, taille, date)
+ls -la              # inclut les fichiers cachés (commençant par .)
+ls -lh              # tailles lisibles (Ko, Mo…)
+cd /etc             # change de dossier
+cd ..               # remonte d'un niveau
+cd ~                # retourne au dossier personnel (home)
+```
+
+## Manipuler fichiers et dossiers
+
+| Commande | Rôle |
+| -------- | ---- |
+| `touch fichier` | crée un fichier vide |
+| `mkdir -p a/b/c` | crée une arborescence de dossiers |
+| `cp src dst` | copie (`-r` pour un dossier) |
+| `mv src dst` | déplace ou **renomme** |
+| `rm fichier` | supprime (`-r` récursif, `-f` forcé) |
+| `rmdir dossier` | supprime un dossier **vide** |
+
+> 💡 `rm -rf` est irréversible et ne demande pas confirmation. Vérifie toujours
+> le chemin avant de l'exécuter — surtout en `root`.
+
+## Afficher et lire un fichier
+
+```bash
+cat fichier         # affiche tout le contenu
+less fichier        # navigation page par page (q pour quitter)
+head -n 20 fichier  # les 20 premières lignes
+tail -n 20 fichier  # les 20 dernières lignes
+tail -f /var/log/syslog   # suit le fichier en temps réel
+```
+
+## Chercher
+
+```bash
+find /etc -name "*.conf"     # cherche des fichiers par nom
+grep "erreur" fichier.log    # cherche un motif dans un fichier
+grep -ri "motif" /etc        # récursif (-r) et insensible à la casse (-i)
+which ssh                    # chemin de l'exécutable d'une commande
+```
+
+## Tuyaux et redirections
+
+Le shell permet de **chaîner** et **rediriger** les flux :
+
+| Symbole | Effet |
+| ------- | ----- |
+| <code>&#124;</code> | envoie la sortie d'une commande vers une autre (pipe) |
+| `>` | redirige la sortie vers un fichier (**écrase**) |
+| `>>` | redirige en **ajoutant** à la fin |
+| `2>` | redirige les **erreurs** |
+
+```bash
+ls -l /etc | grep ".conf"        # filtre la sortie de ls
+echo "ligne" >> notes.txt        # ajoute sans écraser
+commande 2> erreurs.log          # capture les erreurs
+```
+
+## Obtenir de l'aide
+
+`man <commande>` ouvre le manuel ; la plupart des commandes acceptent aussi
+`--help` pour un résumé rapide.

@@ -1,0 +1,69 @@
+---
+title: "SSH — connexion distante sécurisée"
+module: "linux"
+theme: "SSH"
+difficulty: "medium"
+tags: ["SSH", "sshd", "clé", "sécurisation", "scp"]
+updatedAt: "2026-06-29"
+---
+
+## Se connecter
+
+**SSH** (Secure Shell) ouvre une session distante **chiffrée**. Le service écoute
+sur le **port 22** par défaut.
+
+```bash
+ssh alice@192.168.1.10        # connexion en tant qu'alice
+ssh -p 2222 alice@serveur     # sur un port personnalisé
+```
+
+## Authentification par clé
+
+Plus sûre et plus pratique que le mot de passe : on génère une **paire de clés**,
+la **privée** reste sur le client, la **publique** est déposée sur le serveur.
+
+```bash
+ssh-keygen -t ed25519             # génère la paire (clé moderne recommandée)
+ssh-copy-id alice@serveur         # copie la clé publique sur le serveur
+ssh alice@serveur                 # connexion sans mot de passe
+```
+
+La clé publique est ajoutée à `~/.ssh/authorized_keys` côté serveur. Les
+**permissions comptent** : `~/.ssh` en `700` et `authorized_keys` en `600`,
+sinon SSH **refuse** la clé.
+
+> 💡 Le fichier client `~/.ssh/config` permet de créer des alias :
+> `Host prod` / `HostName 192.168.1.10` / `User alice` / `Port 2222` → il suffit
+> ensuite de taper `ssh prod`.
+
+## Configurer et sécuriser le serveur
+
+La configuration du démon se trouve dans **`/etc/ssh/sshd_config`**. Après
+modification, on **recharge** le service :
+
+```bash
+sudo systemctl restart ssh        # (ou sshd selon la distribution)
+```
+
+Bonnes pratiques de durcissement :
+
+| Directive | Effet |
+| --------- | ----- |
+| `PermitRootLogin no` | interdit la connexion directe en root |
+| `PasswordAuthentication no` | n'autorise que les clés (désactive les mots de passe) |
+| `Port 2222` | change le port par défaut (réduit le bruit des bots) |
+| `AllowUsers alice bob` | restreint les comptes autorisés |
+
+> 💡 Garde une session ouverte pendant que tu testes une nouvelle config SSH :
+> si tu te coupes l'accès (mauvaise directive), tu pourras corriger sans être
+> verrouillé dehors.
+
+## Transférer des fichiers
+
+SSH transporte aussi des fichiers, de façon chiffrée :
+
+```bash
+scp fichier.txt alice@serveur:/tmp/      # copie un fichier vers le serveur
+scp -r dossier/ alice@serveur:/tmp/      # copie récursive
+sftp alice@serveur                       # session de transfert interactive
+```
