@@ -91,17 +91,26 @@ elle mesure la *confiance* accordée à la source.
 
 ## Configuration Cisco IOS
 
+On entre d'abord en configuration globale, puis on **sauvegarde** à la fin —
+sinon tout est perdu au redémarrage :
+
 ```bash
-# Route statique vers le réseau 192.168.2.0/24 via le routeur 10.0.0.2
-router(config)# ip route 192.168.2.0 255.255.255.0 10.0.0.2
+Router> enable                 # mode privilégié (#)
+Router# configure terminal     # configuration globale (config)#
 
-# Route par défaut (tout le reste) vers la passerelle 10.0.0.1
-router(config)# ip route 0.0.0.0 0.0.0.0 10.0.0.1
+Router(config)# ip route 192.168.2.0 255.255.255.0 10.0.0.2   # route statique
+Router(config)# ip route 0.0.0.0 0.0.0.0 10.0.0.1             # route par défaut
 
-# Routage dynamique OSPF sur l'aire 0
-router(config)# router ospf 1
-router(config-router)# network 192.168.1.0 0.0.0.255 area 0
+Router(config)# router ospf 1                                 # routage dynamique
+Router(config-router)# network 192.168.1.0 0.0.0.255 area 0
+Router(config-router)# end                                    # retour au mode #
+Router# copy running-config startup-config                    # on sauvegarde !
 ```
+
+> 💡 Pour vérifier sans quitter la configuration, utilise le préfixe **`do`** :
+> `do show ip route`. Idem pour sauvegarder à la volée : `do write`. Les modes
+> IOS, la navigation et la sauvegarde sont détaillés dans la fiche
+> [Cisco IOS — modes, navigation et sauvegarde](/fiches/reseaux/cisco-ios-cli).
 
 ## Lire la table de routage
 

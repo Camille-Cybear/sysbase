@@ -34,19 +34,28 @@ protocole `802.1Q`.
 ## Configuration Cisco IOS
 
 ```bash
+Switch> enable                 # mode privilégié (#)
+Switch# configure terminal     # configuration globale (config)#
+
 # Créer le VLAN 10 et le nommer
-switch(config)# vlan 10
-switch(config-vlan)# name COMPTA
+Switch(config)# vlan 10
+Switch(config-vlan)# name COMPTA
 
 # Affecter une interface en access sur ce VLAN
-switch(config)# interface FastEthernet0/1
-switch(config-if)# switchport mode access
-switch(config-if)# switchport access vlan 10
+Switch(config-vlan)# interface FastEthernet0/1
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 10
 
 # Configurer un trunk transportant tous les VLANs
-switch(config)# interface GigabitEthernet0/1
-switch(config-if)# switchport mode trunk
+Switch(config-if)# interface GigabitEthernet0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# end          # retour au mode privilégié (#)
+Switch# write memory            # sauvegarde la configuration
 ```
+
+> 💡 Depuis la config, `do show vlan brief` permet de vérifier sans sortir. Voir
+> la fiche [Cisco IOS — modes, navigation et sauvegarde](/fiches/reseaux/cisco-ios-cli)
+> pour les modes, `do` et la sauvegarde.
 
 > 💡 Pense à vérifier le VLAN natif des deux côtés d'un trunk : un mismatch
 > génère des erreurs `native VLAN mismatch` (CDP).

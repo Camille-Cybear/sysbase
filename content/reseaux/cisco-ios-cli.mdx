@@ -1,0 +1,104 @@
+---
+title: "Cisco IOS — modes, navigation et sauvegarde"
+module: "reseaux"
+theme: "Cisco IOS"
+difficulty: "easy"
+tags: ["Cisco", "IOS", "CLI", "configuration", "sauvegarde", "do"]
+updatedAt: "2026-06-29"
+---
+
+## Pourquoi ces commandes ?
+
+Avant de configurer un routeur ou un switch Cisco, il faut savoir **dans quel
+mode** on se trouve, **comment y entrer**, et surtout **sauvegarder** sa
+configuration. Sans ça, les commandes de config (`ip route`, `vlan 10`…) ne
+s'exécutent pas au bon endroit — ou sont **perdues au redémarrage**.
+
+## Les modes de l'IOS
+
+On reconnaît le mode à l'**invite** (le prompt) :
+
+| Invite | Mode | Comment y entrer |
+| ------ | ---- | ---------------- |
+| `Router>` | EXEC **utilisateur** (consultation limitée) | à la connexion |
+| `Router#` | EXEC **privilégié** (commandes complètes) | `enable` depuis `>` |
+| `Router(config)#` | Configuration **globale** | `configure terminal` depuis `#` |
+| `Router(config-if)#` | Configuration d'**interface** | `interface <id>` depuis `(config)#` |
+| `Router(config-router)#` | Configuration d'un **protocole de routage** | `router <proto>` depuis `(config)#` |
+| `Router(config-vlan)#` | Configuration **VLAN** (switch) | `vlan <id>` depuis `(config)#` |
+
+## Naviguer entre les modes
+
+```bash
+Router> enable              # EXEC utilisateur → privilégié (#)
+Router# configure terminal  # → configuration globale (config)#
+Router(config)# interface GigabitEthernet0/0
+Router(config-if)# exit     # remonte d'UN niveau → (config)#
+Router(config)# end         # retour DIRECT au mode privilégié (#)
+```
+
+- `enable` (`en`) : passe en mode privilégié.
+- `configure terminal` (`conf t`) : entre en configuration globale.
+- `exit` : remonte **d'un seul** niveau.
+- `end` (ou `Ctrl+Z`) : revient **directement** au mode privilégié `#`.
+
+## La commande `do` — exécuter une commande EXEC depuis la config
+
+En mode configuration, les commandes EXEC (`show`, `ping`, `write`…) **ne sont
+pas disponibles directement**. Le préfixe **`do`** permet de les lancer **sans
+quitter** la configuration :
+
+```bash
+Router(config)# do show ip route   # consulte la table sans sortir de config
+Router(config)# do write           # sauvegarde sans sortir de config
+```
+
+> 💡 Sans `do`, l'IOS répond `Invalid input detected` car il cherche une
+> commande de configuration. Avec `do`, gain de temps : pas besoin de faire
+> `end`, lancer la commande, puis revenir en config.
+
+## Sauvegarder la configuration
+
+Il existe **deux** configurations :
+
+| Configuration | Où | Statut |
+| ------------- | -- | ------ |
+| `running-config` | en **RAM** | active, **perdue au redémarrage** |
+| `startup-config` | en **NVRAM** | chargée **au démarrage** |
+
+Sauvegarder = **copier la running vers la startup** :
+
+```bash
+Router# copy running-config startup-config   # forme moderne et explicite
+Router# write memory                          # équivalent historique (abrégé : wr)
+Router(config)# do write                      # depuis le mode configuration
+```
+
+> 💡 Le piège classique : tout configurer correctement… mais **oublier de
+> sauvegarder**. Au prochain `reload`, la `running-config` non sauvegardée est
+> perdue et l'équipement repart sur l'ancienne `startup-config`.
+
+## Une session complète de bout en bout
+
+```bash
+Router> enable
+Router# configure terminal
+Router(config)# hostname R1                       # renomme l'équipement
+R1(config)# interface GigabitEthernet0/0
+R1(config-if)# ip address 192.168.1.1 255.255.255.0
+R1(config-if)# no shutdown                        # active l'interface
+R1(config-if)# end                                # retour au mode privilégié
+R1# copy running-config startup-config            # on sauvegarde !
+```
+
+## Abréviations courantes
+
+L'IOS accepte toute abréviation **non ambiguë** :
+
+| Commande complète | Abrégé |
+| ----------------- | ------ |
+| `configure terminal` | `conf t` |
+| `interface` | `int` |
+| `show running-config` | `sh run` |
+| `no shutdown` | `no shut` |
+| `write memory` | `wr` |
