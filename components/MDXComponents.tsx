@@ -70,5 +70,15 @@ export const mdxComponents: MDXComponents = {
   td: (props: ComponentPropsWithoutRef<"td">) => (
     <td className="border border-border px-3 py-2 text-text/90" {...props} />
   ),
+  // Images : `![texte alternatif](/chemin.png)` → image stylée et responsive.
+  img: ({ alt = "", ...props }: ComponentPropsWithoutRef<"img">) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      alt={alt}
+      loading="lazy"
+      className="my-4 h-auto max-w-full rounded-lg border border-border"
+      {...props}
+    />
+  ),
   hr: () => <hr className="my-6 border-border" />,
 };

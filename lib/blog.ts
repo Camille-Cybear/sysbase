@@ -12,6 +12,8 @@ export interface PostFrontmatter {
   /** Date de publication (ISO, ex. "2026-06-29"). */
   date: string;
   tags: string[];
+  /** Auteur (par défaut « Camille »). */
+  author?: string;
 }
 
 /** Métadonnées d'un article (frontmatter + localisation). */

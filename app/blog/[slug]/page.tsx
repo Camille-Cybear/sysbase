@@ -57,6 +57,15 @@ export default async function PostPage({ params }: PostPageProps) {
       <header className="mb-6 border-b border-border pb-5">
         <h1 className="text-2xl font-semibold text-text">{post.title}</h1>
         <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted">
+          <span>
+            Par{" "}
+            <Link
+              href="/camille"
+              className="font-medium text-primary underline-offset-2 hover:underline"
+            >
+              {post.author ?? "Camille"}
+            </Link>
+          </span>
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />
             {date}
