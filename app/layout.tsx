@@ -15,7 +15,10 @@ const DESCRIPTION =
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sysbase.fr"),
-  title: "sysbase — Révisions certifications IT",
+  title: {
+    default: "sysbase — Révisions certifications IT",
+    template: "%s — sysbase",
+  },
   description: DESCRIPTION,
   openGraph: {
     title: "sysbase — Révisions certifications IT",

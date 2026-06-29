@@ -16,6 +16,8 @@ export interface FicheFrontmatter {
   difficulty: Difficulty;
   tags: string[];
   updatedAt: string;
+  /** Description SEO optionnelle (sinon générée automatiquement). */
+  description?: string;
 }
 
 /** Métadonnées d'une fiche (frontmatter + localisation). */

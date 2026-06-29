@@ -36,6 +36,12 @@ const EXERCISES: Exercise[] = [
   },
 ];
 
+export const metadata = {
+  title: "Exercices",
+  description:
+    "Entraîne-toi en pratique : subnetting et conversion binaire, avec questions générées aléatoirement.",
+};
+
 export default function ExercisesPage() {
   return (
     <div className="mx-auto max-w-3xl">

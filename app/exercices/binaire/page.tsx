@@ -2,6 +2,12 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { BinaryTrainer } from "@/components/BinaryTrainer";
 
+export const metadata = {
+  title: "Entraînement conversion binaire",
+  description:
+    "Convertis entre décimal et binaire (octet ou IP complète) avec décomposition des poids.",
+};
+
 export default function BinaryPage() {
   return (
     <div className="mx-auto max-w-2xl">

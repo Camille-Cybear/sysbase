@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Sparkles, GraduationCap, Code2, Heart } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "À propos — sysbase",
+  title: "À propos",
   description:
     "sysbase, plateforme de révision pour les certifications IT, imaginée et rédigée par Camille, étudiant TSSR, avec l'aide de Claude.",
 };

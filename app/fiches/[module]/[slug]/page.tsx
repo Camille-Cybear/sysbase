@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -19,6 +20,21 @@ export function generateStaticParams() {
     module: fiche.module,
     slug: fiche.slug,
   }));
+}
+
+export async function generateMetadata({ params }: FichePageProps): Promise<Metadata> {
+  const { module: moduleSlug, slug } = await params;
+  const fiche = getFiche(moduleSlug, slug);
+  if (!fiche) return {};
+  const moduleName = getModule(fiche.module)?.name ?? fiche.module;
+  const description =
+    fiche.description ??
+    `Fiche de révision ${moduleName} : ${fiche.title}. ${fiche.tags.slice(0, 4).join(", ")}.`;
+  return {
+    title: fiche.title,
+    description,
+    openGraph: { title: fiche.title, description, type: "article" },
+  };
 }
 
 export default async function FichePage({ params }: FichePageProps) {

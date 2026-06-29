@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const post = getPost(slug);
   if (!post) return {};
   return {
-    title: `${post.title} — sysbase`,
+    title: post.title,
     description: post.description,
     openGraph: {
       title: post.title,

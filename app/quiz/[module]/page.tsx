@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -13,6 +14,19 @@ interface QuizPageProps {
 /** Prégénère une page quiz par module. */
 export function generateStaticParams() {
   return MODULES.map((module) => ({ module: module.slug }));
+}
+
+export async function generateMetadata({ params }: QuizPageProps): Promise<Metadata> {
+  const { module: moduleSlug } = await params;
+  const mod = getModule(moduleSlug);
+  if (!mod) return {};
+  const title = `Quiz ${mod.name}`;
+  const description = `Teste tes connaissances en ${mod.name} avec un QCM à correction immédiate sur sysbase.`;
+  return {
+    title,
+    description,
+    openGraph: { title, description },
+  };
 }
 
 export default async function QuizPage({ params }: QuizPageProps) {

@@ -2,6 +2,12 @@ import { SearchView } from "@/components/SearchView";
 import { getFlashcardSearchItems } from "@/lib/search";
 import { getFicheSearchItems } from "@/lib/mdx";
 
+export const metadata = {
+  title: "Recherche",
+  description:
+    "Recherche full-text dans les fiches et flashcards de révision sysbase.",
+};
+
 interface SearchPageProps {
   searchParams: Promise<{ q?: string }>;
 }

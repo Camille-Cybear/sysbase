@@ -3,6 +3,12 @@ import { FlashCardSession } from "@/components/FlashCardSession";
 import { getFlashcards, getAllFlashcards } from "@/lib/flashcards";
 import { getModule } from "@/data/modules";
 
+export const metadata = {
+  title: "Flashcards",
+  description:
+    "Révise en flashcards recto/verso avec suivi de progression et mode « cartes à revoir ».",
+};
+
 interface FlashcardsPageProps {
   searchParams: Promise<{ module?: string; mode?: string }>;
 }

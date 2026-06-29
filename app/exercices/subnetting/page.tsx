@@ -2,6 +2,12 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { SubnetTrainer } from "@/components/SubnetTrainer";
 
+export const metadata = {
+  title: "Entraînement subnetting",
+  description:
+    "Calcule adresse réseau, broadcast et nombre d'hôtes sur des questions aléatoires, à trois niveaux.",
+};
+
 export default function SubnettingPage() {
   return (
     <div className="mx-auto max-w-2xl">

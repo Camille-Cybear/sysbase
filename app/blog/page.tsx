@@ -3,7 +3,7 @@ import { CalendarDays, ArrowRight } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 
 export const metadata = {
-  title: "Blog — sysbase",
+  title: "Blog",
   description:
     "Méthodes, astuces et fiches pratiques pour réviser les certifications IT (TSSR et plus).",
 };

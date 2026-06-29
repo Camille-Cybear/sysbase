@@ -4,6 +4,12 @@ import { getAllFiches } from "@/lib/mdx";
 import { MODULES } from "@/data/modules";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
 
+export const metadata = {
+  title: "Fiches tuto",
+  description:
+    "Toutes les fiches de révision sysbase : réseaux, Active Directory, Linux et plus.",
+};
+
 export default function FichesPage() {
   const fiches = getAllFiches();
 

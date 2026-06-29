@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Layers, FileText, Play, HelpCircle } from "lucide-react";
@@ -16,6 +17,19 @@ interface ModulePageProps {
 /** Prégénère les 6 pages modules au build. */
 export function generateStaticParams() {
   return MODULES.map((module) => ({ slug: module.slug }));
+}
+
+export async function generateMetadata({ params }: ModulePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const mod = getModule(slug);
+  if (!mod) return {};
+  const title = `Réviser ${mod.name}`;
+  const description = `${mod.description} Fiches, flashcards et quiz pour réviser ${mod.name} sur sysbase.`;
+  return {
+    title,
+    description,
+    openGraph: { title, description },
+  };
 }
 
 export default async function ModulePage({ params }: ModulePageProps) {
