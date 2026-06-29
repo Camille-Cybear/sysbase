@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Network, Layers, ArrowRight } from "lucide-react";
+import { Network, Binary, Layers, ArrowRight } from "lucide-react";
 
 interface Exercise {
   href: string;
@@ -16,6 +16,14 @@ const EXERCISES: Exercise[] = [
     description:
       "Calcule l'adresse réseau, le broadcast et le nombre d'hôtes à partir d'une IP/CIDR.",
     icon: Network,
+    available: true,
+  },
+  {
+    href: "/exercices/binaire",
+    title: "Conversion binaire",
+    description:
+      "Convertis entre décimal et binaire, sur un octet ou une IP complète.",
+    icon: Binary,
     available: true,
   },
   {
