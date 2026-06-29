@@ -1,0 +1,58 @@
+---
+title: "Subnetting : calculer un sous-réseau de tête, rapidement"
+description: "La méthode du « nombre magique » pour trouver adresse réseau, broadcast et nombre d'hôtes sans calculatrice — idéale pour la certification TSSR."
+date: "2026-06-29"
+tags: ["subnetting", "réseaux", "méthode", "TSSR"]
+---
+
+Le subnetting fait peur, mais une fois la **méthode du bloc** comprise, on
+calcule un sous-réseau **de tête** en quelques secondes. Voici la technique
+qu'on utilise en examen comme en production.
+
+## 1. Trouver l'octet « intéressant »
+
+Un masque se découpe en octets de 8 bits. Le préfixe CIDR indique combien de
+bits sont à 1 :
+
+- `/24` → masque `255.255.255.0` → tout se joue sur le **4ᵉ octet**.
+- `/26` → `255.255.255.192` → encore le 4ᵉ octet, mais partiellement.
+- `/18` → `255.255.192.0` → l'octet intéressant est le **3ᵉ**.
+
+## 2. Calculer le « nombre magique »
+
+Le nombre magique, c'est **256 − la valeur du masque** sur l'octet intéressant.
+Il donne la **taille du bloc** (le pas entre deux sous-réseaux).
+
+| CIDR | Masque (octet) | Bloc (256 − masque) |
+| ---- | -------------- | ------------------- |
+| /26 | 192 | **64** |
+| /27 | 224 | **32** |
+| /28 | 240 | **16** |
+| /29 | 248 | **8** |
+
+## 3. Encadrer l'adresse
+
+On cherche le **multiple du bloc** juste en dessous de la valeur de l'IP sur
+l'octet intéressant.
+
+Exemple : **`192.168.1.200/26`** → bloc de **64**.
+Les bornes possibles sont 0, 64, 128, **192**, 256… Comme 200 tombe entre 192 et
+255 :
+
+- **Adresse réseau** : `192.168.1.192`
+- **Broadcast** : `192.168.1.255` (192 + 64 − 1)
+- **Première / dernière utilisable** : `.193` à `.254`
+- **Hôtes utilisables** : 64 − 2 = **62**
+
+## 4. S'entraîner jusqu'à l'automatisme
+
+La seule façon d'aller vite, c'est la **répétition**. Notre
+[entraîneur de subnetting](/exercices/subnetting) génère des questions
+aléatoires à trois niveaux et te montre la décomposition du bloc à chaque fois.
+
+Pour revoir la théorie complète (CIDR, masques, classes), la fiche
+[Subnetting et notation CIDR](/fiches/reseaux/subnetting-cidr) reprend tout pas
+à pas.
+
+> 💡 Mémorise les puissances de 2 (2, 4, 8, 16, 32, 64, 128) et le tableau des
+> blocs ci-dessus : avec ça, plus besoin de calculatrice.

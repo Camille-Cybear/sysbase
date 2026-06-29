@@ -9,6 +9,7 @@ import {
   FileText,
   HelpCircle,
   Dumbbell,
+  Newspaper,
   Server,
   Info,
 } from "lucide-react";
@@ -159,7 +160,18 @@ export function NavContent({ counts, allCardIds, onNavigate }: NavContentProps) 
           })}
         </ul>
 
-        <ul className="mt-5 border-t border-border pt-3">
+        <ul className="mt-5 space-y-0.5 border-t border-border pt-3">
+          <li>
+            <Link
+              href="/blog"
+              onClick={onNavigate}
+              className={navItemClass(isActive("/blog"))}
+              aria-current={isActive("/blog") ? "page" : undefined}
+            >
+              <Newspaper className="h-[18px] w-[18px]" aria-hidden="true" />
+              Blog
+            </Link>
+          </li>
           <li>
             <Link
               href="/a-propos"

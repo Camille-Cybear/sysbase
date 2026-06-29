@@ -39,12 +39,12 @@ function listModuleFiles(module: string): string[] {
   return fs.readdirSync(dir).filter((file) => file.endsWith(".mdx"));
 }
 
-/** Liste les sous-dossiers (modules) présents dans `content/`. */
+/** Liste les sous-dossiers de `content/` qui correspondent à un vrai module. */
 function listModuleDirs(): string[] {
   if (!fs.existsSync(CONTENT_DIR)) return [];
   return fs
     .readdirSync(CONTENT_DIR, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
+    .filter((entry) => entry.isDirectory() && getModule(entry.name) !== undefined)
     .map((entry) => entry.name);
 }
 
