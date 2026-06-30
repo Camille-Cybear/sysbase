@@ -1,0 +1,92 @@
+---
+title: "ntfy : recevoir des notifications push depuis tes scripts"
+description: "Avec ntfy, une simple commande curl envoie une notification sur ton téléphone. Idéal pour être prévenu quand une sauvegarde finit ou qu'un script échoue."
+date: "2026-06-30"
+author: "Camille"
+tags: ["ntfy", "scripting", "supervision", "automatisation"]
+---
+
+Quand on administre des serveurs, on veut souvent être **prévenu** : la
+sauvegarde de cette nuit a-t-elle réussi ? Ce script a-t-il planté ?
+[**ntfy**](https://ntfy.sh) (prononcé « notify ») répond à ce besoin de la
+façon la plus simple possible : une **requête HTTP** envoie une notification
+**push** sur ton téléphone ou ton navigateur. Gratuit, open source, et
+**auto-hébergeable**.
+
+## Le principe : des sujets (topics)
+
+ntfy fonctionne en **publication / abonnement** autour de **sujets** (topics) :
+
+- tu **t'abonnes** à un sujet depuis l'application mobile, le web
+  (`ntfy.sh/mon-sujet`) ou le client en ligne de commande ;
+- tu **publies** sur ce sujet, et tous les abonnés reçoivent la notification.
+
+> ⚠️ Sur le service public, **le nom du sujet fait office de mot de passe** :
+> n'importe qui le connaissant peut lire et écrire. Choisis un nom **long et
+> imprévisible** (ex. `sauvegardes-srv1-7h3k9x`), ou auto-héberge ntfy avec
+> authentification pour les usages sensibles.
+
+## Envoyer une notification
+
+La forme la plus simple, avec `curl` :
+
+```bash
+curl -d "Sauvegarde terminée ✅" ntfy.sh/mon-sujet-secret
+```
+
+On peut enrichir avec des **en-têtes** : titre, priorité, tags (qui s'affichent
+en emoji) :
+
+```bash
+curl \
+  -H "Title: Sauvegarde nocturne" \
+  -H "Priority: high" \
+  -H "Tags: floppy_disk,white_check_mark" \
+  -d "12 Go sauvegardés sur /backup en 4 min" \
+  ntfy.sh/mon-sujet-secret
+```
+
+| En-tête | Rôle |
+| ------- | ---- |
+| `Title` | titre de la notification |
+| `Priority` | `min`, `low`, `default`, `high`, `max` (urgence + son) |
+| `Tags` | mots-clés ; ceux qui correspondent à un emoji s'affichent en emoji |
+
+## Le cas d'usage qui change la vie : prévenir en cas d'échec
+
+Dans un script, on combine ntfy avec le **code de retour** : une notif discrète
+en cas de succès, une notif **prioritaire** en cas d'échec.
+
+```bash
+#!/bin/bash
+SUJET="ntfy.sh/mon-sujet-secret"
+
+if rsync -a /data/ /backup/; then
+  curl -H "Tags: white_check_mark" -d "Sauvegarde OK" "$SUJET"
+else
+  curl -H "Priority: urgent" -H "Tags: rotating_light" \
+       -d "ÉCHEC de la sauvegarde !" "$SUJET"
+fi
+```
+
+Couplé à une tâche **cron**, tu sais chaque matin si tout s'est bien passé —
+sans te connecter au serveur. (Si la notion de code de retour `$?` ou de cron
+te manque, vois la fiche
+[Bash — les bases du scripting](/fiches/scripting/bash-bases).)
+
+## Quelques idées concrètes
+
+- Fin (ou échec) d'une **sauvegarde** ou d'un script de maintenance.
+- Alerte **espace disque** faible (`df` + condition).
+- Notification de **connexion SSH** (via un script dans `~/.bashrc` ou PAM).
+- Fin d'une **mise à jour** ou d'un long traitement.
+
+## Aller plus loin
+
+- **Application mobile** (Android/iOS) pour recevoir les push où que tu sois.
+- **Auto-hébergement** via Docker : tu gardes tes notifications chez toi, avec
+  comptes et contrôle d'accès.
+- **Authentification par token** pour publier de façon sécurisée.
+
+> 💡 ntfy illustre une bonne habitude d'admin : **automatiser le feedback**.
+> Un script qui tourne en silence est un script dont on ignore les échecs.

@@ -10,12 +10,12 @@ export function Footer() {
         <p>
           © {year} <span className="font-medium text-text">sysbase</span> —
           imaginé et rédigé par{" "}
-          <a
-            href="https://cybear.fr"
+          <Link
+            href="/camille"
             className="text-primary underline-offset-2 hover:underline"
           >
             Camille
-          </a>
+          </Link>
           , propulsé à l'aide de Claude.
         </p>
         <Link
