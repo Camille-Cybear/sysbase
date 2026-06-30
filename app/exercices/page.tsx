@@ -32,7 +32,7 @@ const EXERCISES: Exercise[] = [
     description:
       "Découpe un réseau en sous-réseaux de tailles variables selon des besoins en hôtes.",
     icon: Layers,
-    available: false,
+    available: true,
   },
 ];
 
