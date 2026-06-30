@@ -1,0 +1,48 @@
+---
+title: "Machines virtuelles vs conteneurs"
+module: "virtualisation"
+theme: "Conteneurs"
+difficulty: "medium"
+tags: ["conteneurs", "LXC", "Docker", "VM", "noyau"]
+updatedAt: "2026-06-30"
+---
+
+## Deux approches de l'isolation
+
+Une **machine virtuelle** virtualise le **matériel** : l'hyperviseur crée un
+ordinateur complet sur lequel s'installe un **OS entier**, noyau compris.
+
+Un **conteneur** virtualise au niveau du **système d'exploitation** : il
+**partage le noyau** de l'hôte et n'embarque que l'espace utilisateur (binaires,
+bibliothèques). D'où sa légèreté.
+
+## Comparaison
+
+| | Machine virtuelle | Conteneur |
+| --- | --- | --- |
+| Noyau | le **sien** (OS complet) | celui de **l'hôte** (partagé) |
+| Poids | lourd (Go) | léger (Mo) |
+| Démarrage | dizaines de secondes | quasi instantané |
+| Isolation | **forte** | bonne, mais moindre |
+| Densité | faible | élevée |
+
+> 💡 Conséquence du noyau partagé : un conteneur Linux tourne sur un hôte Linux
+> (on ne fait pas tourner un « vrai » Windows dans un conteneur Linux). Une VM,
+> elle, peut faire tourner n'importe quel OS.
+
+## LXC vs Docker
+
+- **LXC** : conteneurs **système** — se comportent comme une VM légère (un init,
+  plusieurs services). C'est ce que propose **Proxmox** à côté des VM KVM.
+- **Docker** : conteneurs **applicatifs** — un conteneur = **une application**
+  (un processus principal), pensé pour le déploiement et la portabilité.
+
+## Quand choisir quoi ?
+
+- **VM** : OS différent de l'hôte, isolation forte, services hétérogènes,
+  besoins matériels spécifiques.
+- **Conteneur** : déployer beaucoup d'instances légères, démarrage rapide,
+  applications packagées et reproductibles.
+
+> 💡 Les deux sont **complémentaires** : en pratique on fait souvent tourner des
+> conteneurs **à l'intérieur** de VM, pour cumuler isolation forte et légèreté.

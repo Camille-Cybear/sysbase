@@ -1,0 +1,61 @@
+---
+title: "La virtualisation — concepts et hyperviseurs"
+module: "virtualisation"
+theme: "Concepts"
+difficulty: "easy"
+tags: ["virtualisation", "hyperviseur", "type 1", "type 2", "snapshot"]
+updatedAt: "2026-06-30"
+---
+
+## Qu'est-ce que la virtualisation ?
+
+La **virtualisation** consiste à faire tourner plusieurs **machines virtuelles
+(VM)** sur un même serveur physique, grâce à un **hyperviseur** qui partage et
+isole les ressources (CPU, RAM, disque, réseau). Bénéfices : mieux utiliser le
+matériel, isoler les services, déployer et restaurer rapidement.
+
+## Hyperviseur type 1 vs type 2
+
+| | Type 1 (*bare-metal*) | Type 2 (*hosted*) |
+| --- | --- | --- |
+| Position | directement sur le **matériel** | au-dessus d'un **OS hôte** |
+| Performance | élevée | moindre (couche OS en plus) |
+| Usage | **production**, serveurs | poste de travail, test |
+| Exemples | ESXi, Proxmox VE (KVM), Hyper-V | VirtualBox, VMware Workstation |
+
+> 💡 Repère simple : un type 1 **est** le système qui démarre sur le serveur ;
+> un type 2 est une **application** qu'on lance dans Windows ou Linux.
+
+## Les ressources d'une VM
+
+- **vCPU** : cœurs processeur virtuels alloués à la VM.
+- **RAM** : mémoire allouée.
+- **Disque virtuel** : un fichier sur l'hôte (`.vmdk` chez VMware, `.qcow2`
+  côté KVM/Proxmox).
+- **Carte réseau virtuelle** : reliée à un réseau virtuel.
+
+> 💡 On peut **surallouer** (overcommit) : attribuer au total plus de vCPU/RAM
+> que le physique, tant que les VM ne consomment pas tout en même temps.
+
+## Le réseau virtuel
+
+| Mode | Comportement |
+| ---- | ------------ |
+| **Bridge (pont)** | la VM est sur le **même LAN** que l'hôte (IP du réseau physique) |
+| **NAT** | la VM est **derrière** l'hôte qui traduit ses accès vers l'extérieur |
+| **Hôte uniquement** | réseau **isolé** entre l'hôte et ses VM |
+
+## Snapshots
+
+Un **snapshot** fige l'état d'une VM (disque + éventuellement RAM) à un instant
+T. On peut y **revenir** en cas de problème — pratique avant une mise à jour.
+
+> 💡 Un snapshot **n'est pas une sauvegarde** : il dépend de la VM d'origine et
+> se dégrade avec le temps. Pour de la vraie protection, il faut une
+> **sauvegarde** externe.
+
+## Solutions courantes
+
+- **Proxmox VE** : libre, basé sur **KVM** (VM) + **LXC** (conteneurs).
+- **VMware vSphere/ESXi** : référence en entreprise.
+- **Microsoft Hyper-V** : intégré à Windows Server.

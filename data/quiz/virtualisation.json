@@ -1,0 +1,76 @@
+[
+  {
+    "id": "q-vrt-001",
+    "module": "virtualisation",
+    "question": "Qu'est-ce qui caractérise un hyperviseur de type 1 ?",
+    "options": [
+      "Il s'exécute au-dessus d'un OS hôte",
+      "Il s'exécute directement sur le matériel",
+      "Il ne gère que des conteneurs",
+      "Il nécessite VirtualBox"
+    ],
+    "correct": 1,
+    "explanation": "Un type 1 (bare-metal) s'installe directement sur le matériel, sans OS hôte (ESXi, Proxmox, Hyper-V). Le type 2 s'exécute au-dessus d'un OS, comme une application.",
+    "tags": ["hyperviseur", "type 1"]
+  },
+  {
+    "id": "q-vrt-002",
+    "module": "virtualisation",
+    "question": "Lequel est un hyperviseur de type 1 ?",
+    "options": ["VirtualBox", "VMware Workstation", "VMware ESXi", "QEMU sur le poste"],
+    "correct": 2,
+    "explanation": "VMware ESXi est un type 1 (bare-metal). VirtualBox et VMware Workstation sont des type 2 (applications installées dans un OS).",
+    "tags": ["ESXi", "type 1"]
+  },
+  {
+    "id": "q-vrt-003",
+    "module": "virtualisation",
+    "question": "Qu'est-ce qu'un conteneur partage avec sa machine hôte, contrairement à une VM ?",
+    "options": ["Le noyau", "La carte réseau", "Le BIOS", "Le disque dur entier"],
+    "correct": 0,
+    "explanation": "Un conteneur partage le noyau de l'hôte (il n'isole que l'espace utilisateur), d'où sa légèreté. Une VM a son propre noyau et un OS complet.",
+    "tags": ["conteneur", "noyau"]
+  },
+  {
+    "id": "q-vrt-004",
+    "module": "virtualisation",
+    "question": "Un snapshot de VM peut-il remplacer une sauvegarde ?",
+    "options": [
+      "Oui, c'est équivalent",
+      "Non, il dépend de la VM d'origine",
+      "Oui, s'il est chiffré",
+      "Non, car il efface la VM"
+    ],
+    "correct": 1,
+    "explanation": "Un snapshot fige un état pour y revenir, mais il dépend de la VM d'origine et se dégrade dans le temps : ce n'est pas une sauvegarde. Il faut une sauvegarde externe pour vraiment protéger les données.",
+    "tags": ["snapshot", "sauvegarde"]
+  },
+  {
+    "id": "q-vrt-005",
+    "module": "virtualisation",
+    "question": "Quelles technologies combine Proxmox VE ?",
+    "options": [
+      "Docker et Kubernetes",
+      "KVM (VM) et LXC (conteneurs)",
+      "ESXi et Hyper-V",
+      "VirtualBox et Vagrant"
+    ],
+    "correct": 1,
+    "explanation": "Proxmox VE s'appuie sur KVM pour les machines virtuelles et LXC pour les conteneurs système, dans une interface libre.",
+    "tags": ["Proxmox", "KVM", "LXC"]
+  },
+  {
+    "id": "q-vrt-006",
+    "module": "virtualisation",
+    "question": "En mode réseau « bridge », où se trouve la VM ?",
+    "options": [
+      "Derrière l'hôte qui traduit ses accès (NAT)",
+      "Sur le même LAN que l'hôte, avec une IP du réseau physique",
+      "Sur un réseau totalement isolé",
+      "Sans aucun accès réseau"
+    ],
+    "correct": 1,
+    "explanation": "En bridge (pont), la VM est raccordée au même réseau physique que l'hôte et obtient une IP du LAN : elle est visible des autres machines. Le NAT, lui, place la VM derrière l'hôte.",
+    "tags": ["réseau", "bridge"]
+  }
+]

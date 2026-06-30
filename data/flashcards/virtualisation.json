@@ -1,0 +1,83 @@
+[
+  {
+    "id": "vrt-001",
+    "module": "virtualisation",
+    "theme": "Hyperviseurs",
+    "question": "Quelle est la différence entre un hyperviseur de type 1 et de type 2 ?",
+    "answer": "Un **type 1 (bare-metal)** s'exécute **directement sur le matériel**, sans OS hôte (ESXi, Proxmox/KVM, Hyper-V) — pour la production. Un **type 2 (hosted)** s'exécute **au-dessus d'un OS** comme une application (VirtualBox, VMware Workstation) — pour le poste de travail/test.",
+    "tags": ["hyperviseur", "type 1", "type 2"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "vrt-002",
+    "module": "virtualisation",
+    "theme": "Hyperviseurs",
+    "question": "Cite des exemples d'hyperviseurs de type 1.",
+    "answer": "**VMware ESXi**, **Proxmox VE** (basé sur KVM), **Microsoft Hyper-V**, **Xen**. Ils démarrent directement sur le serveur. À l'inverse, VirtualBox et VMware Workstation sont des type 2 (applications dans un OS).",
+    "tags": ["ESXi", "Proxmox", "Hyper-V"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "vrt-003",
+    "module": "virtualisation",
+    "theme": "Conteneurs",
+    "question": "Quelle est la différence fondamentale entre une VM et un conteneur ?",
+    "answer": "Une **VM** embarque un **OS complet avec son propre noyau** (l'hyperviseur virtualise le matériel). Un **conteneur partage le noyau de l'hôte** et n'isole que l'espace utilisateur — d'où sa légèreté et son démarrage quasi instantané, au prix d'une isolation un peu moindre.",
+    "tags": ["VM", "conteneur", "noyau"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "vrt-004",
+    "module": "virtualisation",
+    "theme": "Concepts",
+    "question": "Un snapshot est-il une sauvegarde ?",
+    "answer": "**Non.** Un **snapshot** fige l'état d'une VM à un instant T pour pouvoir y **revenir** (ex. avant une mise à jour), mais il **dépend de la VM d'origine** et se dégrade dans le temps. Une vraie protection nécessite une **sauvegarde externe**.",
+    "tags": ["snapshot", "sauvegarde"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "vrt-005",
+    "module": "virtualisation",
+    "theme": "Hyperviseurs",
+    "question": "Sur quelles technologies repose Proxmox VE ?",
+    "answer": "**Proxmox VE** combine **KVM** pour les **machines virtuelles** et **LXC** pour les **conteneurs** système, le tout dans une interface libre. C'est une solution courante en PME et en lab.",
+    "tags": ["Proxmox", "KVM", "LXC"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "vrt-006",
+    "module": "virtualisation",
+    "theme": "Réseau",
+    "question": "Quelle différence entre un réseau virtuel en mode bridge et en mode NAT ?",
+    "answer": "En **bridge (pont)**, la VM est sur le **même LAN que l'hôte** et obtient une IP du réseau physique (visible des autres machines). En **NAT**, la VM est **derrière l'hôte**, qui traduit ses accès vers l'extérieur (la VM n'est pas directement joignable).",
+    "tags": ["réseau", "bridge", "NAT"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "vrt-007",
+    "module": "virtualisation",
+    "theme": "Conteneurs",
+    "question": "Quelle différence entre un conteneur LXC et un conteneur Docker ?",
+    "answer": "**LXC** = conteneur **système** : il se comporte comme une VM légère (un init, plusieurs services) — c'est ce que propose Proxmox. **Docker** = conteneur **applicatif** : un conteneur = **une application** (un processus principal), pensé pour le déploiement et la portabilité.",
+    "tags": ["LXC", "Docker", "conteneurs"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "vrt-008",
+    "module": "virtualisation",
+    "theme": "Concepts",
+    "question": "Qu'est-ce que la surallocation (overcommit) de ressources ?",
+    "answer": "C'est attribuer au total **plus de vCPU ou de RAM** aux VM que le serveur n'en possède physiquement. Ça fonctionne tant que **toutes les VM ne consomment pas tout en même temps** — sinon on dégrade les performances (ou on swappe).",
+    "tags": ["overcommit", "vCPU", "RAM"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "vrt-009",
+    "module": "virtualisation",
+    "theme": "Concepts",
+    "question": "À quoi sert un template (modèle) de VM ?",
+    "answer": "Un **template** est une VM préconfigurée et figée servant de **modèle** : on la **clone** pour déployer rapidement de nouvelles VM identiques (OS + paquets + réglages déjà prêts), au lieu de tout réinstaller à chaque fois.",
+    "tags": ["template", "clone", "déploiement"],
+    "difficulty": "medium"
+  }
+]
