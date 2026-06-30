@@ -1,0 +1,56 @@
+---
+title: "Durcissement et bonnes pratiques de sécurité"
+module: "securite"
+theme: "Durcissement"
+difficulty: "medium"
+tags: ["durcissement", "CIA", "moindre privilège", "défense en profondeur", "MFA"]
+updatedAt: "2026-06-30"
+---
+
+## La triade de la sécurité (DICP)
+
+Toute la sécurité vise à protéger trois propriétés (la **triade CIA** en
+anglais) :
+
+| Propriété | Signification |
+| --------- | ------------- |
+| **Disponibilité** | le service reste **accessible** quand on en a besoin |
+| **Intégrité** | les données ne sont **pas altérées** |
+| **Confidentialité** | seules les personnes **autorisées** y accèdent |
+
+On y ajoute souvent la **traçabilité (Preuve)** : savoir **qui a fait quoi**.
+
+## La défense en profondeur
+
+On ne mise jamais sur **une seule** protection : on empile des **couches**
+(pare-feu, segmentation réseau, antivirus, authentification, chiffrement,
+sauvegardes…). Si une couche cède, les suivantes limitent les dégâts.
+
+## Le moindre privilège
+
+Chaque utilisateur, service ou processus ne reçoit que les **droits strictement
+nécessaires** à sa tâche — pas plus. Un compte compromis fait alors **moins de
+dégâts**. C'est le contraire du « tout le monde est admin ».
+
+## Réduire la surface d'attaque
+
+Moins il y a d'éléments exposés, moins il y a de cibles :
+
+- **Désactiver** les services et ports inutiles.
+- **Désinstaller** les logiciels superflus.
+- **Fermer** les comptes inactifs, changer les mots de passe par défaut.
+
+## Les réflexes incontournables
+
+- **Mises à jour** régulières (patch management) : la majorité des attaques
+  exploitent des failles **déjà corrigées**.
+- **Authentification forte (MFA)** : combiner plusieurs **facteurs** — ce qu'on
+  **sait** (mot de passe), ce qu'on **a** (téléphone, clé), ce qu'on **est**
+  (biométrie).
+- **Segmentation réseau** : isoler les zones (VLAN, pare-feu) pour cloisonner.
+- **Sauvegardes** selon la règle **3-2-1** : 3 copies, 2 supports, 1 hors site.
+- **Journalisation et supervision** : garder une trace et détecter les
+  anomalies.
+
+> 💡 Le maillon faible reste souvent **l'humain** : la sensibilisation
+> (phishing, mots de passe, clés USB) fait partie intégrante de la sécurité.

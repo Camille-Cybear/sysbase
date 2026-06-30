@@ -52,5 +52,68 @@
     "answer": "IPsec propose le mode **transport** (seule la charge utile est chiffrée, l'en-tête IP d'origine est conservé — usage hôte à hôte) et le mode **tunnel** (le paquet IP entier est chiffré et encapsulé dans un nouvel en-tête — usage site à site / VPN passerelle à passerelle).",
     "tags": ["VPN", "IPsec", "tunnel", "transport"],
     "difficulty": "hard"
+  },
+  {
+    "id": "sec-007",
+    "module": "securite",
+    "theme": "Concepts",
+    "question": "Quelles sont les trois propriétés de la triade de sécurité (CIA / DIC) ?",
+    "answer": "**Disponibilité** (le service reste accessible), **Intégrité** (les données ne sont pas altérées) et **Confidentialité** (seules les personnes autorisées y accèdent). On y ajoute souvent la **traçabilité** (savoir qui a fait quoi).",
+    "tags": ["CIA", "DIC", "concepts"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "sec-008",
+    "module": "securite",
+    "theme": "Chiffrement",
+    "question": "Quelle est la différence entre chiffrement symétrique et asymétrique ?",
+    "answer": "Le **symétrique** utilise **une seule clé** partagée pour chiffrer et déchiffrer (ex. AES) : rapide, mais il faut transmettre la clé en sûreté. L'**asymétrique** utilise une **paire clé publique/privée** (ex. RSA) : ce qui est chiffré avec la publique ne se déchiffre qu'avec la privée — plus de partage de secret, mais plus lent.",
+    "tags": ["chiffrement", "symétrique", "asymétrique", "RSA", "AES"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "sec-009",
+    "module": "securite",
+    "theme": "Chiffrement",
+    "question": "Comment fonctionne une signature numérique ?",
+    "answer": "On **hache** le message puis on **chiffre l'empreinte avec sa clé privée**. Le destinataire la déchiffre avec la **clé publique** de l'expéditeur et compare les empreintes. Cela garantit à la fois l'**authenticité** (l'auteur) et l'**intégrité** (non modifié).",
+    "tags": ["signature", "hachage", "clé privée"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "sec-010",
+    "module": "securite",
+    "theme": "Chiffrement",
+    "question": "Pourquoi TLS combine-t-il chiffrement asymétrique et symétrique ?",
+    "answer": "TLS utilise l'**asymétrique** (lent mais sûr) uniquement pour **échanger une clé de session**, puis chiffre tout le trafic en **symétrique** (rapide). On obtient ainsi un échange de clé sécurisé **et** de bonnes performances sur de gros volumes.",
+    "tags": ["TLS", "hybride", "HTTPS"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "sec-011",
+    "module": "securite",
+    "theme": "Durcissement",
+    "question": "Qu'est-ce que la défense en profondeur ?",
+    "answer": "C'est empiler **plusieurs couches** de sécurité (pare-feu, segmentation, antivirus, authentification, chiffrement, sauvegardes…) plutôt que de miser sur une seule. Si une couche cède, les suivantes limitent les dégâts.",
+    "tags": ["défense en profondeur", "durcissement"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "sec-012",
+    "module": "securite",
+    "theme": "Authentification",
+    "question": "Sur quels types de facteurs repose l'authentification multifacteur (MFA) ?",
+    "answer": "Sur la combinaison d'au moins deux facteurs de **catégories différentes** : ce qu'on **sait** (mot de passe), ce qu'on **a** (téléphone, clé physique), et ce qu'on **est** (biométrie). Cela rend un mot de passe volé insuffisant à lui seul.",
+    "tags": ["MFA", "2FA", "authentification"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "sec-013",
+    "module": "securite",
+    "theme": "Menaces",
+    "question": "Quelle différence entre un virus, un ver et un cheval de Troie ?",
+    "answer": "Un **virus** s'attache à un fichier et a besoin d'une action pour se propager. Un **ver** (worm) se propage **seul** sur le réseau. Un **cheval de Troie** se fait passer pour un logiciel légitime pour s'introduire. Un **rançongiciel** (ransomware) chiffre les données et exige une rançon.",
+    "tags": ["malware", "virus", "ver", "ransomware"],
+    "difficulty": "medium"
   }
 ]

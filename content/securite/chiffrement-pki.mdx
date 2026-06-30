@@ -1,0 +1,58 @@
+---
+title: "Chiffrement, hachage et PKI"
+module: "securite"
+theme: "Cryptographie"
+difficulty: "medium"
+tags: ["chiffrement", "PKI", "TLS", "hachage", "signature"]
+updatedAt: "2026-06-30"
+---
+
+## Chiffrement symétrique vs asymétrique
+
+| | Symétrique | Asymétrique |
+| --- | --- | --- |
+| Clés | **une seule** clé partagée | une **paire** (publique / privée) |
+| Vitesse | rapide | lent |
+| Souci | **partager** la clé en sûreté | gestion des clés |
+| Exemples | **AES** | **RSA**, ECC |
+
+- **Symétrique** : la même clé chiffre et déchiffre. Idéal pour de **gros
+  volumes**, mais il faut transmettre la clé à l'autre partie sans l'exposer.
+- **Asymétrique** : ce qui est chiffré avec la **clé publique** ne se déchiffre
+  qu'avec la **clé privée** (et inversement). Plus de partage de secret, mais
+  c'est lent.
+
+## Le chiffrement hybride (TLS)
+
+En pratique, **TLS** (HTTPS) **combine les deux** : l'asymétrique sert à
+**échanger en sûreté une clé de session**, puis tout le trafic est chiffré en
+**symétrique** (rapide). On cumule sécurité de l'échange et performance.
+
+## Le hachage
+
+Une fonction de **hachage** (SHA-256…) produit une **empreinte de taille fixe**,
+**à sens unique** (on ne remonte pas au contenu). Usages :
+
+- **Intégrité** : si l'empreinte change, le fichier a été modifié.
+- **Mots de passe** : on stocke le **haché** (jamais le mot de passe en clair),
+  avec un **sel** pour contrer les tables précalculées.
+
+## La signature numérique
+
+Signer = **hacher** le message puis **chiffrer l'empreinte avec sa clé privée**.
+Le destinataire déchiffre avec la **clé publique** de l'expéditeur et compare les
+empreintes. Cela prouve l'**authenticité** (qui) **et** l'**intégrité** (non
+modifié).
+
+## La PKI et les certificats
+
+Une **PKI** (Public Key Infrastructure) organise la confiance. Une **autorité de
+certification (CA)** émet des **certificats** qui lient une **identité** (un nom
+de domaine, une personne) à une **clé publique**.
+
+Le navigateur fait confiance à un certificat s'il est signé par une CA
+**reconnue** (chaîne de confiance jusqu'à une CA racine). C'est ce qui permet le
+cadenas HTTPS.
+
+> 💡 Le certificat contient la **clé publique** ; la **clé privée** correspondante
+> reste **secrète** sur le serveur — elle ne quitte jamais la machine.

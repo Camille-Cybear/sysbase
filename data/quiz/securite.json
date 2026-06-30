@@ -63,5 +63,56 @@
     "correct": 1,
     "explanation": "Le moindre privilège limite chaque entité aux droits strictement nécessaires, réduisant la surface d'attaque et l'impact d'une compromission.",
     "tags": ["moindre privilège", "durcissement"]
+  },
+  {
+    "id": "q-sec-006",
+    "module": "securite",
+    "question": "Que représente la lettre « I » de la triade de sécurité CIA ?",
+    "options": ["Identification", "Intégrité", "Isolation", "Indexation"],
+    "correct": 1,
+    "explanation": "La triade CIA : Confidentialité, Intégrité (les données ne sont pas altérées), Disponibilité. En français on parle de DIC.",
+    "tags": ["CIA", "intégrité", "concepts"]
+  },
+  {
+    "id": "q-sec-007",
+    "module": "securite",
+    "question": "En chiffrement asymétrique, avec quelle clé chiffre-t-on un message destiné à Alice ?",
+    "options": [
+      "La clé privée d'Alice",
+      "La clé publique d'Alice",
+      "Sa propre clé privée",
+      "Une clé symétrique partagée"
+    ],
+    "correct": 1,
+    "explanation": "On chiffre avec la clé publique d'Alice ; seule sa clé privée (qu'elle garde secrète) peut déchiffrer. C'est le principe de l'asymétrique.",
+    "tags": ["chiffrement", "asymétrique", "clé publique"]
+  },
+  {
+    "id": "q-sec-008",
+    "module": "securite",
+    "question": "Quelle combinaison illustre une authentification multifacteur (MFA) ?",
+    "options": [
+      "Deux mots de passe différents",
+      "Un mot de passe + un code reçu sur le téléphone",
+      "Un mot de passe long et complexe",
+      "Un identifiant et un mot de passe"
+    ],
+    "correct": 1,
+    "explanation": "Le MFA combine des facteurs de catégories différentes : ici ce qu'on sait (mot de passe) + ce qu'on a (téléphone). Deux mots de passe restent un seul type de facteur.",
+    "tags": ["MFA", "authentification"]
+  },
+  {
+    "id": "q-sec-009",
+    "module": "securite",
+    "question": "Qu'est-ce qu'un rançongiciel (ransomware) ?",
+    "options": [
+      "Un logiciel qui chiffre les données et exige une rançon",
+      "Un pare-feu applicatif",
+      "Un gestionnaire de mots de passe",
+      "Un protocole de chiffrement"
+    ],
+    "correct": 0,
+    "explanation": "Un ransomware chiffre les fichiers de la victime et réclame une rançon pour la clé de déchiffrement. Les sauvegardes hors ligne sont la meilleure protection.",
+    "tags": ["malware", "ransomware"]
   }
 ]
