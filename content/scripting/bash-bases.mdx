@@ -1,0 +1,88 @@
+---
+title: "Bash — les bases du scripting"
+module: "scripting"
+theme: "Bash"
+difficulty: "medium"
+tags: ["bash", "shell", "script", "variables", "conditions"]
+updatedAt: "2026-06-30"
+---
+
+## Créer et exécuter un script
+
+Un script Bash commence par un **shebang** qui indique l'interpréteur, puis on
+le rend **exécutable** :
+
+```bash
+#!/bin/bash
+echo "Bonjour $USER"
+```
+
+```bash
+chmod +x script.sh     # rend le script exécutable
+./script.sh            # l'exécute
+```
+
+## Variables
+
+Pas d'espace autour du `=`. On lit une variable avec `$` :
+
+```bash
+nom="Alice"
+echo "Bonjour $nom"        # Bonjour Alice
+echo "Aujourd'hui : $(date)"   # $(...) capture la sortie d'une commande
+```
+
+## Arguments et code de retour
+
+| Élément | Signification |
+| ------- | ------------- |
+| `$0` | nom du script |
+| `$1`, `$2`… | 1er, 2e argument |
+| `$@` | tous les arguments |
+| `$#` | nombre d'arguments |
+| `$?` | **code de retour** de la dernière commande (`0` = succès) |
+
+```bash
+./sauvegarde.sh /data        # $1 vaut /data
+echo "Code de retour : $?"   # 0 si la commande a réussi
+```
+
+`exit 0` termine un script en succès ; tout code **≠ 0** signale une erreur.
+
+## Conditions
+
+```bash
+if [ "$age" -ge 18 ]; then
+  echo "Majeur"
+else
+  echo "Mineur"
+fi
+```
+
+Opérateurs de test courants :
+
+| Test | Sens |
+| ---- | ---- |
+| `-eq` `-ne` `-lt` `-gt` | comparaison de **nombres** |
+| `=` `!=` | comparaison de **chaînes** |
+| `-z` / `-n` | chaîne vide / non vide |
+| `-f` / `-d` | fichier / dossier existe |
+
+> 💡 Mets toujours tes variables entre guillemets dans un test (`[ "$x" = "y" ]`) :
+> si `$x` est vide, sans guillemets le test plante.
+
+## Boucles
+
+```bash
+# Boucle sur une liste
+for fichier in *.log; do
+  echo "Traitement de $fichier"
+done
+
+# Boucle tant que
+compteur=0
+while [ "$compteur" -lt 3 ]; do
+  echo "$compteur"
+  compteur=$((compteur + 1))
+done
+```

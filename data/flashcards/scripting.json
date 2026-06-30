@@ -1,0 +1,83 @@
+[
+  {
+    "id": "scr-001",
+    "module": "scripting",
+    "theme": "Bash",
+    "question": "Qu'est-ce que le shebang et comment rendre un script exécutable ?",
+    "answer": "Le **shebang** est la 1ʳᵉ ligne `#!/bin/bash` : elle indique l'interpréteur. Pour exécuter le script : **`chmod +x script.sh`** (le rend exécutable) puis **`./script.sh`**.",
+    "tags": ["bash", "shebang", "chmod"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "scr-002",
+    "module": "scripting",
+    "theme": "Bash",
+    "question": "Que valent `$1`, `$@`, `$#` et `$0` dans un script Bash ?",
+    "answer": "**`$0`** = nom du script, **`$1`** (et `$2`…) = arguments positionnels, **`$@`** = tous les arguments, **`$#`** = leur nombre. Ex. : `./script.sh /data` → `$1` vaut `/data`.",
+    "tags": ["bash", "arguments"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "scr-003",
+    "module": "scripting",
+    "theme": "Bash",
+    "question": "Que contient `$?` après une commande, et que signifie sa valeur ?",
+    "answer": "**`$?`** contient le **code de retour** de la dernière commande. **`0` = succès**, toute valeur **≠ 0** signale une erreur. `exit 0` termine un script en succès.",
+    "tags": ["bash", "code de retour", "exit"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "scr-004",
+    "module": "scripting",
+    "theme": "Bash",
+    "question": "Quels tests Bash pour comparer des nombres vs des chaînes vs des fichiers ?",
+    "answer": "**Nombres** : `-eq -ne -lt -gt -le -ge`. **Chaînes** : `=` `!=`, `-z` (vide) / `-n` (non vide). **Fichiers** : `-f` (fichier existe) / `-d` (dossier existe). Toujours guillemeter : `[ \"$x\" -ge 18 ]`.",
+    "tags": ["bash", "conditions", "test"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "scr-005",
+    "module": "scripting",
+    "theme": "Bash",
+    "question": "Comment capturer la sortie d'une commande dans une variable Bash ?",
+    "answer": "Avec la substitution de commande **`$(...)`** : `maintenant=$(date)`. (L'ancienne syntaxe avec des accents graves `` `date` `` existe aussi mais `$(...)` est recommandée car imbricable.)",
+    "tags": ["bash", "substitution", "variables"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "scr-006",
+    "module": "scripting",
+    "theme": "PowerShell",
+    "question": "Comment sont nommées les cmdlets PowerShell ?",
+    "answer": "Sur le modèle **`Verbe-Nom`** : `Get-Process`, `Stop-Service`, `New-Item`… Les verbes sont standardisés (`Get`, `Set`, `New`, `Remove`, `Start`, `Stop`…), ce qui les rend prévisibles. `Get-Command` et `Get-Help` aident à les découvrir.",
+    "tags": ["PowerShell", "cmdlet"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "scr-007",
+    "module": "scripting",
+    "theme": "PowerShell",
+    "question": "Quelle est la grande différence entre le pipeline PowerShell et celui de Bash ?",
+    "answer": "PowerShell fait circuler des **objets** (avec des propriétés), pas du **texte** comme Bash. On filtre/trie donc directement sur les propriétés : `Get-Process | Where-Object { $_.CPU -gt 10 } | Select-Object Name`. `$_` est l'objet courant.",
+    "tags": ["PowerShell", "pipeline", "objets"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "scr-008",
+    "module": "scripting",
+    "theme": "PowerShell",
+    "question": "Pourquoi un script .ps1 ne s'exécute-t-il pas par défaut, et comment l'autoriser ?",
+    "answer": "Par sécurité, Windows bloque l'exécution des scripts via la **stratégie d'exécution**. On l'ajuste (en admin) avec **`Set-ExecutionPolicy RemoteSigned`** : scripts locaux autorisés, scripts téléchargés exigeant une signature.",
+    "tags": ["PowerShell", "ExecutionPolicy", "sécurité"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "scr-009",
+    "module": "scripting",
+    "theme": "Automatisation",
+    "question": "Quels sont les 5 champs d'une ligne cron, dans l'ordre ?",
+    "answer": "**minute, heure, jour du mois, mois, jour de la semaine** — suivis de la commande. Ex. `0 2 * * *` = tous les jours à 02h00. Côté Windows, l'équivalent est le **Planificateur de tâches** (`schtasks`).",
+    "tags": ["cron", "automatisation", "schtasks"],
+    "difficulty": "hard"
+  }
+]

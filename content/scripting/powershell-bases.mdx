@@ -1,0 +1,73 @@
+---
+title: "PowerShell — les bases"
+module: "scripting"
+theme: "PowerShell"
+difficulty: "medium"
+tags: ["PowerShell", "cmdlet", "pipeline", "Windows", "objets"]
+updatedAt: "2026-06-30"
+---
+
+## Les cmdlets : Verbe-Nom
+
+PowerShell s'articule autour de **cmdlets** nommées sur le modèle
+**`Verbe-Nom`**, ce qui les rend prévisibles et faciles à deviner :
+
+```powershell
+Get-Process            # liste les processus
+Get-Service            # liste les services
+Stop-Service -Name spooler
+New-Item fichier.txt
+```
+
+Les verbes sont standardisés : `Get`, `Set`, `New`, `Remove`, `Start`, `Stop`…
+
+## Découvrir et s'aider
+
+```powershell
+Get-Command *service*      # trouve les cmdlets liées aux services
+Get-Help Get-Process -Examples   # aide et exemples d'une cmdlet
+```
+
+## Variables
+
+```powershell
+$nom = "Alice"
+Write-Host "Bonjour $nom"
+```
+
+## Le pipeline : des objets, pas du texte
+
+C'est **la** différence majeure avec Bash : PowerShell fait circuler des
+**objets** (avec des propriétés), pas des lignes de texte. On peut donc filtrer
+et trier sur les propriétés directement :
+
+```powershell
+Get-Process |
+  Where-Object { $_.CPU -gt 10 } |   # filtre sur la propriété CPU
+  Sort-Object CPU -Descending |
+  Select-Object Name, CPU            # ne garde que 2 colonnes
+```
+
+`$_` représente l'objet courant qui traverse le pipeline.
+
+## Opérateurs de comparaison
+
+Attention, ils ne s'écrivent **pas** avec `==` :
+
+| Opérateur | Sens |
+| --------- | ---- |
+| `-eq` `-ne` | égal / différent |
+| `-gt` `-lt` `-ge` `-le` | plus grand / plus petit… |
+| `-like` | comparaison avec joker (`*`) |
+
+## Exécuter un script .ps1
+
+Par sécurité, Windows **bloque** par défaut l'exécution des scripts. Il faut
+ajuster la **stratégie d'exécution** (en admin) :
+
+```powershell
+Set-ExecutionPolicy RemoteSigned
+```
+
+> 💡 `RemoteSigned` autorise tes scripts locaux mais exige une **signature**
+> pour les scripts téléchargés d'Internet — un bon compromis sécurité/usage.

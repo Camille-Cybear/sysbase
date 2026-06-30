@@ -1,0 +1,71 @@
+[
+  {
+    "id": "q-scr-001",
+    "module": "scripting",
+    "question": "Que représente la ligne `#!/bin/bash` en tête d'un script ?",
+    "options": [
+      "Un commentaire ignoré",
+      "Le shebang : l'interpréteur à utiliser",
+      "L'import d'une bibliothèque",
+      "La déclaration d'une variable"
+    ],
+    "correct": 1,
+    "explanation": "C'est le shebang : il indique au système quel interpréteur exécute le script (ici Bash). Il doit être la toute première ligne.",
+    "tags": ["bash", "shebang"]
+  },
+  {
+    "id": "q-scr-002",
+    "module": "scripting",
+    "question": "En Bash, que vaut `$?` juste après une commande qui a réussi ?",
+    "options": ["1", "0", "true", "le nom de la commande"],
+    "correct": 1,
+    "explanation": "$? contient le code de retour de la dernière commande : 0 = succès, toute valeur différente de 0 = erreur.",
+    "tags": ["bash", "code de retour"]
+  },
+  {
+    "id": "q-scr-003",
+    "module": "scripting",
+    "question": "Dans un script Bash, à quoi correspond `$1` ?",
+    "options": [
+      "Le nom du script",
+      "Le premier argument passé au script",
+      "Le nombre d'arguments",
+      "Le code de retour"
+    ],
+    "correct": 1,
+    "explanation": "$1 est le premier argument positionnel. $0 est le nom du script, $# le nombre d'arguments, $? le code de retour.",
+    "tags": ["bash", "arguments"]
+  },
+  {
+    "id": "q-scr-004",
+    "module": "scripting",
+    "question": "Laquelle est une cmdlet PowerShell correctement nommée ?",
+    "options": ["process_list", "Get-Process", "list-process", "PROCESS.GET"],
+    "correct": 1,
+    "explanation": "Les cmdlets suivent le modèle Verbe-Nom : Get-Process. Les verbes (Get, Set, New, Stop…) sont standardisés.",
+    "tags": ["PowerShell", "cmdlet"]
+  },
+  {
+    "id": "q-scr-005",
+    "module": "scripting",
+    "question": "Quel est l'ordre des champs d'une ligne cron ?",
+    "options": [
+      "heure minute jour mois jour-semaine",
+      "minute heure jour-du-mois mois jour-de-la-semaine",
+      "jour mois année heure minute",
+      "minute heure mois jour jour-semaine"
+    ],
+    "correct": 1,
+    "explanation": "Ordre : minute, heure, jour du mois, mois, jour de la semaine, puis la commande. Ex. : 0 2 * * * = chaque jour à 02h00.",
+    "tags": ["cron", "automatisation"]
+  },
+  {
+    "id": "q-scr-006",
+    "module": "scripting",
+    "question": "En PowerShell, quel opérateur teste l'égalité ?",
+    "options": ["==", "-eq", "=", "eq()"],
+    "correct": 1,
+    "explanation": "PowerShell utilise -eq (et -ne, -gt, -lt…), pas == comme dans d'autres langages. = sert uniquement à l'affectation.",
+    "tags": ["PowerShell", "opérateurs"]
+  }
+]
