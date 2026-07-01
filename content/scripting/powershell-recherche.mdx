@@ -1,0 +1,81 @@
+---
+title: "PowerShell — rechercher et filtrer"
+module: "scripting"
+theme: "PowerShell"
+difficulty: "hard"
+tags: ["Select-String", "Where-Object", "pipeline", "objets", "filtrage"]
+updatedAt: "2026-07-01"
+---
+
+## Deux mondes : texte vs objets
+
+Là où Bash filtre du **texte** (grep, awk), PowerShell filtre des **objets**
+avec des **propriétés**. On ne cherche pas « la 7ᵉ colonne » mais directement
+la propriété `.Name` ou `.CPU`. C'est plus lisible et moins fragile.
+
+## Chercher dans du texte : Select-String
+
+`Select-String` est l'équivalent de `grep` (pour des fichiers texte ou un flux) :
+
+```powershell
+Select-String -Path *.log -Pattern "erreur"     # cherche dans des fichiers
+Get-Content app.log | Select-String "timeout"   # ou dans un flux
+Select-String -Path app.log -Pattern "warn" -CaseSensitive
+```
+
+## Filtrer des objets : Where-Object
+
+`Where-Object` ne garde que les objets qui remplissent une **condition** sur
+leurs propriétés. `$_` est l'objet courant :
+
+```powershell
+Get-Process | Where-Object { $_.WS -gt 100MB }        # processus > 100 Mo RAM
+Get-Service | Where-Object { $_.Status -eq "Running" } # services démarrés
+```
+
+Rappel des opérateurs : `-eq -ne -gt -lt -ge -le`, `-like` (joker `*`),
+`-match` (expression régulière).
+
+## Choisir les colonnes : Select-Object
+
+```powershell
+Get-Process |
+  Where-Object { $_.CPU -gt 10 } |
+  Select-Object Name, CPU, Id |     # ne garde que ces propriétés
+  Select-Object -First 5            # les 5 premiers
+```
+
+`Select-Object -Unique` supprime les doublons.
+
+## Trier, grouper, compter
+
+| Cmdlet | Rôle | Équivalent Bash |
+| ------ | ---- | --------------- |
+| `Sort-Object` | trier | `sort` |
+| `Group-Object` | regrouper et compter | `uniq -c` |
+| `Measure-Object` | compter / sommer | `wc`, totaux |
+
+```powershell
+# Top 5 des processus par mémoire
+Get-Process |
+  Sort-Object WS -Descending |
+  Select-Object Name, WS -First 5
+
+# Compter les lignes d'un fichier
+Get-Content access.log | Measure-Object -Line
+```
+
+## Un exemple complet
+
+```powershell
+# Nombre d'occurrences de "404" par fichier de log
+Get-ChildItem *.log |
+  ForEach-Object {
+    $n = (Select-String -Path $_.FullName -Pattern "404").Count
+    "$($_.Name) : $n"
+  }
+```
+
+> 💡 La grande force du pipeline PowerShell : comme on manipule des objets, on
+> peut filtrer, trier et sélectionner sur des **propriétés typées** (dates,
+> tailles, nombres) sans jamais découper du texte à la main.

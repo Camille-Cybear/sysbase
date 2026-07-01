@@ -79,5 +79,41 @@
     "answer": "**minute, heure, jour du mois, mois, jour de la semaine** — suivis de la commande. Ex. `0 2 * * *` = tous les jours à 02h00. Côté Windows, l'équivalent est le **Planificateur de tâches** (`schtasks`).",
     "tags": ["cron", "automatisation", "schtasks"],
     "difficulty": "hard"
+  },
+  {
+    "id": "scr-010",
+    "module": "scripting",
+    "theme": "Bash",
+    "question": "Quelles options grep pour ignorer la casse, compter, et inverser la recherche ?",
+    "answer": "**`-i`** = insensible à la casse, **`-c`** = compte les lignes correspondantes, **`-v`** = inverse (lignes qui **ne** correspondent **pas**). Aussi utiles : `-n` (numéro de ligne), `-r` (récursif), `-E` (regex étendue).",
+    "tags": ["grep", "bash", "recherche"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "scr-011",
+    "module": "scripting",
+    "theme": "Bash",
+    "question": "Comment extraire la 1ʳᵉ colonne d'un fichier avec awk, et que vaut `$NF` ?",
+    "answer": "**`awk '{print $1}' fichier`** affiche le 1er champ (séparé par des espaces). `-F:` change le séparateur (ex. `awk -F: '{print $1}' /etc/passwd`). **`$NF`** désigne le **dernier** champ de la ligne.",
+    "tags": ["awk", "bash", "colonnes"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "scr-012",
+    "module": "scripting",
+    "theme": "Bash",
+    "question": "Comment obtenir un « top » des valeurs les plus fréquentes dans un fichier ?",
+    "answer": "Le combo **`sort | uniq -c | sort -rn`** : `sort` trie (indispensable avant `uniq`), **`uniq -c`** regroupe et **compte** les doublons, puis `sort -rn` trie par nombre décroissant. Ex. : `awk '{print $1}' access.log | sort | uniq -c | sort -rn | head`.",
+    "tags": ["sort", "uniq", "bash", "logs"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "scr-013",
+    "module": "scripting",
+    "theme": "PowerShell",
+    "question": "Quels sont les équivalents PowerShell de grep et du filtrage `awk` ?",
+    "answer": "**`Select-String`** cherche un motif dans du texte (comme `grep`). **`Where-Object { $_.Propriété -op valeur }`** filtre des **objets** sur leurs propriétés. Ex. : `Get-Process | Where-Object { $_.CPU -gt 10 }`.",
+    "tags": ["Select-String", "Where-Object", "PowerShell"],
+    "difficulty": "medium"
   }
 ]

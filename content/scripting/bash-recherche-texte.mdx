@@ -1,0 +1,92 @@
+---
+title: "Bash — rechercher et filtrer du texte (grep, awk, sed)"
+module: "scripting"
+theme: "Bash"
+difficulty: "hard"
+tags: ["grep", "awk", "sed", "pipe", "logs"]
+updatedAt: "2026-07-01"
+---
+
+## La philosophie Unix : petits outils enchaînés
+
+Sous Linux, on combine des commandes simples avec le **pipe** `|` : la sortie de
+l'une devient l'entrée de la suivante. C'est ce qui rend l'analyse de logs si
+puissante en une ligne.
+
+```bash
+cat access.log | grep "404" | wc -l     # combien de lignes contiennent 404 ?
+```
+
+> 💡 On peut souvent éviter le `cat` inutile : `grep "404" access.log`. Mais
+> pédagogiquement, le pipe montre bien l'enchaînement.
+
+## Nourrir une commande avec un fichier : `<`
+
+Le chevron `<` redirige un **fichier en entrée** (stdin) d'une commande :
+
+```bash
+wc -l < access.log            # compte les lignes du fichier
+while read ligne; do          # lit un fichier ligne par ligne
+  echo "→ $ligne"
+done < liste.txt
+```
+
+## grep — chercher des lignes
+
+`grep` filtre les lignes qui contiennent un motif :
+
+| Option | Effet |
+| ------ | ----- |
+| `-i` | insensible à la casse |
+| `-v` | inverse (lignes qui **ne** correspondent **pas**) |
+| `-n` | affiche le numéro de ligne |
+| `-c` | **compte** les lignes correspondantes |
+| `-r` | récursif dans un dossier |
+| `-E` | expressions régulières étendues |
+
+```bash
+grep -i "error" app.log            # error, ERROR, Error…
+grep -v "^#" config.conf           # ignore les lignes de commentaire
+grep -rn "TODO" ./src              # où sont les TODO, avec le n° de ligne
+```
+
+## cut et awk — extraire des colonnes
+
+**`cut`** découpe selon un délimiteur ; **`awk`** est plus puissant (champs,
+conditions, calculs). Les champs sont `$1`, `$2`… et `$NF` est le **dernier**.
+
+```bash
+cut -d: -f1 /etc/passwd            # 1er champ (login), séparateur ":"
+awk -F: '{print $1}' /etc/passwd   # équivalent avec awk
+awk '$3 > 1000 {print $1}' /etc/passwd   # logins dont l'UID > 1000
+```
+
+## sed — remplacer
+
+`sed` transforme le flux, typiquement pour **substituer** :
+
+```bash
+sed 's/ancien/nouveau/g' fichier.txt   # remplace toutes les occurrences
+```
+
+## sort et uniq — trier et compter
+
+Combo incontournable pour un **top** :
+
+```bash
+# Top 5 des adresses IP dans un log
+awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -5
+```
+
+- `sort` trie, `uniq -c` regroupe et **compte** les doublons (nécessite un tri
+  préalable), `sort -rn` trie par nombre décroissant, `head -5` garde le top 5.
+
+## Un exemple complet
+
+```bash
+# Les 3 pages les plus demandées ayant renvoyé une erreur 404
+grep " 404 " access.log | awk '{print $7}' | sort | uniq -c | sort -rn | head -3
+```
+
+Chaque maillon fait une chose simple ; c'est leur **enchaînement** qui produit
+l'analyse. C'est tout l'esprit de la ligne de commande Unix.
