@@ -11,25 +11,45 @@
     ],
     "correct": 1,
     "explanation": "TCP/IP repose sur le modèle DoD (Department of Defense) à 4 couches : Accès réseau, Internet, Transport, Application.",
-    "tags": ["TCP/IP", "modèles"]
+    "tags": [
+      "TCP/IP",
+      "modèles"
+    ]
   },
   {
     "id": "q-net-002",
     "module": "reseaux",
     "question": "Quel protocole utilise le port 443 par défaut ?",
-    "options": ["HTTP", "FTP", "HTTPS", "SSH"],
+    "options": [
+      "HTTP",
+      "FTP",
+      "HTTPS",
+      "SSH"
+    ],
     "correct": 2,
     "explanation": "HTTPS (HTTP sécurisé via TLS) utilise le port 443. HTTP utilise le 80, SSH le 22 et FTP les ports 20/21.",
-    "tags": ["ports", "HTTPS", "TLS"]
+    "tags": [
+      "ports",
+      "HTTPS",
+      "TLS"
+    ]
   },
   {
     "id": "q-net-003",
     "module": "reseaux",
     "question": "Combien d'hôtes utilisables fournit un réseau en /26 ?",
-    "options": ["30", "62", "126", "254"],
+    "options": [
+      "30",
+      "62",
+      "126",
+      "254"
+    ],
     "correct": 1,
     "explanation": "Un /26 (masque 255.255.255.192) fournit des blocs de 64 adresses, soit 62 hôtes utilisables (64 − 2 : adresse réseau et broadcast).",
-    "tags": ["CIDR", "subnetting"]
+    "tags": [
+      "CIDR",
+      "subnetting"
+    ]
   },
   {
     "id": "q-net-004",
@@ -43,7 +63,10 @@
     ],
     "correct": 2,
     "explanation": "Le routeur opère à la couche 3 (Réseau) : il prend ses décisions d'acheminement en se basant sur les adresses IP.",
-    "tags": ["OSI", "routage"]
+    "tags": [
+      "OSI",
+      "routage"
+    ]
   },
   {
     "id": "q-net-005",
@@ -57,7 +80,10 @@
     ],
     "correct": 0,
     "explanation": "Le processus DORA suit l'ordre Discover, Offer, Request, Acknowledge.",
-    "tags": ["DHCP", "DORA"]
+    "tags": [
+      "DHCP",
+      "DORA"
+    ]
   },
   {
     "id": "q-net-006",
@@ -71,25 +97,47 @@
     ],
     "correct": 0,
     "explanation": "Le DNS utilise le port 53. Les requêtes classiques passent en UDP (rapide) ; le TCP/53 sert aux réponses volumineuses et aux transferts de zone. Le port 67/68 concerne DHCP.",
-    "tags": ["DNS", "ports", "UDP"]
+    "tags": [
+      "DNS",
+      "ports",
+      "UDP"
+    ]
   },
   {
     "id": "q-net-007",
     "module": "reseaux",
     "question": "Quel protocole de transport est sans connexion et ne garantit pas la livraison ?",
-    "options": ["TCP", "UDP", "ICMP", "ARP"],
+    "options": [
+      "TCP",
+      "UDP",
+      "ICMP",
+      "ARP"
+    ],
     "correct": 1,
     "explanation": "UDP est sans connexion et non fiable (pas de handshake ni d'accusés de réception), mais léger et rapide. TCP, lui, est orienté connexion et fiable.",
-    "tags": ["UDP", "TCP", "transport"]
+    "tags": [
+      "UDP",
+      "TCP",
+      "transport"
+    ]
   },
   {
     "id": "q-net-008",
     "module": "reseaux",
     "question": "Quel enregistrement DNS réalise la résolution inverse (IP → nom) ?",
-    "options": ["A", "CNAME", "PTR", "MX"],
+    "options": [
+      "A",
+      "CNAME",
+      "PTR",
+      "MX"
+    ],
     "correct": 2,
     "explanation": "Le PTR (pointer) associe une adresse IP à un nom : c'est la résolution inverse. A fait nom → IPv4, CNAME est un alias, MX désigne le serveur mail.",
-    "tags": ["DNS", "PTR", "résolution inverse"]
+    "tags": [
+      "DNS",
+      "PTR",
+      "résolution inverse"
+    ]
   },
   {
     "id": "q-net-009",
@@ -103,6 +151,196 @@
     ],
     "correct": 1,
     "explanation": "L'adresse MAC est gérée à la couche 2 (Liaison de données), celle des trames et des switches. L'adressage logique (IP) est à la couche 3.",
-    "tags": ["OSI", "MAC", "couche 2"]
+    "tags": [
+      "OSI",
+      "MAC",
+      "couche 2"
+    ]
+  },
+  {
+    "id": "q-net-010",
+    "module": "reseaux",
+    "question": "Laquelle est une adresse IP privée ?",
+    "options": [
+      "8.8.8.8",
+      "172.16.5.1",
+      "51.15.2.3",
+      "200.10.10.1"
+    ],
+    "correct": 1,
+    "explanation": "Les plages privées (RFC 1918) sont 10.0.0.0/8, 172.16.0.0/12 et 192.168.0.0/16. 172.16.5.1 en fait partie ; les autres sont publiques.",
+    "tags": [
+      "adressage",
+      "RFC1918",
+      "privé"
+    ]
+  },
+  {
+    "id": "q-net-011",
+    "module": "reseaux",
+    "question": "Quel masque correspond à un préfixe /24 ?",
+    "options": [
+      "255.255.255.0",
+      "255.255.0.0",
+      "255.255.255.192",
+      "255.0.0.0"
+    ],
+    "correct": 0,
+    "explanation": "Un /24 = 24 bits à 1 = 255.255.255.0, soit 256 adresses et 254 hôtes utilisables.",
+    "tags": [
+      "masque",
+      "CIDR"
+    ]
+  },
+  {
+    "id": "q-net-012",
+    "module": "reseaux",
+    "question": "Quel protocole associe une adresse IP à une adresse MAC ?",
+    "options": [
+      "DNS",
+      "ARP",
+      "DHCP",
+      "ICMP"
+    ],
+    "correct": 1,
+    "explanation": "ARP (Address Resolution Protocol) résout une adresse IP en adresse MAC sur le réseau local.",
+    "tags": [
+      "ARP",
+      "MAC"
+    ]
+  },
+  {
+    "id": "q-net-013",
+    "module": "reseaux",
+    "question": "Quelles sont les 3 étapes d'ouverture d'une connexion TCP ?",
+    "options": [
+      "SYN, SYN-ACK, ACK",
+      "Discover, Offer, Ack",
+      "Hello, Offer, Request",
+      "GET, POST, ACK"
+    ],
+    "correct": 0,
+    "explanation": "Le three-way handshake TCP : SYN (client), SYN-ACK (serveur), ACK (client).",
+    "tags": [
+      "TCP",
+      "handshake"
+    ]
+  },
+  {
+    "id": "q-net-014",
+    "module": "reseaux",
+    "question": "Combien d'hôtes utilisables offre un réseau en /30 ?",
+    "options": [
+      "4",
+      "2",
+      "6",
+      "1"
+    ],
+    "correct": 1,
+    "explanation": "Un /30 fournit 4 adresses dont 2 utilisables — idéal pour une liaison point à point entre deux routeurs.",
+    "tags": [
+      "subnetting",
+      "/30"
+    ]
+  },
+  {
+    "id": "q-net-015",
+    "module": "reseaux",
+    "question": "Quel port est utilisé par FTP (canal de commande) ?",
+    "options": [
+      "21",
+      "22",
+      "23",
+      "25"
+    ],
+    "correct": 0,
+    "explanation": "FTP utilise le port 21 (commandes) et 20 (données). 22=SSH, 23=Telnet, 25=SMTP.",
+    "tags": [
+      "ports",
+      "FTP"
+    ]
+  },
+  {
+    "id": "q-net-016",
+    "module": "reseaux",
+    "question": "À quoi sert le NAT ?",
+    "options": [
+      "Chiffrer le trafic",
+      "Traduire des adresses privées vers une adresse publique",
+      "Résoudre les noms de domaine",
+      "Attribuer des adresses IP"
+    ],
+    "correct": 1,
+    "explanation": "Le NAT permet à des machines en IP privée d'accéder à Internet via l'IP publique de la passerelle.",
+    "tags": [
+      "NAT"
+    ]
+  },
+  {
+    "id": "q-net-017",
+    "module": "reseaux",
+    "question": "Sur combien de bits une adresse MAC est-elle codée ?",
+    "options": [
+      "32 bits",
+      "48 bits",
+      "64 bits",
+      "128 bits"
+    ],
+    "correct": 1,
+    "explanation": "Une adresse MAC fait 48 bits (6 octets), notée en hexadécimal (ex. 00:1A:2B:3C:4D:5E).",
+    "tags": [
+      "MAC"
+    ]
+  },
+  {
+    "id": "q-net-018",
+    "module": "reseaux",
+    "question": "Sur combien de bits une adresse IPv4 est-elle codée ?",
+    "options": [
+      "16",
+      "32",
+      "48",
+      "128"
+    ],
+    "correct": 1,
+    "explanation": "Une adresse IPv4 fait 32 bits (4 octets). IPv6 fait 128 bits.",
+    "tags": [
+      "IPv4"
+    ]
+  },
+  {
+    "id": "q-net-019",
+    "module": "reseaux",
+    "question": "À quoi sert la passerelle par défaut ?",
+    "options": [
+      "Résoudre les noms",
+      "Joindre les réseaux autres que le sien",
+      "Attribuer les adresses IP",
+      "Filtrer les ports"
+    ],
+    "correct": 1,
+    "explanation": "La passerelle par défaut est le routeur par lequel une machine envoie tout trafic destiné à un autre réseau que le sien.",
+    "tags": [
+      "passerelle",
+      "routage"
+    ]
+  },
+  {
+    "id": "q-net-020",
+    "module": "reseaux",
+    "question": "Que permet le protocole 802.1Q ?",
+    "options": [
+      "Chiffrer les trames",
+      "Taguer les trames pour transporter plusieurs VLAN sur un trunk",
+      "Attribuer des adresses IP",
+      "Router entre réseaux"
+    ],
+    "correct": 1,
+    "explanation": "802.1Q ajoute un tag VLAN aux trames Ethernet, permettant de faire passer plusieurs VLAN sur un même lien trunk.",
+    "tags": [
+      "VLAN",
+      "802.1Q",
+      "trunk"
+    ]
   }
 ]

@@ -11,16 +11,27 @@
     ],
     "correct": 1,
     "explanation": "La supervision surveille disponibilité et performances pour détecter (voire anticiper) les incidents et alerter, avant que l'utilisateur ne subisse la panne.",
-    "tags": ["supervision", "monitoring"]
+    "tags": [
+      "supervision",
+      "monitoring"
+    ]
   },
   {
     "id": "q-out-002",
     "module": "outils",
     "question": "Quel protocole standard permet d'interroger switchs, routeurs et imprimantes sans agent ?",
-    "options": ["SMTP", "SNMP", "SSH", "NTP"],
+    "options": [
+      "SMTP",
+      "SNMP",
+      "SSH",
+      "NTP"
+    ],
     "correct": 1,
     "explanation": "SNMP (Simple Network Management Protocol) interroge les équipements via des OID décrits dans une MIB. C'est la base de la supervision sans agent.",
-    "tags": ["SNMP", "supervision"]
+    "tags": [
+      "SNMP",
+      "supervision"
+    ]
   },
   {
     "id": "q-out-003",
@@ -34,7 +45,10 @@
     ],
     "correct": 1,
     "explanation": "3 copies des données, sur 2 supports différents, dont 1 conservée hors site (idéalement hors ligne) : c'est le standard de protection.",
-    "tags": ["sauvegarde", "3-2-1"]
+    "tags": [
+      "sauvegarde",
+      "3-2-1"
+    ]
   },
   {
     "id": "q-out-004",
@@ -48,7 +62,10 @@
     ],
     "correct": 1,
     "explanation": "L'incrémentale sauvegarde les changements depuis la dernière sauvegarde (quelle qu'elle soit). La différentielle, elle, part de la dernière complète.",
-    "tags": ["sauvegarde", "incrémentale"]
+    "tags": [
+      "sauvegarde",
+      "incrémentale"
+    ]
   },
   {
     "id": "q-out-005",
@@ -62,7 +79,11 @@
     ],
     "correct": 1,
     "explanation": "Veeam est une référence de la sauvegarde de VM (VMware, Hyper-V) en entreprise. Bareos/Bacula sont des alternatives libres.",
-    "tags": ["Veeam", "sauvegarde", "VM"]
+    "tags": [
+      "Veeam",
+      "sauvegarde",
+      "VM"
+    ]
   },
   {
     "id": "q-out-006",
@@ -76,6 +97,252 @@
     ],
     "correct": 1,
     "explanation": "GLPI relie la gestion de parc (inventaire matériel/logiciel) et le helpdesk (tickets, SLA, base de connaissances), ce qui accélère le diagnostic.",
-    "tags": ["GLPI", "ITSM", "inventaire"]
+    "tags": [
+      "GLPI",
+      "ITSM",
+      "inventaire"
+    ]
+  },
+  {
+    "id": "q-out-007",
+    "module": "outils",
+    "question": "À quoi sert Grafana ?",
+    "options": [
+      "Sauvegarder des VM",
+      "Visualiser des métriques dans des tableaux de bord",
+      "Router le trafic",
+      "Gérer des tickets"
+    ],
+    "correct": 1,
+    "explanation": "Grafana crée des tableaux de bord à partir de sources de métriques (souvent Prometheus) pour analyser les tendances.",
+    "tags": [
+      "Grafana",
+      "métrologie"
+    ]
+  },
+  {
+    "id": "q-out-008",
+    "module": "outils",
+    "question": "Quelle version de SNMP est chiffrée et authentifiée ?",
+    "options": [
+      "v1",
+      "v2c",
+      "v3",
+      "v0"
+    ],
+    "correct": 2,
+    "explanation": "SNMP v3 apporte authentification et chiffrement, contrairement à v1/v2c qui reposent sur une communauté en clair.",
+    "tags": [
+      "SNMP",
+      "v3"
+    ]
+  },
+  {
+    "id": "q-out-009",
+    "module": "outils",
+    "question": "Qu'est-ce qu'un trap SNMP ?",
+    "options": [
+      "Une requête du superviseur",
+      "Une notification envoyée spontanément par l'équipement",
+      "Un mot de passe",
+      "Un numéro de port"
+    ],
+    "correct": 1,
+    "explanation": "Un trap est une alerte que l'équipement envoie de lui-même au superviseur (push), sans attendre d'être interrogé (poll).",
+    "tags": [
+      "SNMP",
+      "trap"
+    ]
+  },
+  {
+    "id": "q-out-010",
+    "module": "outils",
+    "question": "Que copie une sauvegarde complète ?",
+    "options": [
+      "Seulement les fichiers modifiés",
+      "Toutes les données à chaque fois",
+      "Rien, elle indexe",
+      "Uniquement le système"
+    ],
+    "correct": 1,
+    "explanation": "La complète copie l'intégralité des données : restauration simple, mais volume et durée maximaux.",
+    "tags": [
+      "sauvegarde",
+      "complète"
+    ]
+  },
+  {
+    "id": "q-out-011",
+    "module": "outils",
+    "question": "Une sauvegarde différentielle enregistre…",
+    "options": [
+      "les changements depuis la dernière sauvegarde",
+      "les changements depuis la dernière complète",
+      "toutes les données",
+      "les fichiers système"
+    ],
+    "correct": 1,
+    "explanation": "La différentielle part de la dernière complète (restauration = complète + dernière différentielle). L'incrémentale part de la dernière sauvegarde quelconque.",
+    "tags": [
+      "sauvegarde",
+      "différentielle"
+    ]
+  },
+  {
+    "id": "q-out-012",
+    "module": "outils",
+    "question": "Que mesure le RTO ?",
+    "options": [
+      "La perte de données tolérée",
+      "Le temps de remise en service acceptable",
+      "La taille des sauvegardes",
+      "Le nombre de copies"
+    ],
+    "correct": 1,
+    "explanation": "Le RTO (Recovery Time Objective) fixe la durée d'indisponibilité maximale acceptable. Le RPO concerne la perte de données.",
+    "tags": [
+      "RTO",
+      "PRA"
+    ]
+  },
+  {
+    "id": "q-out-013",
+    "module": "outils",
+    "question": "Que mesure le RPO ?",
+    "options": [
+      "Le temps de redémarrage",
+      "La quantité de données que l'on accepte de perdre",
+      "La bande passante",
+      "Le nombre de VM"
+    ],
+    "correct": 1,
+    "explanation": "Le RPO (Recovery Point Objective) définit la perte de données tolérée, donc la fréquence des sauvegardes.",
+    "tags": [
+      "RPO",
+      "PRA"
+    ]
+  },
+  {
+    "id": "q-out-014",
+    "module": "outils",
+    "question": "Quel support est adapté à l'archivage longue durée hors-ligne ?",
+    "options": [
+      "Un SSD",
+      "Une bande (LTO)",
+      "La RAM",
+      "Un CD-RW"
+    ],
+    "correct": 1,
+    "explanation": "Les bandes LTO offrent grande capacité, faible coût au To et stockage hors-ligne (résistant au ransomware).",
+    "tags": [
+      "bande",
+      "LTO",
+      "archivage"
+    ]
+  },
+  {
+    "id": "q-out-015",
+    "module": "outils",
+    "question": "Nagios et Centreon sont des outils de…",
+    "options": [
+      "sauvegarde",
+      "supervision",
+      "virtualisation",
+      "gestion de parc"
+    ],
+    "correct": 1,
+    "explanation": "Ce sont des solutions de supervision (monitoring) de la disponibilité et des performances.",
+    "tags": [
+      "supervision",
+      "Nagios",
+      "Centreon"
+    ]
+  },
+  {
+    "id": "q-out-016",
+    "module": "outils",
+    "question": "Quel outil remonte automatiquement l'inventaire matériel et logiciel des postes ?",
+    "options": [
+      "Grafana",
+      "OCS Inventory / agent GLPI",
+      "Veeam",
+      "Zabbix proxy"
+    ],
+    "correct": 1,
+    "explanation": "OCS Inventory (ou l'agent GLPI) collecte automatiquement la configuration des postes et l'injecte dans GLPI.",
+    "tags": [
+      "inventaire",
+      "OCS",
+      "GLPI"
+    ]
+  },
+  {
+    "id": "q-out-017",
+    "module": "outils",
+    "question": "Qu'est-ce qu'un SLA dans un helpdesk ?",
+    "options": [
+      "Un type de ticket",
+      "Un engagement sur les délais de traitement",
+      "Un antivirus",
+      "Une adresse IP"
+    ],
+    "correct": 1,
+    "explanation": "Le SLA (Service Level Agreement) fixe des délais à respecter (prise en charge, résolution) selon la priorité du ticket.",
+    "tags": [
+      "SLA",
+      "helpdesk"
+    ]
+  },
+  {
+    "id": "q-out-018",
+    "module": "outils",
+    "question": "Sur quelle solution Centreon est-il historiquement basé ?",
+    "options": [
+      "Zabbix",
+      "Nagios",
+      "Prometheus",
+      "Cacti"
+    ],
+    "correct": 1,
+    "explanation": "Centreon s'appuie sur le moteur Nagios, avec une interface et des fonctionnalités enrichies.",
+    "tags": [
+      "Centreon",
+      "Nagios"
+    ]
+  },
+  {
+    "id": "q-out-019",
+    "module": "outils",
+    "question": "Que centralise un serveur syslog ?",
+    "options": [
+      "Les sauvegardes",
+      "Les journaux (logs) des équipements",
+      "Les adresses IP",
+      "Les certificats"
+    ],
+    "correct": 1,
+    "explanation": "Un serveur syslog collecte les journaux de nombreux équipements en un point unique, facilitant analyse et corrélation.",
+    "tags": [
+      "syslog",
+      "logs"
+    ]
+  },
+  {
+    "id": "q-out-020",
+    "module": "outils",
+    "question": "À quoi sert le duo Prometheus + Grafana ?",
+    "options": [
+      "Sauvegarder des VM",
+      "Collecter des métriques et les visualiser",
+      "Router entre VLAN",
+      "Gérer les licences"
+    ],
+    "correct": 1,
+    "explanation": "Prometheus collecte et stocke des métriques (time-series), Grafana les affiche en tableaux de bord.",
+    "tags": [
+      "Prometheus",
+      "Grafana",
+      "métriques"
+    ]
   }
 ]

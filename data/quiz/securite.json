@@ -3,10 +3,18 @@
     "id": "q-sec-001",
     "module": "securite",
     "question": "Quel algorithme est un chiffrement symétrique ?",
-    "options": ["RSA", "AES", "SHA-256", "ECDSA"],
+    "options": [
+      "RSA",
+      "AES",
+      "SHA-256",
+      "ECDSA"
+    ],
     "correct": 1,
     "explanation": "AES est un chiffrement symétrique (une seule clé). RSA et ECDSA sont asymétriques, et SHA-256 est une fonction de hachage (pas un chiffrement).",
-    "tags": ["chiffrement", "AES"]
+    "tags": [
+      "chiffrement",
+      "AES"
+    ]
   },
   {
     "id": "q-sec-002",
@@ -20,7 +28,10 @@
     ],
     "correct": 1,
     "explanation": "Un hachage est à sens unique (irréversible) et déterministe : la même entrée donne toujours la même empreinte. Il ne sert pas à chiffrer ni à compresser.",
-    "tags": ["hachage", "intégrité"]
+    "tags": [
+      "hachage",
+      "intégrité"
+    ]
   },
   {
     "id": "q-sec-003",
@@ -34,7 +45,10 @@
     ],
     "correct": 1,
     "explanation": "Le pare-feu stateful maintient une table des connexions et autorise automatiquement les paquets retour d'une session déjà établie, contrairement au stateless qui évalue chaque paquet isolément.",
-    "tags": ["firewall", "stateful"]
+    "tags": [
+      "firewall",
+      "stateful"
+    ]
   },
   {
     "id": "q-sec-004",
@@ -48,7 +62,11 @@
     ],
     "correct": 1,
     "explanation": "C'est l'autorité de certification (CA) qui signe les certificats, établissant la chaîne de confiance vérifiée par les clients.",
-    "tags": ["PKI", "CA", "certificat"]
+    "tags": [
+      "PKI",
+      "CA",
+      "certificat"
+    ]
   },
   {
     "id": "q-sec-005",
@@ -62,16 +80,28 @@
     ],
     "correct": 1,
     "explanation": "Le moindre privilège limite chaque entité aux droits strictement nécessaires, réduisant la surface d'attaque et l'impact d'une compromission.",
-    "tags": ["moindre privilège", "durcissement"]
+    "tags": [
+      "moindre privilège",
+      "durcissement"
+    ]
   },
   {
     "id": "q-sec-006",
     "module": "securite",
     "question": "Que représente la lettre « I » de la triade de sécurité CIA ?",
-    "options": ["Identification", "Intégrité", "Isolation", "Indexation"],
+    "options": [
+      "Identification",
+      "Intégrité",
+      "Isolation",
+      "Indexation"
+    ],
     "correct": 1,
     "explanation": "La triade CIA : Confidentialité, Intégrité (les données ne sont pas altérées), Disponibilité. En français on parle de DIC.",
-    "tags": ["CIA", "intégrité", "concepts"]
+    "tags": [
+      "CIA",
+      "intégrité",
+      "concepts"
+    ]
   },
   {
     "id": "q-sec-007",
@@ -85,7 +115,11 @@
     ],
     "correct": 1,
     "explanation": "On chiffre avec la clé publique d'Alice ; seule sa clé privée (qu'elle garde secrète) peut déchiffrer. C'est le principe de l'asymétrique.",
-    "tags": ["chiffrement", "asymétrique", "clé publique"]
+    "tags": [
+      "chiffrement",
+      "asymétrique",
+      "clé publique"
+    ]
   },
   {
     "id": "q-sec-008",
@@ -99,7 +133,10 @@
     ],
     "correct": 1,
     "explanation": "Le MFA combine des facteurs de catégories différentes : ici ce qu'on sait (mot de passe) + ce qu'on a (téléphone). Deux mots de passe restent un seul type de facteur.",
-    "tags": ["MFA", "authentification"]
+    "tags": [
+      "MFA",
+      "authentification"
+    ]
   },
   {
     "id": "q-sec-009",
@@ -113,6 +150,197 @@
     ],
     "correct": 0,
     "explanation": "Un ransomware chiffre les fichiers de la victime et réclame une rançon pour la clé de déchiffrement. Les sauvegardes hors ligne sont la meilleure protection.",
-    "tags": ["malware", "ransomware"]
+    "tags": [
+      "malware",
+      "ransomware"
+    ]
+  },
+  {
+    "id": "q-sec-010",
+    "module": "securite",
+    "question": "Qu'est-ce que le phishing (hameçonnage) ?",
+    "options": [
+      "Un algorithme de chiffrement",
+      "Une usurpation d'identité pour voler des informations",
+      "Un type de pare-feu",
+      "Une méthode de sauvegarde"
+    ],
+    "correct": 1,
+    "explanation": "Le phishing usurpe une identité de confiance (faux mail ou site) pour pousser la victime à divulguer identifiants ou données.",
+    "tags": [
+      "phishing",
+      "ingénierie sociale"
+    ]
+  },
+  {
+    "id": "q-sec-011",
+    "module": "securite",
+    "question": "À quoi sert principalement un VPN ?",
+    "options": [
+      "Accélérer le réseau",
+      "Créer un tunnel chiffré sur un réseau non sûr",
+      "Attribuer des adresses IP",
+      "Superviser les serveurs"
+    ],
+    "correct": 1,
+    "explanation": "Un VPN établit un tunnel chiffré assurant confidentialité et intégrité sur un réseau public.",
+    "tags": [
+      "VPN",
+      "chiffrement"
+    ]
+  },
+  {
+    "id": "q-sec-012",
+    "module": "securite",
+    "question": "Quelle est la différence entre un IDS et un IPS ?",
+    "options": [
+      "Aucune",
+      "L'IDS détecte et alerte, l'IPS peut bloquer",
+      "L'IDS chiffre, l'IPS déchiffre",
+      "L'IDS route, l'IPS commute"
+    ],
+    "correct": 1,
+    "explanation": "Un IDS détecte et signale une intrusion ; un IPS, placé en coupure, peut la bloquer activement.",
+    "tags": [
+      "IDS",
+      "IPS"
+    ]
+  },
+  {
+    "id": "q-sec-013",
+    "module": "securite",
+    "question": "Qu'est-ce qu'une DMZ ?",
+    "options": [
+      "Un algorithme de hachage",
+      "Une zone réseau tampon exposant les services publics, isolée du LAN",
+      "Un mot de passe",
+      "Un type de VPN"
+    ],
+    "correct": 1,
+    "explanation": "La DMZ héberge les serveurs accessibles de l'extérieur (web, mail) tout en les isolant du réseau interne.",
+    "tags": [
+      "DMZ",
+      "segmentation"
+    ]
+  },
+  {
+    "id": "q-sec-014",
+    "module": "securite",
+    "question": "Pourquoi ajouter un sel (salt) au hachage d'un mot de passe ?",
+    "options": [
+      "Pour l'accélérer",
+      "Pour que deux mots de passe identiques aient des empreintes différentes",
+      "Pour le chiffrer",
+      "Pour le compresser"
+    ],
+    "correct": 1,
+    "explanation": "Le sel rend chaque empreinte unique et neutralise les tables précalculées (rainbow tables).",
+    "tags": [
+      "hachage",
+      "sel",
+      "mot de passe"
+    ]
+  },
+  {
+    "id": "q-sec-015",
+    "module": "securite",
+    "question": "Quelle est la bonne pratique pour la règle par défaut d'un pare-feu ?",
+    "options": [
+      "Tout autoriser",
+      "Tout interdire, puis autoriser au cas par cas",
+      "Autoriser le LAN uniquement",
+      "Désactiver le pare-feu"
+    ],
+    "correct": 1,
+    "explanation": "Le principe deny by default : on bloque tout, puis on ouvre explicitement ce qui est nécessaire.",
+    "tags": [
+      "pare-feu",
+      "deny"
+    ]
+  },
+  {
+    "id": "q-sec-016",
+    "module": "securite",
+    "question": "Qu'est-ce qu'une faille zero-day ?",
+    "options": [
+      "Une faille corrigée de longue date",
+      "Une vulnérabilité sans correctif connu au moment de son exploitation",
+      "Un mot de passe par défaut",
+      "Un pare-feu mal réglé"
+    ],
+    "correct": 1,
+    "explanation": "Une zero-day est exploitée avant qu'un correctif n'existe, ce qui la rend particulièrement dangereuse.",
+    "tags": [
+      "zero-day",
+      "vulnérabilité"
+    ]
+  },
+  {
+    "id": "q-sec-017",
+    "module": "securite",
+    "question": "Quelle propriété de sécurité vise à garder un service accessible ?",
+    "options": [
+      "Confidentialité",
+      "Intégrité",
+      "Disponibilité",
+      "Non-répudiation"
+    ],
+    "correct": 2,
+    "explanation": "La Disponibilité (le D de DIC / A de CIA) garantit l'accès au service ; une attaque DDoS la vise directement.",
+    "tags": [
+      "CIA",
+      "disponibilité"
+    ]
+  },
+  {
+    "id": "q-sec-018",
+    "module": "securite",
+    "question": "Que lie un certificat numérique ?",
+    "options": [
+      "Deux adresses IP",
+      "Une identité à une clé publique",
+      "Un login à un mot de passe",
+      "Un VLAN à un port"
+    ],
+    "correct": 1,
+    "explanation": "Signé par une autorité de certification, un certificat associe une identité (domaine, personne) à sa clé publique.",
+    "tags": [
+      "certificat",
+      "PKI"
+    ]
+  },
+  {
+    "id": "q-sec-019",
+    "module": "securite",
+    "question": "En quoi consiste une attaque par force brute ?",
+    "options": [
+      "Envoyer un mail piégé",
+      "Essayer systématiquement toutes les combinaisons de mot de passe",
+      "Chiffrer les données de la victime",
+      "Écouter le trafic réseau"
+    ],
+    "correct": 1,
+    "explanation": "La force brute teste toutes les combinaisons ; on s'en protège par des mots de passe longs, le MFA et le verrouillage de compte.",
+    "tags": [
+      "force brute",
+      "mot de passe"
+    ]
+  },
+  {
+    "id": "q-sec-020",
+    "module": "securite",
+    "question": "Que protège un WAF (Web Application Firewall) ?",
+    "options": [
+      "Les commutateurs",
+      "Les applications web (injection SQL, XSS…)",
+      "Les sauvegardes",
+      "Le service DNS"
+    ],
+    "correct": 1,
+    "explanation": "Un WAF filtre le trafic HTTP pour protéger les applications web des attaques applicatives.",
+    "tags": [
+      "WAF",
+      "web"
+    ]
   }
 ]

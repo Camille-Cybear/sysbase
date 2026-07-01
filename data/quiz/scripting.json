@@ -11,16 +11,27 @@
     ],
     "correct": 1,
     "explanation": "C'est le shebang : il indique au système quel interpréteur exécute le script (ici Bash). Il doit être la toute première ligne.",
-    "tags": ["bash", "shebang"]
+    "tags": [
+      "bash",
+      "shebang"
+    ]
   },
   {
     "id": "q-scr-002",
     "module": "scripting",
     "question": "En Bash, que vaut `$?` juste après une commande qui a réussi ?",
-    "options": ["1", "0", "true", "le nom de la commande"],
+    "options": [
+      "1",
+      "0",
+      "true",
+      "le nom de la commande"
+    ],
     "correct": 1,
     "explanation": "$? contient le code de retour de la dernière commande : 0 = succès, toute valeur différente de 0 = erreur.",
-    "tags": ["bash", "code de retour"]
+    "tags": [
+      "bash",
+      "code de retour"
+    ]
   },
   {
     "id": "q-scr-003",
@@ -34,16 +45,27 @@
     ],
     "correct": 1,
     "explanation": "$1 est le premier argument positionnel. $0 est le nom du script, $# le nombre d'arguments, $? le code de retour.",
-    "tags": ["bash", "arguments"]
+    "tags": [
+      "bash",
+      "arguments"
+    ]
   },
   {
     "id": "q-scr-004",
     "module": "scripting",
     "question": "Laquelle est une cmdlet PowerShell correctement nommée ?",
-    "options": ["process_list", "Get-Process", "list-process", "PROCESS.GET"],
+    "options": [
+      "process_list",
+      "Get-Process",
+      "list-process",
+      "PROCESS.GET"
+    ],
     "correct": 1,
     "explanation": "Les cmdlets suivent le modèle Verbe-Nom : Get-Process. Les verbes (Get, Set, New, Stop…) sont standardisés.",
-    "tags": ["PowerShell", "cmdlet"]
+    "tags": [
+      "PowerShell",
+      "cmdlet"
+    ]
   },
   {
     "id": "q-scr-005",
@@ -57,15 +79,263 @@
     ],
     "correct": 1,
     "explanation": "Ordre : minute, heure, jour du mois, mois, jour de la semaine, puis la commande. Ex. : 0 2 * * * = chaque jour à 02h00.",
-    "tags": ["cron", "automatisation"]
+    "tags": [
+      "cron",
+      "automatisation"
+    ]
   },
   {
     "id": "q-scr-006",
     "module": "scripting",
     "question": "En PowerShell, quel opérateur teste l'égalité ?",
-    "options": ["==", "-eq", "=", "eq()"],
+    "options": [
+      "==",
+      "-eq",
+      "=",
+      "eq()"
+    ],
     "correct": 1,
     "explanation": "PowerShell utilise -eq (et -ne, -gt, -lt…), pas == comme dans d'autres langages. = sert uniquement à l'affectation.",
-    "tags": ["PowerShell", "opérateurs"]
+    "tags": [
+      "PowerShell",
+      "opérateurs"
+    ]
+  },
+  {
+    "id": "q-scr-007",
+    "module": "scripting",
+    "question": "Comment affecte-t-on une variable en Bash ?",
+    "options": [
+      "nom = valeur",
+      "nom=valeur (sans espaces)",
+      "set nom valeur",
+      "$nom = valeur"
+    ],
+    "correct": 1,
+    "explanation": "En Bash, pas d'espace autour du signe = ; on écrit nom=valeur puis on lit avec $nom.",
+    "tags": [
+      "bash",
+      "variables"
+    ]
+  },
+  {
+    "id": "q-scr-008",
+    "module": "scripting",
+    "question": "Comment lit-on la valeur d'une variable en Bash ?",
+    "options": [
+      "#nom",
+      "$nom",
+      "&nom",
+      "@nom"
+    ],
+    "correct": 1,
+    "explanation": "On préfixe le nom par $ : echo $nom (ou ${nom} pour lever toute ambiguïté).",
+    "tags": [
+      "bash",
+      "variables"
+    ]
+  },
+  {
+    "id": "q-scr-009",
+    "module": "scripting",
+    "question": "Quelle structure parcourt une liste d'éléments en Bash ?",
+    "options": [
+      "if",
+      "for … in …",
+      "case",
+      "function"
+    ],
+    "correct": 1,
+    "explanation": "for f in *.log; do … done parcourt chaque élément de la liste.",
+    "tags": [
+      "bash",
+      "boucle"
+    ]
+  },
+  {
+    "id": "q-scr-010",
+    "module": "scripting",
+    "question": "Comment capturer la sortie d'une commande dans une variable ?",
+    "options": [
+      "var=(commande)",
+      "var=$(commande)",
+      "var=<commande>",
+      "var==commande"
+    ],
+    "correct": 1,
+    "explanation": "La substitution de commande $(...) capture la sortie : maintenant=$(date).",
+    "tags": [
+      "bash",
+      "substitution"
+    ]
+  },
+  {
+    "id": "q-scr-011",
+    "module": "scripting",
+    "question": "Que fait `exit 1` dans un script ?",
+    "options": [
+      "Redémarre le script",
+      "Termine le script avec un code d'erreur",
+      "Affiche 1",
+      "Ignore les erreurs"
+    ],
+    "correct": 1,
+    "explanation": "exit termine le script ; un code non nul (ici 1) signale une erreur, exploitable via $? ou &&/||.",
+    "tags": [
+      "bash",
+      "exit"
+    ]
+  },
+  {
+    "id": "q-scr-012",
+    "module": "scripting",
+    "question": "Comment écrit-on un commentaire en Bash ?",
+    "options": [
+      "// commentaire",
+      "# commentaire",
+      "/* commentaire */",
+      "-- commentaire"
+    ],
+    "correct": 1,
+    "explanation": "Tout ce qui suit # sur une ligne est un commentaire (sauf le shebang #! en première ligne).",
+    "tags": [
+      "bash",
+      "commentaire"
+    ]
+  },
+  {
+    "id": "q-scr-013",
+    "module": "scripting",
+    "question": "Comment rendre un script exécutable ?",
+    "options": [
+      "run script.sh",
+      "chmod +x script.sh",
+      "exec script.sh",
+      "chown +x script.sh"
+    ],
+    "correct": 1,
+    "explanation": "chmod +x ajoute le droit d'exécution ; on lance ensuite avec ./script.sh.",
+    "tags": [
+      "bash",
+      "chmod"
+    ]
+  },
+  {
+    "id": "q-scr-014",
+    "module": "scripting",
+    "question": "Quelle cmdlet affiche l'aide d'une commande PowerShell ?",
+    "options": [
+      "Get-Command",
+      "Get-Help",
+      "Help-Get",
+      "Show-Help"
+    ],
+    "correct": 1,
+    "explanation": "Get-Help <cmdlet> -Examples donne la syntaxe et des exemples. Get-Command sert à découvrir les cmdlets.",
+    "tags": [
+      "PowerShell",
+      "aide"
+    ]
+  },
+  {
+    "id": "q-scr-015",
+    "module": "scripting",
+    "question": "Dans un pipeline PowerShell, que représente `$_` ?",
+    "options": [
+      "Le dernier résultat",
+      "L'objet courant traversant le pipeline",
+      "Une variable d'environnement",
+      "Le code de retour"
+    ],
+    "correct": 1,
+    "explanation": "$_ (ou $PSItem) désigne l'objet en cours de traitement, ex. Where-Object { $_.Name -eq 'x' }.",
+    "tags": [
+      "PowerShell",
+      "pipeline"
+    ]
+  },
+  {
+    "id": "q-scr-016",
+    "module": "scripting",
+    "question": "Quelle cmdlet affiche du texte à l'écran en PowerShell ?",
+    "options": [
+      "Print",
+      "Write-Host",
+      "Say",
+      "Echo-Host"
+    ],
+    "correct": 1,
+    "explanation": "Write-Host (ou Write-Output) affiche du texte ; echo est un alias de Write-Output.",
+    "tags": [
+      "PowerShell",
+      "affichage"
+    ]
+  },
+  {
+    "id": "q-scr-017",
+    "module": "scripting",
+    "question": "Comment lister les cmdlets liées à un mot-clé en PowerShell ?",
+    "options": [
+      "Get-Help *mot*",
+      "Get-Command *mot*",
+      "Find-Cmdlet mot",
+      "List-Command mot"
+    ],
+    "correct": 1,
+    "explanation": "Get-Command *service* liste toutes les cmdlets dont le nom contient service.",
+    "tags": [
+      "PowerShell",
+      "découverte"
+    ]
+  },
+  {
+    "id": "q-scr-018",
+    "module": "scripting",
+    "question": "Quel opérateur PowerShell signifie « strictement supérieur à » ?",
+    "options": [
+      ">",
+      "-gt",
+      "-sup",
+      "gt()"
+    ],
+    "correct": 1,
+    "explanation": "PowerShell utilise -gt (greater than), pas >. De même : -lt, -ge, -le, -eq, -ne.",
+    "tags": [
+      "PowerShell",
+      "opérateurs"
+    ]
+  },
+  {
+    "id": "q-scr-019",
+    "module": "scripting",
+    "question": "Que signifie la ligne cron `*/5 * * * *` ?",
+    "options": [
+      "Tous les 5 jours",
+      "Toutes les 5 minutes",
+      "À 5h chaque jour",
+      "Le 5 de chaque mois"
+    ],
+    "correct": 1,
+    "explanation": "*/5 en position des minutes = toutes les 5 minutes ; les * suivants couvrent toutes les heures, jours et mois.",
+    "tags": [
+      "cron"
+    ]
+  },
+  {
+    "id": "q-scr-020",
+    "module": "scripting",
+    "question": "Quelle boucle s'exécute tant qu'une condition est vraie en Bash ?",
+    "options": [
+      "for",
+      "while",
+      "repeat",
+      "switch"
+    ],
+    "correct": 1,
+    "explanation": "while [ condition ]; do … done boucle tant que la condition est vraie ; until fait l'inverse.",
+    "tags": [
+      "bash",
+      "boucle"
+    ]
   }
 ]

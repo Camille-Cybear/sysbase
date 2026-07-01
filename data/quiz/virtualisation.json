@@ -11,25 +11,44 @@
     ],
     "correct": 1,
     "explanation": "Un type 1 (bare-metal) s'installe directement sur le matériel, sans OS hôte (ESXi, Proxmox, Hyper-V). Le type 2 s'exécute au-dessus d'un OS, comme une application.",
-    "tags": ["hyperviseur", "type 1"]
+    "tags": [
+      "hyperviseur",
+      "type 1"
+    ]
   },
   {
     "id": "q-vrt-002",
     "module": "virtualisation",
     "question": "Lequel est un hyperviseur de type 1 ?",
-    "options": ["VirtualBox", "VMware Workstation", "VMware ESXi", "QEMU sur le poste"],
+    "options": [
+      "VirtualBox",
+      "VMware Workstation",
+      "VMware ESXi",
+      "QEMU sur le poste"
+    ],
     "correct": 2,
     "explanation": "VMware ESXi est un type 1 (bare-metal). VirtualBox et VMware Workstation sont des type 2 (applications installées dans un OS).",
-    "tags": ["ESXi", "type 1"]
+    "tags": [
+      "ESXi",
+      "type 1"
+    ]
   },
   {
     "id": "q-vrt-003",
     "module": "virtualisation",
     "question": "Qu'est-ce qu'un conteneur partage avec sa machine hôte, contrairement à une VM ?",
-    "options": ["Le noyau", "La carte réseau", "Le BIOS", "Le disque dur entier"],
+    "options": [
+      "Le noyau",
+      "La carte réseau",
+      "Le BIOS",
+      "Le disque dur entier"
+    ],
     "correct": 0,
     "explanation": "Un conteneur partage le noyau de l'hôte (il n'isole que l'espace utilisateur), d'où sa légèreté. Une VM a son propre noyau et un OS complet.",
-    "tags": ["conteneur", "noyau"]
+    "tags": [
+      "conteneur",
+      "noyau"
+    ]
   },
   {
     "id": "q-vrt-004",
@@ -43,7 +62,10 @@
     ],
     "correct": 1,
     "explanation": "Un snapshot fige un état pour y revenir, mais il dépend de la VM d'origine et se dégrade dans le temps : ce n'est pas une sauvegarde. Il faut une sauvegarde externe pour vraiment protéger les données.",
-    "tags": ["snapshot", "sauvegarde"]
+    "tags": [
+      "snapshot",
+      "sauvegarde"
+    ]
   },
   {
     "id": "q-vrt-005",
@@ -57,7 +79,11 @@
     ],
     "correct": 1,
     "explanation": "Proxmox VE s'appuie sur KVM pour les machines virtuelles et LXC pour les conteneurs système, dans une interface libre.",
-    "tags": ["Proxmox", "KVM", "LXC"]
+    "tags": [
+      "Proxmox",
+      "KVM",
+      "LXC"
+    ]
   },
   {
     "id": "q-vrt-006",
@@ -71,6 +97,247 @@
     ],
     "correct": 1,
     "explanation": "En bridge (pont), la VM est raccordée au même réseau physique que l'hôte et obtient une IP du LAN : elle est visible des autres machines. Le NAT, lui, place la VM derrière l'hôte.",
-    "tags": ["réseau", "bridge"]
+    "tags": [
+      "réseau",
+      "bridge"
+    ]
+  },
+  {
+    "id": "q-vrt-007",
+    "module": "virtualisation",
+    "question": "Lequel est un hyperviseur de type 2 ?",
+    "options": [
+      "VMware ESXi",
+      "Proxmox VE",
+      "VirtualBox",
+      "Hyper-V"
+    ],
+    "correct": 2,
+    "explanation": "VirtualBox s'installe au-dessus d'un OS hôte (type 2). ESXi, Proxmox et Hyper-V sont de type 1.",
+    "tags": [
+      "type 2",
+      "VirtualBox"
+    ]
+  },
+  {
+    "id": "q-vrt-008",
+    "module": "virtualisation",
+    "question": "Qu'est-ce que la migration à chaud (live migration) ?",
+    "options": [
+      "Copier un disque",
+      "Déplacer une VM en fonctionnement vers un autre hôte sans l'arrêter",
+      "Sauvegarder une VM",
+      "Cloner une VM"
+    ],
+    "correct": 1,
+    "explanation": "La live migration (ex. vMotion) transfère une VM active d'un hôte à un autre sans interruption de service.",
+    "tags": [
+      "migration",
+      "live"
+    ]
+  },
+  {
+    "id": "q-vrt-009",
+    "module": "virtualisation",
+    "question": "Que fait la haute disponibilité (HA) dans un cluster ?",
+    "options": [
+      "Chiffre les VM",
+      "Redémarre automatiquement les VM sur un autre hôte en cas de panne",
+      "Compresse les disques",
+      "Route le trafic"
+    ],
+    "correct": 1,
+    "explanation": "La HA relance les VM d'un hôte défaillant sur les hôtes survivants du cluster, limitant l'indisponibilité.",
+    "tags": [
+      "HA",
+      "cluster"
+    ]
+  },
+  {
+    "id": "q-vrt-010",
+    "module": "virtualisation",
+    "question": "À quoi sert un template de VM ?",
+    "options": [
+      "À chiffrer une VM",
+      "À servir de modèle figé que l'on clone pour déployer vite",
+      "À superviser une VM",
+      "À sauvegarder une VM"
+    ],
+    "correct": 1,
+    "explanation": "Un template est une VM préconfigurée et verrouillée ; on la clone pour créer rapidement des VM identiques.",
+    "tags": [
+      "template",
+      "clone"
+    ]
+  },
+  {
+    "id": "q-vrt-011",
+    "module": "virtualisation",
+    "question": "Différence entre provisionnement fin (thin) et épais (thick) ?",
+    "options": [
+      "Aucune",
+      "Le thin alloue l'espace à la demande, le thick réserve tout d'emblée",
+      "Le thin chiffre, le thick non",
+      "Le thin est plus lent"
+    ],
+    "correct": 1,
+    "explanation": "Le thin n'occupe que l'espace réellement utilisé (extensible) ; le thick réserve toute la taille dès la création.",
+    "tags": [
+      "thin",
+      "thick",
+      "stockage"
+    ]
+  },
+  {
+    "id": "q-vrt-012",
+    "module": "virtualisation",
+    "question": "Quel format de disque virtuel est associé à KVM/Proxmox ?",
+    "options": [
+      ".vmdk",
+      ".qcow2",
+      ".vhdx",
+      ".iso"
+    ],
+    "correct": 1,
+    "explanation": "qcow2 est le format de QEMU/KVM. vmdk = VMware, vhdx = Hyper-V.",
+    "tags": [
+      "qcow2",
+      "disque"
+    ]
+  },
+  {
+    "id": "q-vrt-013",
+    "module": "virtualisation",
+    "question": "En mode réseau NAT, la VM…",
+    "options": [
+      "est sur le LAN physique",
+      "est masquée derrière l'IP de l'hôte",
+      "n'a aucun accès réseau",
+      "route pour les autres VM"
+    ],
+    "correct": 1,
+    "explanation": "En NAT, la VM sort via l'IP de l'hôte qui traduit ses accès ; elle n'est pas directement joignable depuis le LAN.",
+    "tags": [
+      "réseau",
+      "NAT"
+    ]
+  },
+  {
+    "id": "q-vrt-014",
+    "module": "virtualisation",
+    "question": "À partir de quoi un conteneur Docker est-il instancié ?",
+    "options": [
+      "Un snapshot",
+      "Une image composée de couches",
+      "Un fichier ISO",
+      "Un template VMware"
+    ],
+    "correct": 1,
+    "explanation": "Un conteneur est une instance en exécution d'une image Docker, faite de couches en lecture seule.",
+    "tags": [
+      "Docker",
+      "image"
+    ]
+  },
+  {
+    "id": "q-vrt-015",
+    "module": "virtualisation",
+    "question": "Pourquoi un conteneur démarre-t-il quasi instantanément ?",
+    "options": [
+      "Il est chiffré",
+      "Il partage le noyau de l'hôte et n'a pas d'OS complet à booter",
+      "Il a plus de RAM",
+      "Il est toujours sur SSD"
+    ],
+    "correct": 1,
+    "explanation": "Le conteneur réutilise le noyau de l'hôte : aucun OS complet à démarrer, d'où un lancement immédiat.",
+    "tags": [
+      "conteneur",
+      "noyau"
+    ]
+  },
+  {
+    "id": "q-vrt-016",
+    "module": "virtualisation",
+    "question": "Qu'est-ce que la surallocation (overcommit) ?",
+    "options": [
+      "Allouer plus de ressources virtuelles que le physique",
+      "Chiffrer les VM",
+      "Créer un cluster",
+      "Sauvegarder à chaud"
+    ],
+    "correct": 0,
+    "explanation": "On peut attribuer au total plus de vCPU/RAM que le serveur n'en possède, tant que les VM ne consomment pas tout en même temps.",
+    "tags": [
+      "overcommit",
+      "ressources"
+    ]
+  },
+  {
+    "id": "q-vrt-017",
+    "module": "virtualisation",
+    "question": "Que se passe-t-il si on conserve un snapshot de VM trop longtemps ?",
+    "options": [
+      "Rien",
+      "Il grossit et dégrade les performances de la VM",
+      "Il chiffre la VM",
+      "Il devient une sauvegarde"
+    ],
+    "correct": 1,
+    "explanation": "Un snapshot accumule les écritures dans un fichier delta qui enfle : performances dégradées et risque de saturation disque.",
+    "tags": [
+      "snapshot"
+    ]
+  },
+  {
+    "id": "q-vrt-018",
+    "module": "virtualisation",
+    "question": "Que désigne une migration P2V ?",
+    "options": [
+      "Public vers Virtuel",
+      "Physique vers Virtuel",
+      "Privé vers VPN",
+      "Proxmox vers VMware"
+    ],
+    "correct": 1,
+    "explanation": "P2V (Physical to Virtual) convertit un serveur physique existant en machine virtuelle.",
+    "tags": [
+      "P2V",
+      "migration"
+    ]
+  },
+  {
+    "id": "q-vrt-019",
+    "module": "virtualisation",
+    "question": "Quel produit VMware est l'hyperviseur bare-metal ?",
+    "options": [
+      "Workstation",
+      "ESXi",
+      "Player",
+      "Fusion"
+    ],
+    "correct": 1,
+    "explanation": "ESXi est l'hyperviseur type 1 de VMware, piloté par vCenter. Workstation/Player/Fusion sont de type 2.",
+    "tags": [
+      "VMware",
+      "ESXi"
+    ]
+  },
+  {
+    "id": "q-vrt-020",
+    "module": "virtualisation",
+    "question": "À quoi sert la VDI (Virtual Desktop Infrastructure) ?",
+    "options": [
+      "À router entre VLAN",
+      "À héberger des postes de travail virtualisés au datacenter",
+      "À sauvegarder les VM",
+      "À superviser le réseau"
+    ],
+    "correct": 1,
+    "explanation": "La VDI centralise les bureaux des utilisateurs sous forme de VM au datacenter, accessibles depuis des clients légers.",
+    "tags": [
+      "VDI",
+      "poste de travail"
+    ]
   }
 ]

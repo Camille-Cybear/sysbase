@@ -11,7 +11,11 @@
     ],
     "correct": 0,
     "explanation": "755 = 7 (rwx) pour le propriétaire, 5 (r-x) pour le groupe, 5 (r-x) pour les autres, soit rwxr-xr-x. C'est un grand classique pour un script ou un dossier.",
-    "tags": ["permissions", "chmod", "octal"]
+    "tags": [
+      "permissions",
+      "chmod",
+      "octal"
+    ]
   },
   {
     "id": "q-lnx-002",
@@ -25,7 +29,11 @@
     ],
     "correct": 1,
     "explanation": "enable configure le démarrage automatique au boot. start ne fait que lancer le service immédiatement. enable --now combine les deux.",
-    "tags": ["systemd", "enable", "boot"]
+    "tags": [
+      "systemd",
+      "enable",
+      "boot"
+    ]
   },
   {
     "id": "q-lnx-003",
@@ -39,16 +47,28 @@
     ],
     "correct": 2,
     "explanation": "Sur un dossier, x permet d'y entrer (cd) et de traverser l'arborescence. r sert à lister, w à créer/supprimer des fichiers.",
-    "tags": ["permissions", "dossier", "x"]
+    "tags": [
+      "permissions",
+      "dossier",
+      "x"
+    ]
   },
   {
     "id": "q-lnx-004",
     "module": "linux",
     "question": "Quel est le port par défaut du service SSH ?",
-    "options": ["21", "22", "23", "443"],
+    "options": [
+      "21",
+      "22",
+      "23",
+      "443"
+    ],
     "correct": 1,
     "explanation": "SSH écoute sur le port 22. Le 21 est FTP, le 23 Telnet (non chiffré), le 443 HTTPS.",
-    "tags": ["SSH", "ports"]
+    "tags": [
+      "SSH",
+      "ports"
+    ]
   },
   {
     "id": "q-lnx-005",
@@ -62,7 +82,10 @@
     ],
     "correct": 1,
     "explanation": "PV (Physical Volume) → VG (Volume Group, le pool) → LV (Logical Volume, la partition logique redimensionnable).",
-    "tags": ["LVM", "stockage"]
+    "tags": [
+      "LVM",
+      "stockage"
+    ]
   },
   {
     "id": "q-lnx-006",
@@ -76,7 +99,10 @@
     ],
     "correct": 1,
     "explanation": "Les mots de passe hachés sont dans /etc/shadow (lisible par root seulement). /etc/passwd liste les comptes (login, UID, shell) et est lisible par tous.",
-    "tags": ["utilisateurs", "/etc/shadow"]
+    "tags": [
+      "utilisateurs",
+      "/etc/shadow"
+    ]
   },
   {
     "id": "q-lnx-007",
@@ -90,16 +116,27 @@
     ],
     "correct": 1,
     "explanation": "usermod -aG : le -a (append) ajoute le groupe sans écraser la liste existante. Sans -a, usermod -G remplace tous les groupes secondaires.",
-    "tags": ["usermod", "groupes"]
+    "tags": [
+      "usermod",
+      "groupes"
+    ]
   },
   {
     "id": "q-lnx-008",
     "module": "linux",
     "question": "Quelle redirection ajoute la sortie à la fin d'un fichier sans l'écraser ?",
-    "options": [">", ">>", "2>", "|"],
+    "options": [
+      ">",
+      ">>",
+      "2>",
+      "|"
+    ],
     "correct": 1,
     "explanation": ">> ajoute (append) à la fin du fichier. > écrase le fichier, 2> redirige les erreurs, et | est un tube entre deux commandes.",
-    "tags": ["redirections", "shell"]
+    "tags": [
+      "redirections",
+      "shell"
+    ]
   },
   {
     "id": "q-lnx-009",
@@ -113,33 +150,199 @@
     ],
     "correct": 1,
     "explanation": "PermitRootLogin no empêche la connexion SSH directe du compte root. PasswordAuthentication no, lui, désactive l'authentification par mot de passe (clés uniquement).",
-    "tags": ["SSH", "sshd_config", "durcissement"]
+    "tags": [
+      "SSH",
+      "sshd_config",
+      "durcissement"
+    ]
   },
   {
     "id": "q-lnx-010",
     "module": "linux",
     "question": "Dans quel fichier déclare-t-on un montage pour qu'il persiste au redémarrage ?",
-    "options": ["/etc/mtab", "/etc/fstab", "/etc/mount.conf", "/proc/mounts"],
+    "options": [
+      "/etc/mtab",
+      "/etc/fstab",
+      "/etc/mount.conf",
+      "/proc/mounts"
+    ],
     "correct": 1,
     "explanation": "/etc/fstab décrit les montages permanents. On y référence de préférence l'UUID (stable) et on valide avec `mount -a` avant un reboot.",
-    "tags": ["fstab", "montage"]
+    "tags": [
+      "fstab",
+      "montage"
+    ]
   },
   {
     "id": "q-lnx-011",
     "module": "linux",
     "question": "Quelle commande active un fichier de swap après l'avoir préparé avec mkswap ?",
-    "options": ["swapon /swapfile", "mount /swapfile", "swapadd /swapfile", "free /swapfile"],
+    "options": [
+      "swapon /swapfile",
+      "mount /swapfile",
+      "swapadd /swapfile",
+      "free /swapfile"
+    ],
     "correct": 0,
     "explanation": "swapon active le swap (swapoff le désactive). La préparation se fait avec mkswap, et la persistance via une ligne `swap` dans /etc/fstab.",
-    "tags": ["swap", "swapon"]
+    "tags": [
+      "swap",
+      "swapon"
+    ]
   },
   {
     "id": "q-lnx-012",
     "module": "linux",
     "question": "Quelle commande liste les ports TCP en écoute et leur processus ?",
-    "options": ["ip a", "ping -l", "ss -tlnp", "traceroute -p"],
+    "options": [
+      "ip a",
+      "ping -l",
+      "ss -tlnp",
+      "traceroute -p"
+    ],
     "correct": 2,
     "explanation": "ss -tlnp affiche les sockets TCP (-t) en écoute (-l), en numérique (-n), avec le processus (-p). ss remplace netstat.",
-    "tags": ["ss", "ports", "diagnostic"]
+    "tags": [
+      "ss",
+      "ports",
+      "diagnostic"
+    ]
+  },
+  {
+    "id": "q-lnx-013",
+    "module": "linux",
+    "question": "Quelle commande affiche l'espace libre des systèmes de fichiers ?",
+    "options": [
+      "free -h",
+      "df -h",
+      "du -sh",
+      "lsblk"
+    ],
+    "correct": 1,
+    "explanation": "df -h affiche l'espace des systèmes de fichiers montés. du mesure la taille d'un dossier, free la mémoire.",
+    "tags": [
+      "df",
+      "disque"
+    ]
+  },
+  {
+    "id": "q-lnx-014",
+    "module": "linux",
+    "question": "Quelle commande affiche l'utilisation de la mémoire vive ?",
+    "options": [
+      "top",
+      "free -h",
+      "df -h",
+      "uptime"
+    ],
+    "correct": 1,
+    "explanation": "free -h montre la RAM et le swap utilisés/libres, en unités lisibles.",
+    "tags": [
+      "free",
+      "mémoire"
+    ]
+  },
+  {
+    "id": "q-lnx-015",
+    "module": "linux",
+    "question": "Quel signal la commande `kill` envoie-t-elle par défaut ?",
+    "options": [
+      "SIGKILL (9)",
+      "SIGTERM (15)",
+      "SIGHUP (1)",
+      "SIGSTOP"
+    ],
+    "correct": 1,
+    "explanation": "kill envoie SIGTERM (15) par défaut : demande d'arrêt propre. SIGKILL (9) force l'arrêt sans ménagement.",
+    "tags": [
+      "kill",
+      "signal",
+      "processus"
+    ]
+  },
+  {
+    "id": "q-lnx-016",
+    "module": "linux",
+    "question": "Comment installe-t-on un paquet sur Debian/Ubuntu ?",
+    "options": [
+      "dnf install paquet",
+      "apt install paquet",
+      "pacman -S paquet",
+      "rpm -i paquet"
+    ],
+    "correct": 1,
+    "explanation": "apt install (dpkg en dessous) gère les paquets .deb. dnf/rpm concernent la famille RHEL.",
+    "tags": [
+      "apt",
+      "paquets"
+    ]
+  },
+  {
+    "id": "q-lnx-017",
+    "module": "linux",
+    "question": "Comment éditer les tâches planifiées de l'utilisateur courant ?",
+    "options": [
+      "cron -e",
+      "crontab -e",
+      "edit /etc/cron",
+      "systemctl cron"
+    ],
+    "correct": 1,
+    "explanation": "crontab -e ouvre la crontab de l'utilisateur dans l'éditeur. crontab -l l'affiche.",
+    "tags": [
+      "cron",
+      "crontab"
+    ]
+  },
+  {
+    "id": "q-lnx-018",
+    "module": "linux",
+    "question": "Quelle commande recherche des fichiers par nom dans une arborescence ?",
+    "options": [
+      "grep",
+      "find",
+      "which",
+      "locate -e"
+    ],
+    "correct": 1,
+    "explanation": "find /chemin -name motif parcourt l'arborescence. grep cherche dans le contenu, which localise un exécutable.",
+    "tags": [
+      "find",
+      "recherche"
+    ]
+  },
+  {
+    "id": "q-lnx-019",
+    "module": "linux",
+    "question": "Quelle commande crée une archive compressée .tar.gz ?",
+    "options": [
+      "tar -czf archive.tar.gz dossier/",
+      "zip dossier/",
+      "gzip dossier/",
+      "cpio dossier/"
+    ],
+    "correct": 0,
+    "explanation": "tar -czf : c=create, z=gzip, f=fichier. Pour extraire : tar -xzf archive.tar.gz.",
+    "tags": [
+      "tar",
+      "archive"
+    ]
+  },
+  {
+    "id": "q-lnx-020",
+    "module": "linux",
+    "question": "Quelle commande exécute une seule commande avec les privilèges root ?",
+    "options": [
+      "su",
+      "sudo commande",
+      "admin commande",
+      "root commande"
+    ],
+    "correct": 1,
+    "explanation": "sudo exécute une commande en root (mot de passe de l'utilisateur, action journalisée). su ouvre une session root complète.",
+    "tags": [
+      "sudo",
+      "privilèges"
+    ]
   }
 ]

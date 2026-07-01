@@ -3,10 +3,19 @@
     "id": "q-ad-001",
     "module": "active-directory",
     "question": "Quel fichier contient la base de données Active Directory sur un contrôleur de domaine ?",
-    "options": ["SAM", "NTDS.dit", "registry.pol", "AD.mdb"],
+    "options": [
+      "SAM",
+      "NTDS.dit",
+      "registry.pol",
+      "AD.mdb"
+    ],
     "correct": 1,
     "explanation": "La base AD DS est stockée dans NTDS.dit sur chaque contrôleur de domaine. La base SAM, elle, stocke les comptes locaux d'une machine non membre du domaine.",
-    "tags": ["Active Directory", "NTDS.dit", "DC"]
+    "tags": [
+      "Active Directory",
+      "NTDS.dit",
+      "DC"
+    ]
   },
   {
     "id": "q-ad-002",
@@ -20,7 +29,11 @@
     ],
     "correct": 1,
     "explanation": "L'OU sert à organiser, déléguer et appliquer des GPO, mais la frontière de sécurité est le domaine (et la forêt au plus haut niveau). Une OU n'isole pas la sécurité.",
-    "tags": ["OU", "sécurité", "domaine"]
+    "tags": [
+      "OU",
+      "sécurité",
+      "domaine"
+    ]
   },
   {
     "id": "q-ad-003",
@@ -34,33 +47,299 @@
     ],
     "correct": 1,
     "explanation": "L'ordre LSDOU : Local, Site, Domaine, OU. La dernière appliquée (l'OU la plus proche de l'objet) l'emporte, sauf blocage d'héritage ou GPO « Appliqué/Forcé ».",
-    "tags": ["GPO", "LSDOU"]
+    "tags": [
+      "GPO",
+      "LSDOU"
+    ]
   },
   {
     "id": "q-ad-004",
     "module": "active-directory",
     "question": "Quel protocole d'authentification Active Directory utilise-t-il par défaut ?",
-    "options": ["NTLM", "Kerberos", "RADIUS", "TACACS+"],
+    "options": [
+      "NTLM",
+      "Kerberos",
+      "RADIUS",
+      "TACACS+"
+    ],
     "correct": 1,
     "explanation": "Active Directory utilise Kerberos (tickets, port 88) par défaut. NTLM n'est qu'un mécanisme de repli pour la compatibilité.",
-    "tags": ["Kerberos", "authentification"]
+    "tags": [
+      "Kerberos",
+      "authentification"
+    ]
   },
   {
     "id": "q-ad-005",
     "module": "active-directory",
     "question": "De quel service Active Directory dépend-il pour que les clients localisent les contrôleurs de domaine ?",
-    "options": ["DHCP", "DNS", "WINS", "NTP"],
+    "options": [
+      "DHCP",
+      "DNS",
+      "WINS",
+      "NTP"
+    ],
     "correct": 1,
     "explanation": "AD dépend du DNS : les clients trouvent les DC via les enregistrements SRV. Sans DNS fonctionnel, ouverture de session, GPO et réplication échouent.",
-    "tags": ["DNS", "SRV", "DC"]
+    "tags": [
+      "DNS",
+      "SRV",
+      "DC"
+    ]
   },
   {
     "id": "q-ad-006",
     "module": "active-directory",
     "question": "Combien de rôles FSMO existe-t-il dans Active Directory ?",
-    "options": ["3", "5", "7", "2"],
+    "options": [
+      "3",
+      "5",
+      "7",
+      "2"
+    ],
     "correct": 1,
     "explanation": "Il y a 5 rôles FSMO : 2 à l'échelle de la forêt (Schema Master, Domain Naming Master) et 3 par domaine (RID Master, PDC Emulator, Infrastructure Master).",
-    "tags": ["FSMO", "rôles"]
+    "tags": [
+      "FSMO",
+      "rôles"
+    ]
+  },
+  {
+    "id": "q-ad-007",
+    "module": "active-directory",
+    "question": "Quel port utilise le protocole LDAP ?",
+    "options": [
+      "53",
+      "389",
+      "88",
+      "636"
+    ],
+    "correct": 1,
+    "explanation": "LDAP utilise le port 389 (636 pour LDAPS chiffré). 88=Kerberos, 53=DNS.",
+    "tags": [
+      "LDAP",
+      "ports"
+    ]
+  },
+  {
+    "id": "q-ad-008",
+    "module": "active-directory",
+    "question": "Quel port utilise Kerberos ?",
+    "options": [
+      "88",
+      "389",
+      "443",
+      "3268"
+    ],
+    "correct": 0,
+    "explanation": "Kerberos, protocole d'authentification par défaut d'AD, écoute sur le port 88.",
+    "tags": [
+      "Kerberos",
+      "ports"
+    ]
+  },
+  {
+    "id": "q-ad-009",
+    "module": "active-directory",
+    "question": "Quelle commande force l'application immédiate des GPO sur un poste ?",
+    "options": [
+      "gpresult /r",
+      "gpupdate /force",
+      "dcdiag",
+      "net accounts"
+    ],
+    "correct": 1,
+    "explanation": "gpupdate /force réapplique les stratégies ; gpresult /r affiche celles réellement appliquées.",
+    "tags": [
+      "GPO",
+      "gpupdate"
+    ]
+  },
+  {
+    "id": "q-ad-010",
+    "module": "active-directory",
+    "question": "Quel type de groupe peut recevoir des permissions sur des ressources ?",
+    "options": [
+      "Groupe de distribution",
+      "Groupe de sécurité",
+      "Liste de diffusion",
+      "Groupe de contacts"
+    ],
+    "correct": 1,
+    "explanation": "Seul un groupe de sécurité porte des permissions ; un groupe de distribution ne sert qu'aux listes de messagerie.",
+    "tags": [
+      "groupes",
+      "sécurité"
+    ]
+  },
+  {
+    "id": "q-ad-011",
+    "module": "active-directory",
+    "question": "Quelle est la véritable frontière de sécurité d'Active Directory ?",
+    "options": [
+      "L'unité d'organisation",
+      "Le domaine",
+      "La forêt",
+      "Le site"
+    ],
+    "correct": 2,
+    "explanation": "La forêt est la frontière de sécurité ultime. Le domaine est une frontière administrative, mais la confiance s'étend au sein de la forêt.",
+    "tags": [
+      "forêt",
+      "sécurité"
+    ]
+  },
+  {
+    "id": "q-ad-012",
+    "module": "active-directory",
+    "question": "Où sont stockés les scripts et modèles de GPO répliqués entre contrôleurs ?",
+    "options": [
+      "NTDS.dit",
+      "SYSVOL",
+      "le registre",
+      "AppData"
+    ],
+    "correct": 1,
+    "explanation": "SYSVOL est un partage répliqué sur tous les DC contenant scripts d'ouverture de session et fichiers de GPO.",
+    "tags": [
+      "SYSVOL",
+      "GPO"
+    ]
+  },
+  {
+    "id": "q-ad-013",
+    "module": "active-directory",
+    "question": "Quel rôle FSMO distribue les pools d'identifiants relatifs (RID) ?",
+    "options": [
+      "PDC Emulator",
+      "RID Master",
+      "Schema Master",
+      "Infrastructure Master"
+    ],
+    "correct": 1,
+    "explanation": "Le RID Master alloue des blocs de RID aux DC, garantissant l'unicité des SID créés.",
+    "tags": [
+      "FSMO",
+      "RID"
+    ]
+  },
+  {
+    "id": "q-ad-014",
+    "module": "active-directory",
+    "question": "Lequel est un rôle FSMO à l'échelle de la forêt ?",
+    "options": [
+      "RID Master",
+      "PDC Emulator",
+      "Schema Master",
+      "Infrastructure Master"
+    ],
+    "correct": 2,
+    "explanation": "Schema Master et Domain Naming Master sont uniques dans toute la forêt ; les 3 autres sont par domaine.",
+    "tags": [
+      "FSMO",
+      "forêt"
+    ]
+  },
+  {
+    "id": "q-ad-015",
+    "module": "active-directory",
+    "question": "Quelle console gère les utilisateurs et ordinateurs du domaine ?",
+    "options": [
+      "ADUC (dsa.msc)",
+      "Gestionnaire DNS",
+      "Hyper-V Manager",
+      "IIS"
+    ],
+    "correct": 0,
+    "explanation": "Active Directory Users and Computers (dsa.msc) est l'outil classique de gestion des objets du domaine.",
+    "tags": [
+      "ADUC",
+      "gestion"
+    ]
+  },
+  {
+    "id": "q-ad-016",
+    "module": "active-directory",
+    "question": "Qu'est-ce qu'un RODC ?",
+    "options": [
+      "Un routeur de domaine",
+      "Un contrôleur de domaine en lecture seule",
+      "Un serveur DHCP",
+      "Un relais Kerberos"
+    ],
+    "correct": 1,
+    "explanation": "Un Read-Only Domain Controller héberge une copie en lecture seule d'AD, utile en site distant peu sécurisé.",
+    "tags": [
+      "RODC"
+    ]
+  },
+  {
+    "id": "q-ad-017",
+    "module": "active-directory",
+    "question": "Quel rôle FSMO sert de source de temps de référence et traite les changements de mot de passe ?",
+    "options": [
+      "PDC Emulator",
+      "RID Master",
+      "Schema Master",
+      "Catalogue global"
+    ],
+    "correct": 0,
+    "explanation": "Le PDC Emulator est la référence de temps du domaine et gère verrouillages et changements de mot de passe.",
+    "tags": [
+      "FSMO",
+      "PDC"
+    ]
+  },
+  {
+    "id": "q-ad-018",
+    "module": "active-directory",
+    "question": "Sur quel port répond le catalogue global (Global Catalog) ?",
+    "options": [
+      "389",
+      "636",
+      "3268",
+      "88"
+    ],
+    "correct": 2,
+    "explanation": "Le catalogue global écoute sur le port 3268 (3269 en SSL) pour les recherches à l'échelle de la forêt.",
+    "tags": [
+      "catalogue global",
+      "ports"
+    ]
+  },
+  {
+    "id": "q-ad-019",
+    "module": "active-directory",
+    "question": "De quoi un poste a-t-il besoin pour rejoindre un domaine AD ?",
+    "options": [
+      "D'un serveur web",
+      "De résoudre le DNS du domaine et d'un compte autorisé",
+      "De désactiver le pare-feu",
+      "D'une adresse publique"
+    ],
+    "correct": 1,
+    "explanation": "La jonction au domaine nécessite que le poste résolve les enregistrements DNS (SRV) du domaine et dispose d'identifiants autorisés.",
+    "tags": [
+      "domaine",
+      "jonction",
+      "DNS"
+    ]
+  },
+  {
+    "id": "q-ad-020",
+    "module": "active-directory",
+    "question": "À quoi sert principalement la délégation sur une OU ?",
+    "options": [
+      "Chiffrer les données",
+      "Confier des droits d'administration ciblés sur cette OU",
+      "Créer un VLAN",
+      "Sauvegarder l'annuaire"
+    ],
+    "correct": 1,
+    "explanation": "La délégation accorde des droits limités (ex. réinitialiser des mots de passe) sur une OU précise, sans donner les pleins pouvoirs.",
+    "tags": [
+      "OU",
+      "délégation"
+    ]
   }
 ]
