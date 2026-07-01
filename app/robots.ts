@@ -7,6 +7,5 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
     sitemap: "https://sysbase.fr/sitemap.xml",
-    host: "https://sysbase.fr",
   };
 }
