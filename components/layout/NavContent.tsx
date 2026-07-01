@@ -58,7 +58,7 @@ export function NavContent({ counts, allCardIds, onNavigate }: NavContentProps) 
     { href: "/", label: "Modules", icon: LayoutGrid, badge: counts.modules },
     { href: "/flashcards", label: "Flashcards", icon: Layers, badge: counts.flashcards },
     { href: "/fiches", label: "Fiches tuto", icon: FileText, badge: counts.fiches },
-    { href: "/quiz/reseaux", label: "Quiz QCM", icon: HelpCircle, badge: counts.quiz },
+    { href: "/quiz", label: "Quiz QCM", icon: HelpCircle, badge: counts.quiz },
     { href: "/exercices", label: "Exercices", icon: Dumbbell },
   ];
 

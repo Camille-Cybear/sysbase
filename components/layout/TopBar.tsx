@@ -26,7 +26,7 @@ export function TopBar({ counts, allCardIds }: TopBarProps) {
       {/* Actions */}
       <div className="flex shrink-0 gap-2">
         <Link
-          href="/quiz/reseaux"
+          href="/quiz"
           className="hidden items-center gap-1.5 rounded-md border border-border px-3 py-2 text-xs text-muted transition hover:border-primary/60 hover:text-text sm:inline-flex"
         >
           <Play className="h-4 w-4" aria-hidden="true" />
