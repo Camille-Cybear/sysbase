@@ -1,0 +1,83 @@
+[
+  {
+    "id": "out-001",
+    "module": "outils",
+    "theme": "Supervision",
+    "question": "Quelle différence entre une supervision avec agent et sans agent ?",
+    "answer": "**Avec agent** : un logiciel installé sur l'hôte (ex. agent Zabbix) remonte des métriques détaillées. **Sans agent** : on interroge l'équipement à distance via un protocole standard comme **SNMP**, un ping ou un test de port — pratique pour du matériel où l'on ne peut rien installer (switch, imprimante).",
+    "tags": ["supervision", "agent", "SNMP"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "out-002",
+    "module": "outils",
+    "theme": "Supervision",
+    "question": "À quoi servent les OID, MIB et communautés en SNMP ?",
+    "answer": "**SNMP** interroge les équipements réseau. Chaque valeur a un identifiant unique, l'**OID** ; l'ensemble des OID d'un matériel est décrit dans sa **MIB** ; l'accès est protégé par une **communauté** (en v2c) ou un compte chiffré (en v3).",
+    "tags": ["SNMP", "OID", "MIB"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "out-003",
+    "module": "outils",
+    "theme": "Supervision",
+    "question": "Cite des outils de supervision courants.",
+    "answer": "**Zabbix** (complet, agent + SNMP, auto-découverte), **Nagios** (historique, nombreux plugins), **Centreon** (basé Nagios, interface FR répandue), **Prometheus + Grafana** (métriques + tableaux de bord, orienté cloud/conteneurs).",
+    "tags": ["Zabbix", "Nagios", "Centreon"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "out-004",
+    "module": "outils",
+    "theme": "Sauvegarde",
+    "question": "En quoi consiste la règle de sauvegarde 3-2-1 ?",
+    "answer": "**3** copies des données, sur **2** supports différents, dont **1** conservée **hors site** (idéalement hors ligne, pour résister à un rançongiciel ou un sinistre).",
+    "tags": ["sauvegarde", "3-2-1"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "out-005",
+    "module": "outils",
+    "theme": "Sauvegarde",
+    "question": "Quelle différence entre sauvegarde incrémentale et différentielle ?",
+    "answer": "L'**incrémentale** sauvegarde ce qui a changé **depuis la dernière sauvegarde** (économe, mais restauration = complète + toutes les incrémentales). La **différentielle** sauvegarde ce qui a changé **depuis la dernière complète** (restauration = complète + dernière différentielle seulement).",
+    "tags": ["sauvegarde", "incrémentale", "différentielle"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "out-006",
+    "module": "outils",
+    "theme": "Sauvegarde",
+    "question": "À quoi servent Veeam, Bareos et Restic ?",
+    "answer": "**Veeam** : sauvegarde de **machines virtuelles** (VMware, Hyper-V), référence en entreprise. **Bareos / Bacula** : solution **libre** client-serveur pour parcs hétérogènes. **Restic / Borg** : sauvegarde **CLI** avec déduplication et chiffrement, idéale pour les serveurs Linux.",
+    "tags": ["Veeam", "Bareos", "Restic"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "out-007",
+    "module": "outils",
+    "theme": "Sauvegarde",
+    "question": "Que signifient RPO et RTO ?",
+    "answer": "Le **RPO** (Recovery Point Objective) = la **perte de données** tolérée (détermine la fréquence des sauvegardes). Le **RTO** (Recovery Time Objective) = le **temps de remise en service** acceptable après un incident.",
+    "tags": ["RPO", "RTO", "PRA"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "out-008",
+    "module": "outils",
+    "theme": "Gestion de parc",
+    "question": "Que permet de faire GLPI ?",
+    "answer": "**GLPI** combine la **gestion de parc** (inventaire du matériel, des logiciels et des licences — automatisable via un agent ou OCS Inventory) et le **helpdesk** (tickets d'incidents/demandes, SLA, base de connaissances). Il **relie** les deux : sur un ticket, on voit le matériel concerné et son historique.",
+    "tags": ["GLPI", "inventaire", "tickets"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "out-009",
+    "module": "outils",
+    "theme": "Supervision",
+    "question": "Que représentent les seuils « warning » et « critical » en supervision ?",
+    "answer": "Ce sont deux niveaux d'alerte : **warning** (avertissement, à surveiller) et **critical** (critique, action requise). Quand une métrique franchit un seuil, la supervision déclenche une **alerte** (mail, notification), parfois avec **escalade** si personne ne réagit.",
+    "tags": ["supervision", "seuils", "alertes"],
+    "difficulty": "medium"
+  }
+]

@@ -1,0 +1,55 @@
+---
+title: "La sauvegarde — stratégies et outils"
+module: "outils"
+theme: "Sauvegarde"
+difficulty: "medium"
+tags: ["sauvegarde", "3-2-1", "Veeam", "Bareos", "restauration"]
+updatedAt: "2026-07-01"
+---
+
+## Pourquoi sauvegarder ?
+
+Pour se protéger d'une panne matérielle, d'une erreur humaine, d'un
+**rançongiciel** ou d'un sinistre. Deux indicateurs cadrent le besoin :
+
+- **RPO** (Recovery Point Objective) : quelle **perte de données** on tolère
+  (→ fréquence des sauvegardes).
+- **RTO** (Recovery Time Objective) : en combien de temps on doit être
+  **remis en service**.
+
+## La règle 3-2-1
+
+Le standard de référence :
+
+- **3** copies des données,
+- sur **2** supports différents,
+- dont **1** conservée **hors site** (hors ligne, contre le ransomware).
+
+## Types de sauvegarde
+
+| Type | Ce qui est sauvegardé | Restauration |
+| ---- | --------------------- | ------------ |
+| **Complète** | **toutes** les données | rapide (1 seul jeu) |
+| **Incrémentale** | ce qui a changé **depuis la dernière sauvegarde** | lente (complète + toutes les incrémentales) |
+| **Différentielle** | ce qui a changé **depuis la dernière complète** | moyenne (complète + dernière différentielle) |
+
+> 💡 L'incrémentale économise le plus d'espace mais complique la restauration ;
+> la différentielle est un compromis. On combine souvent : une complète
+> hebdomadaire + des incrémentales quotidiennes.
+
+## Les outils courants
+
+| Outil | Usage |
+| ----- | ----- |
+| **Veeam** | sauvegarde de **VM** (VMware, Hyper-V), référence en entreprise |
+| **Bareos / Bacula** | libre, architecture client-serveur, parc hétérogène |
+| **Restic / Borg** | CLI, **déduplication** et **chiffrement**, idéal serveurs Linux |
+| **rsync** | synchronisation simple de fichiers (pas un vrai outil de versions) |
+
+## Le réflexe qu'on oublie : tester la restauration
+
+Une sauvegarde **jamais testée** est une sauvegarde en laquelle on ne peut pas
+avoir confiance. On vérifie régulièrement qu'une **restauration** fonctionne.
+
+> ⚠️ Rappel : un **snapshot n'est pas une sauvegarde** — il dépend de la machine
+> d'origine. Une vraie sauvegarde est **indépendante** et idéalement hors ligne.

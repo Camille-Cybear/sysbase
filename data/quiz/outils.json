@@ -1,0 +1,81 @@
+[
+  {
+    "id": "q-out-001",
+    "module": "outils",
+    "question": "Quel est l'objectif principal de la supervision ?",
+    "options": [
+      "Chiffrer les communications",
+      "Détecter un problème avant l'utilisateur et alerter",
+      "Sauvegarder les données",
+      "Attribuer des adresses IP"
+    ],
+    "correct": 1,
+    "explanation": "La supervision surveille disponibilité et performances pour détecter (voire anticiper) les incidents et alerter, avant que l'utilisateur ne subisse la panne.",
+    "tags": ["supervision", "monitoring"]
+  },
+  {
+    "id": "q-out-002",
+    "module": "outils",
+    "question": "Quel protocole standard permet d'interroger switchs, routeurs et imprimantes sans agent ?",
+    "options": ["SMTP", "SNMP", "SSH", "NTP"],
+    "correct": 1,
+    "explanation": "SNMP (Simple Network Management Protocol) interroge les équipements via des OID décrits dans une MIB. C'est la base de la supervision sans agent.",
+    "tags": ["SNMP", "supervision"]
+  },
+  {
+    "id": "q-out-003",
+    "module": "outils",
+    "question": "Que dit la règle de sauvegarde 3-2-1 ?",
+    "options": [
+      "3 sauvegardes par jour pendant 2 semaines, 1 an d'archive",
+      "3 copies, sur 2 supports, dont 1 hors site",
+      "3 serveurs, 2 disques, 1 administrateur",
+      "3 Go maximum, 2 formats, 1 mot de passe"
+    ],
+    "correct": 1,
+    "explanation": "3 copies des données, sur 2 supports différents, dont 1 conservée hors site (idéalement hors ligne) : c'est le standard de protection.",
+    "tags": ["sauvegarde", "3-2-1"]
+  },
+  {
+    "id": "q-out-004",
+    "module": "outils",
+    "question": "Une sauvegarde incrémentale enregistre…",
+    "options": [
+      "toutes les données à chaque fois",
+      "ce qui a changé depuis la dernière sauvegarde",
+      "ce qui a changé depuis la dernière complète",
+      "uniquement les fichiers système"
+    ],
+    "correct": 1,
+    "explanation": "L'incrémentale sauvegarde les changements depuis la dernière sauvegarde (quelle qu'elle soit). La différentielle, elle, part de la dernière complète.",
+    "tags": ["sauvegarde", "incrémentale"]
+  },
+  {
+    "id": "q-out-005",
+    "module": "outils",
+    "question": "Pour quel usage Veeam est-il surtout utilisé ?",
+    "options": [
+      "La supervision réseau",
+      "La sauvegarde de machines virtuelles",
+      "La gestion des tickets",
+      "Le routage inter-VLAN"
+    ],
+    "correct": 1,
+    "explanation": "Veeam est une référence de la sauvegarde de VM (VMware, Hyper-V) en entreprise. Bareos/Bacula sont des alternatives libres.",
+    "tags": ["Veeam", "sauvegarde", "VM"]
+  },
+  {
+    "id": "q-out-006",
+    "module": "outils",
+    "question": "Que combine principalement GLPI ?",
+    "options": [
+      "Pare-feu et VPN",
+      "Gestion de parc (inventaire) et helpdesk (tickets)",
+      "Virtualisation et conteneurs",
+      "DNS et DHCP"
+    ],
+    "correct": 1,
+    "explanation": "GLPI relie la gestion de parc (inventaire matériel/logiciel) et le helpdesk (tickets, SLA, base de connaissances), ce qui accélère le diagnostic.",
+    "tags": ["GLPI", "ITSM", "inventaire"]
+  }
+]

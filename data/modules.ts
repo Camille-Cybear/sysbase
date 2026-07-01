@@ -5,6 +5,7 @@ import {
   ShieldCheck,
   Server,
   Code2,
+  Wrench,
   type LucideIcon,
 } from "lucide-react";
 
@@ -15,7 +16,8 @@ export type ModuleSlug =
   | "linux"
   | "securite"
   | "virtualisation"
-  | "scripting";
+  | "scripting"
+  | "outils";
 
 /** Métadonnées d'affichage d'un module TSSR. */
 export interface Module {
@@ -82,6 +84,14 @@ export const MODULES: Module[] = [
     topics: "Bash · PowerShell · Python",
     color: "#7B6FD4",
     icon: Code2,
+  },
+  {
+    slug: "outils",
+    name: "Outils",
+    description: "Supervision, sauvegarde et gestion de parc du sysadmin.",
+    topics: "Zabbix · Veeam · Bareos · GLPI",
+    color: "#3FB6C9",
+    icon: Wrench,
   },
 ];
 

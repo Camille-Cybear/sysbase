@@ -1,0 +1,51 @@
+---
+title: "La supervision — surveiller son infrastructure"
+module: "outils"
+theme: "Supervision"
+difficulty: "medium"
+tags: ["supervision", "Zabbix", "Nagios", "SNMP", "monitoring"]
+updatedAt: "2026-07-01"
+---
+
+## À quoi sert la supervision ?
+
+**Superviser**, c'est surveiller en continu la **disponibilité** et les
+**performances** des équipements et services, pour **détecter un problème avant
+l'utilisateur** — voire l'anticiper (disque qui se remplit, CPU saturé). On
+définit des **seuils** et des **alertes** (mail, SMS, notification).
+
+## Avec ou sans agent
+
+| Approche | Principe | Exemple |
+| -------- | -------- | ------- |
+| **Avec agent** | un logiciel installé sur l'hôte remonte des métriques détaillées | agent Zabbix |
+| **Sans agent** | interrogation à distance via un protocole standard | **SNMP**, ping, check de port |
+
+## SNMP, le protocole standard
+
+**SNMP** (Simple Network Management Protocol) permet d'interroger la plupart des
+équipements (switchs, routeurs, imprimantes, serveurs) sans agent propriétaire :
+
+- chaque valeur est identifiée par un **OID** (Object Identifier) ;
+- l'ensemble des OID d'un équipement est décrit dans une **MIB** ;
+- l'accès est protégé par une **communauté** (v2c) ou un compte (v3, chiffré).
+
+## Seuils et alertes
+
+On définit généralement deux niveaux : **warning** (avertissement) et
+**critical** (critique). Quand une métrique franchit un seuil, la supervision
+déclenche une **alerte** vers les bonnes personnes, éventuellement avec une
+escalade si personne ne réagit.
+
+## Les outils courants
+
+| Outil | Points forts |
+| ----- | ------------ |
+| **Zabbix** | complet, agent + SNMP, auto-découverte, alertes riches |
+| **Nagios** | historique, immense catalogue de plugins |
+| **Centreon** | basé sur Nagios, interface soignée (répandu en France) |
+| **Prometheus + Grafana** | métriques + tableaux de bord, orienté cloud/conteneurs |
+
+> 💡 Supervision ≠ métrologie : superviser, c'est **alerter** sur des seuils ;
+> la métrologie (graphes, tendances via Grafana) sert à **analyser** dans le
+> temps. Les bons outils font les deux.

@@ -7,6 +7,7 @@ import adCards from "@/data/flashcards/active-directory.json";
 import linuxCards from "@/data/flashcards/linux.json";
 import scriptingCards from "@/data/flashcards/scripting.json";
 import virtualisationCards from "@/data/flashcards/virtualisation.json";
+import outilsCards from "@/data/flashcards/outils.json";
 
 /**
  * Jeux de flashcards par module.
@@ -21,6 +22,7 @@ const FLASHCARDS_BY_MODULE: Partial<Record<ModuleSlug, Flashcard[]>> = {
   linux: linuxCards as Flashcard[],
   scripting: scriptingCards as Flashcard[],
   virtualisation: virtualisationCards as Flashcard[],
+  outils: outilsCards as Flashcard[],
 };
 
 /** Retourne les flashcards d'un module (tableau vide si aucun contenu). */
