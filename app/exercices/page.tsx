@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Network, Binary, Layers, ArrowRight } from "lucide-react";
+import { Network, Binary, Layers, Route, ShieldCheck, GitCompareArrows, KeyRound, ArrowRight } from "lucide-react";
 
 interface Exercise {
   href: string;
@@ -32,6 +32,38 @@ const EXERCISES: Exercise[] = [
     description:
       "Découpe un réseau en sous-réseaux de tailles variables selon des besoins en hôtes.",
     icon: Layers,
+    available: true,
+  },
+  {
+    href: "/exercices/routage",
+    title: "Table de routage",
+    description:
+      "Trouve par quelle route part un paquet, en appliquant le longest prefix match.",
+    icon: Route,
+    available: true,
+  },
+  {
+    href: "/exercices/acl",
+    title: "ACL — le paquet passe-t-il ?",
+    description:
+      "Lis une liste de contrôle d'accès et décide si un paquet est autorisé ou refusé.",
+    icon: ShieldCheck,
+    available: true,
+  },
+  {
+    href: "/exercices/meme-reseau",
+    title: "Même sous-réseau ?",
+    description:
+      "Deux adresses IP et un masque : communiquent-elles directement ou via un routeur ?",
+    icon: GitCompareArrows,
+    available: true,
+  },
+  {
+    href: "/exercices/chmod",
+    title: "Permissions chmod",
+    description:
+      "Convertis les permissions Linux entre octal (755) et symbolique (rwxr-xr-x).",
+    icon: KeyRound,
     available: true,
   },
 ];

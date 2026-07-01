@@ -29,12 +29,12 @@ export interface SubnetInfo {
   ipOctet: number;
 }
 
-function ipToInt(ip: string): number {
+export function ipToInt(ip: string): number {
   const [a = 0, b = 0, c = 0, d = 0] = ip.split(".").map(Number);
   return ((a << 24) | (b << 16) | (c << 8) | d) >>> 0;
 }
 
-function intToIp(n: number): string {
+export function intToIp(n: number): string {
   return [(n >>> 24) & 255, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join(".");
 }
 
