@@ -1,13 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, Check, Play } from "lucide-react";
 import { MODULES, type ModuleSlug } from "@/data/modules";
 import { getQuiz } from "@/lib/quiz";
 import type { QuizQuestion } from "@/lib/types";
 import { QuizEngine } from "@/components/QuizEngine";
-
-const COUNT_OPTIONS = [5, 10, 20] as const;
 
 function shuffle<T>(arr: T[]): T[] {
   const c = [...arr];
@@ -34,10 +32,22 @@ export function QuizBuilder() {
   const [count, setCount] = useState<number | "all">(10);
   const [quiz, setQuiz] = useState<{ questions: QuizQuestion[]; label: string } | null>(null);
 
-  const pool = available
-    .filter((m) => selected.has(m.slug))
-    .flatMap((m) => getQuiz(m.slug));
-  const allSelected = selected.size === available.length;
+  const chosen = available.filter((m) => selected.has(m.slug));
+  const poolSize = chosen.reduce((n, m) => n + getQuiz(m.slug).length, 0);
+
+  // Options du menu déroulant : multiples de 10 jusqu'au total disponible.
+  const tensOptions = useMemo(() => {
+    const opts: number[] = [];
+    for (let n = 10; n <= poolSize; n += 10) opts.push(n);
+    return opts;
+  }, [poolSize]);
+
+  // Si le total dispo diminue sous la valeur choisie, on la ramène à un choix valide.
+  useEffect(() => {
+    if (count !== "all" && count > poolSize) {
+      setCount(poolSize >= 10 ? Math.floor(poolSize / 10) * 10 : "all");
+    }
+  }, [poolSize, count]);
 
   function toggle(slug: ModuleSlug) {
     setSelected((prev) => {
@@ -48,21 +58,38 @@ export function QuizBuilder() {
     });
   }
 
+  const allSelected = selected.size === available.length;
   function toggleAll() {
     setSelected(allSelected ? new Set() : new Set(available.map((m) => m.slug)));
   }
 
   function start() {
-    if (pool.length === 0) return;
-    const n = count === "all" ? pool.length : Math.min(count, pool.length);
-    const chosen = available.filter((m) => selected.has(m.slug));
+    if (chosen.length === 0) return;
+    const total = count === "all" ? poolSize : Math.min(count, poolSize);
+
+    // Répartition équilibrée entre modules (round-robin), puis ordre aléatoire.
+    const queues = chosen.map((m) => shuffle(getQuiz(m.slug)));
+    const picked: QuizQuestion[] = [];
+    let progress = true;
+    while (picked.length < total && progress) {
+      progress = false;
+      for (const queue of queues) {
+        if (picked.length >= total) break;
+        const next = queue.shift();
+        if (next) {
+          picked.push(next);
+          progress = true;
+        }
+      }
+    }
+
     const label =
       chosen.length === available.length
         ? "Tous les modules"
         : chosen.length === 1
           ? (chosen[0]?.name ?? "Quiz")
           : `${chosen.length} modules`;
-    setQuiz({ questions: shuffle(pool).slice(0, n), label });
+    setQuiz({ questions: shuffle(picked), label });
   }
 
   // --- Quiz lancé ---
@@ -82,7 +109,9 @@ export function QuizBuilder() {
     );
   }
 
-  const launchCount = count === "all" ? pool.length : Math.min(count, pool.length);
+  const launchCount = count === "all" ? poolSize : Math.min(count, poolSize);
+  const perModule =
+    chosen.length > 0 ? Math.floor(launchCount / chosen.length) : 0;
 
   // --- Configuration ---
   return (
@@ -130,36 +159,26 @@ export function QuizBuilder() {
 
       {/* Nombre de questions */}
       <h2 className="mb-2 text-sm font-medium text-text">Nombre de questions</h2>
-      <div className="mb-5 flex flex-wrap gap-1.5">
-        {COUNT_OPTIONS.map((n) => (
-          <button
-            key={n}
-            type="button"
-            onClick={() => setCount(n)}
-            aria-pressed={count === n}
-            className={`rounded-lg border px-4 py-2 text-sm transition ${
-              count === n
-                ? "border-primary-mid/50 bg-primary/15 font-medium text-primary"
-                : "border-border text-muted hover:border-primary-mid/50 hover:text-text"
-            }`}
-          >
-            {n}
-          </button>
-        ))}
-        <button
-          type="button"
-          onClick={() => setCount("all")}
-          aria-pressed={count === "all"}
-          className={`rounded-lg border px-4 py-2 text-sm transition ${
-            count === "all"
-              ? "border-primary-mid/50 bg-primary/15 font-medium text-primary"
-              : "border-border text-muted hover:border-primary-mid/50 hover:text-text"
-          }`}
+      <div className="mb-2 flex flex-wrap items-center gap-3">
+        <select
+          value={count === "all" ? "all" : String(count)}
+          onChange={(e) =>
+            setCount(e.target.value === "all" ? "all" : Number(e.target.value))
+          }
+          disabled={poolSize === 0}
+          className="rounded-md border border-border bg-bg px-3 py-2 text-sm text-text focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 disabled:opacity-50"
         >
-          Tout
-        </button>
-        <span className="self-center text-xs text-muted">
-          ({pool.length} question{pool.length > 1 ? "s" : ""} disponible{pool.length > 1 ? "s" : ""})
+          {tensOptions.map((n) => (
+            <option key={n} value={n}>
+              {n} questions
+            </option>
+          ))}
+          <option value="all">Tout ({poolSize})</option>
+        </select>
+        <span className="text-xs text-muted">
+          {chosen.length > 0
+            ? `${launchCount} question${launchCount > 1 ? "s" : ""} · ~${perModule} par module`
+            : "Sélectionne au moins un module."}
         </span>
       </div>
 
@@ -168,14 +187,11 @@ export function QuizBuilder() {
         type="button"
         onClick={start}
         disabled={launchCount === 0}
-        className="inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+        className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <Play className="h-4 w-4" aria-hidden="true" />
         Lancer le quiz{launchCount > 0 ? ` (${launchCount} questions)` : ""}
       </button>
-      {launchCount === 0 && (
-        <p className="mt-2 text-xs text-muted">Sélectionne au moins un module.</p>
-      )}
     </div>
   );
 }
